@@ -41,4 +41,5 @@ img {
 .pokemon-template {
   border-radius: 5px;
   outline: solid 1px black;
+  padding: 25px;
 }
