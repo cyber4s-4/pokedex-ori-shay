@@ -13,9 +13,9 @@ var app;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getPokemons = void 0;
 const getPokemons = () => {
-    return fetch(`https://pokeapi.co/api/v2/generation/1`)
+    return fetch(`https://pokeapi.co/api/v2/pokedex/1`)
         .then((res) => res.json())
-        .then((pokemon) => console.log(pokemon));
+        .then((pokemon) => console.log(pokemon.pokemon_entries));
 };
 exports.getPokemons = getPokemons;
 // TODO: get the api from the websites of the pokimons...
@@ -64,7 +64,6 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const data_1 = __webpack_require__(/*! ./data */ "./dist/tsc/data.js");
-// const pokemons = getPokemons().
 console.log("hello");
 console.log((0, data_1.getPokemons)());
 
