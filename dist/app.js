@@ -64,15 +64,27 @@ class PokemonComponent {
         image.src = this.data.img;
         image.classList.add('img');
         pokemonTemplate.appendChild(image);
+        // this.insertData('idNumber', this.data.id.toString(), pokemonTemplate);
         const idNumber = document.createElement('div');
-        idNumber.classList.add('idNumber');
-        idNumber.innerHTML = this.data.id.toString();
+        idNumber.innerHTML = 'Id number:    ' + this.data.id.toString();
         pokemonTemplate.appendChild(idNumber);
         const name = document.createElement('div');
-        name.classList.add('name');
-        name.innerHTML = this.data.name;
+        name.innerHTML = 'Name:     ' + this.data.name;
         pokemonTemplate.appendChild(name);
+        const height = document.createElement('div');
+        height.innerHTML = 'Height:     ' + this.data.height;
+        pokemonTemplate.appendChild(height);
+        const weight = document.createElement('div');
+        weight.innerHTML = 'Weight:       ' + this.data.weight;
+        pokemonTemplate.appendChild(weight);
     }
+    // insertData(type: string, data: string, container: HTMLDivElement) {
+    //   const divType = document.createElement('div') as HTMLDivElement;
+    //   divType.innerHTML = type;
+    //   const element = document.createElement('span') as HTMLSpanElement;
+    //   element.innerHTML = data;
+    //   container.appendChild(element);
+    // }
     clickjunc(pokemonId) {
         console.log(pokemonId);
     }
