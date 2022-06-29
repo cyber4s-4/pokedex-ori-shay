@@ -18,7 +18,7 @@ export class PokemonComponent {
   render() {
     // Enter the data into a template - parent and children:
     const main_container = this.parent;
-
+    console.log('render');
     const pokemonTemplate = document.createElement('div') as HTMLElement;
     pokemonTemplate.classList.add('pokemon-template');
     main_container.appendChild(pokemonTemplate);

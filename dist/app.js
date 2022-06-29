@@ -11,7 +11,7 @@ var app;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getPokemons = void 0;
+exports.getPokemons2 = exports.getPokemons = void 0;
 const getPokemons = () => {
     return fetch(`https://pokeapi.co/api/v2/pokedex/1`)
         .then((res) => res.json())
@@ -20,6 +20,14 @@ const getPokemons = () => {
     });
 };
 exports.getPokemons = getPokemons;
+const getPokemons2 = () => {
+    return fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+        .then((res) => res.json())
+        .then((pokemon) => {
+        return pokemon;
+    });
+};
+exports.getPokemons2 = getPokemons2;
 // TODO: get the api from the websites of the pokimons...
 // TODO: build component of pokemon file
 // TODO: Add hyper link to all the pokemons
@@ -47,6 +55,7 @@ class PokemonComponent {
     render() {
         // Enter the data into a template - parent and children:
         const main_container = this.parent;
+        console.log('render');
         const pokemonTemplate = document.createElement('div');
         pokemonTemplate.classList.add('pokemon-template');
         main_container.appendChild(pokemonTemplate);
@@ -115,7 +124,9 @@ init();
 async function init() {
     const POKEMON_DATA = await (0, data_1.getPokemons)();
     console.log(POKEMON_DATA.pokemon_entries);
-    let data1 = {
+    const POKEMON_DATA2 = await (0, data_1.getPokemons2)();
+    console.log(POKEMON_DATA2);
+    const data1 = {
         name: 'name',
         img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
         height: '80',
@@ -139,15 +150,26 @@ async function init() {
         buttonInput.addEventListener('click', () => {
             console.log(searchInput.value);
             POKEMON_DATA.pokemon_entries.forEach((element) => {
-                if (element.pokemon_species.name === searchInput.value) {
-                    console.log(element);
-                    main_container.innerHTML = '';
-                    new pokemonComponent_1.PokemonComponent(data1, main_container).render();
+                if (searchInput.value === element.pokemon_species.name) {
+                    const elementData = {
+                        name: element.pokemon_species.name,
+                        img: element.pokemon_species.url,
+                        height: '80',
+                        weight: '60',
+                        id: element.entry_number,
+                    };
+                    console.log('inside');
+                    // console.log(elementData);
+                    // main_container.innerHTML = '';
+                    new pokemonComponent_1.PokemonComponent(elementData, main_container).render();
+                    // new PokemonComponent(elementData, main_container).render();
                 }
+                // else main_container.innerHTML = 'No results';
             });
         });
     }
 }
+// bulbasaur
 
 })();
 

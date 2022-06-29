@@ -6,6 +6,14 @@ export const getPokemons = () => {
     });
 };
 
+export const getPokemons2 = () => {
+  return fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+    .then((res) => res.json())
+    .then((pokemon) => {
+      return pokemon;
+    });
+};
+
 // TODO: get the api from the websites of the pokimons...
 // TODO: build component of pokemon file
 // TODO: Add hyper link to all the pokemons
