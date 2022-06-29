@@ -15,7 +15,9 @@ exports.getPokemons = void 0;
 const getPokemons = () => {
     return fetch(`https://pokeapi.co/api/v2/pokedex/1`)
         .then((res) => res.json())
-        .then((pokemon) => console.log(pokemon.pokemon_entries));
+        .then((pokemon) => {
+        return pokemon;
+    });
 };
 exports.getPokemons = getPokemons;
 // TODO: get the api from the websites of the pokimons...
@@ -23,6 +25,50 @@ exports.getPokemons = getPokemons;
 // TODO: Add hyper link to all the pokemons
 // TODO: Add search machine that search all the pokemons and return the selected search..
 // TODO:
+
+
+/***/ }),
+
+/***/ "./dist/tsc/pokemonComponent.js":
+/*!**************************************!*\
+  !*** ./dist/tsc/pokemonComponent.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PokemonComponent = void 0;
+class PokemonComponent {
+    constructor(data, parent) {
+        this.data = data;
+        this.parent = parent;
+        // this.render();
+    }
+    render() {
+        // Enter the data into a template - parent and children:
+        const main_container = this.parent;
+        const pokemonTemplate = document.createElement('div');
+        pokemonTemplate.classList.add('pokemon-template');
+        main_container.appendChild(pokemonTemplate);
+        pokemonTemplate.addEventListener('click', () => this.clickjunc(this.data.id));
+        const image = document.createElement('img');
+        image.src = this.data.img;
+        image.classList.add('img');
+        pokemonTemplate.appendChild(image);
+        const idNumber = document.createElement('div');
+        idNumber.classList.add('idNumber');
+        idNumber.innerHTML = this.data.id.toString();
+        pokemonTemplate.appendChild(idNumber);
+        const name = document.createElement('div');
+        name.classList.add('name');
+        name.innerHTML = this.data.name;
+        pokemonTemplate.appendChild(name);
+    }
+    clickjunc(pokemonId) {
+        console.log(pokemonId);
+    }
+}
+exports.PokemonComponent = PokemonComponent;
 
 
 /***/ })
@@ -64,8 +110,44 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const data_1 = __webpack_require__(/*! ./data */ "./dist/tsc/data.js");
-console.log("hello");
-console.log((0, data_1.getPokemons)());
+const pokemonComponent_1 = __webpack_require__(/*! ./pokemonComponent */ "./dist/tsc/pokemonComponent.js");
+init();
+async function init() {
+    const POKEMON_DATA = await (0, data_1.getPokemons)();
+    console.log(POKEMON_DATA.pokemon_entries);
+    let data1 = {
+        name: 'name',
+        img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
+        height: '80',
+        weight: '60',
+        id: 90,
+    };
+    const main_container = document.getElementById('sub-container');
+    // new PokemonComponent(data1, main_container).render();
+    // new PokemonComponent(data1, main_container).render();
+    // new PokemonComponent(data1, main_container).render();
+    // new PokemonComponent(data1, main_container).render();
+    // new PokemonComponent(data1, main_container).render();
+    searchInput();
+    function searchInput() {
+        const searchInput = document.getElementById('search-input');
+        const buttonInput = document.getElementById('button-input');
+        // console.log(POKEMON_DATA.pokemon_entries[0].entry_number);
+        // console.log(POKEMON_DATA.pokemon_entries[0]);
+        // console.log(POKEMON_DATA.pokemon_entries[0].pokemon_species);
+        // console.log(POKEMON_DATA.pokemon_entries[0].pokemon_species.name);
+        buttonInput.addEventListener('click', () => {
+            console.log(searchInput.value);
+            POKEMON_DATA.pokemon_entries.forEach((element) => {
+                if (element.pokemon_species.name === searchInput.value) {
+                    console.log(element);
+                    main_container.innerHTML = '';
+                    new pokemonComponent_1.PokemonComponent(data1, main_container).render();
+                }
+            });
+        });
+    }
+}
 
 })();
 

@@ -1,8 +1,10 @@
 export const getPokemons = () => {
   return fetch(`https://pokeapi.co/api/v2/pokedex/1`)
     .then((res) => res.json())
-    .then((pokemon) => console.log(pokemon.pokemon_entries))
-}
+    .then((pokemon) => {
+      return pokemon;
+    });
+};
 
 // TODO: get the api from the websites of the pokimons...
 // TODO: build component of pokemon file
