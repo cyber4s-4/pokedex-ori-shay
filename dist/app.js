@@ -11,7 +11,7 @@ var app;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getPokemons2 = exports.getPokemons = void 0;
+exports.extractPokemon = exports.getPokemons = void 0;
 const getPokemons = () => {
     return fetch(`https://pokeapi.co/api/v2/pokedex/1`)
         .then((res) => res.json())
@@ -20,14 +20,14 @@ const getPokemons = () => {
     });
 };
 exports.getPokemons = getPokemons;
-const getPokemons2 = () => {
-    return fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+function extractPokemon(name) {
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then((res) => res.json())
         .then((pokemon) => {
         return pokemon;
     });
-};
-exports.getPokemons2 = getPokemons2;
+}
+exports.extractPokemon = extractPokemon;
 // TODO: get the api from the websites of the pokimons...
 // TODO: build component of pokemon file
 // TODO: Add hyper link to all the pokemons
@@ -120,42 +120,34 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const data_1 = __webpack_require__(/*! ./data */ "./dist/tsc/data.js");
 const pokemonComponent_1 = __webpack_require__(/*! ./pokemonComponent */ "./dist/tsc/pokemonComponent.js");
+const main_container = document.getElementById("sub-container");
+const buttonInput = document.getElementById("button-input");
+const searchInput = document.getElementById("search-input");
 init();
 async function init() {
     const POKEMON_DATA = await (0, data_1.getPokemons)();
     console.log(POKEMON_DATA.pokemon_entries);
-    const POKEMON_DATA2 = await (0, data_1.getPokemons2)();
-    console.log(POKEMON_DATA2);
-    const data1 = {
-        name: "name",
-        img: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png",
-        height: "80",
-        weight: "60",
-        id: 90,
-    };
-    const main_container = document.getElementById("sub-container");
-    searchInput();
-    function searchInput() {
-        const searchInput = document.getElementById("search-input");
-        const buttonInput = document.getElementById("button-input");
+    searchInputFunc();
+    function searchInputFunc() {
         buttonInput.addEventListener("click", () => {
-            console.log(searchInput.value);
-            POKEMON_DATA.pokemon_entries.forEach((element) => {
-                if (searchInput.value === element.pokemon_species.name) {
-                    const elementData = {
-                        name: element.pokemon_species.name,
-                        img: element.pokemon_species.url,
-                        height: "80",
-                        weight: "60",
-                        id: element.entry_number,
-                    };
-                    console.log("inside");
-                    // console.log(elementData);
-                    // main_container.innerHTML = '';
-                    new pokemonComponent_1.PokemonComponent(elementData, main_container).render();
-                    // new PokemonComponent(elementData, main_container).render();
+            POKEMON_DATA.pokemon_entries.forEach(async (element) => {
+                try {
+                    if (searchInput.value === element.pokemon_species.name) {
+                        let specificPokemon = await (0, data_1.extractPokemon)(searchInput.value);
+                        console.log(specificPokemon);
+                        const elementData = {
+                            name: element.pokemon_species.name,
+                            img: specificPokemon.sprites.front_default,
+                            height: specificPokemon.height,
+                            weight: specificPokemon.weight,
+                            id: element.entry_number,
+                        };
+                        new pokemonComponent_1.PokemonComponent(elementData, main_container).render();
+                    }
                 }
-                // else main_container.innerHTML = 'No results';
+                catch {
+                    alert(`There is no ${searchInput.value} pokemon`);
+                }
             });
         });
     }

@@ -14,8 +14,8 @@ export const getPokemons = () => {
     })
 }
 
-export const getPokemons2 = () => {
-  return fetch(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+export function extractPokemon(name: string): any {
+  return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then((res) => res.json())
     .then((pokemon) => {
       return pokemon
