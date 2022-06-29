@@ -1,7 +1,10 @@
+import { firstContainer } from "./app"
 import { Data } from "./data"
-export class PokemonComponent {
+
+export class AllPokesComponent {
   data: Data
   parent: HTMLDivElement
+
   constructor(data: Data, parent: HTMLDivElement) {
     this.data = data
     this.parent = parent
@@ -9,22 +12,22 @@ export class PokemonComponent {
   }
 
   render() {
+    this.parent = firstContainer
     // Enter the data into a template - parent and children:
-    const main_container = this.parent
     const pokemonTemplate = document.createElement("div") as HTMLDivElement
-    pokemonTemplate.classList.add("pokemon-template")
-    main_container.appendChild(pokemonTemplate)
+    pokemonTemplate.classList.add("pokemon-template-first-page")
+    this.parent.appendChild(pokemonTemplate)
 
-    pokemonTemplate.addEventListener("click", () => this.clickjunc(this.data.id))
+    // pokemonTemplate.addEventListener("click", () => this.clickjunc(this.data.id))
 
     const image = document.createElement("img") as HTMLImageElement
     image.src = this.data.img
-    image.classList.add("img")
+    image.classList.add("img-first-page")
     pokemonTemplate.appendChild(image)
     // this.insertData('idNumber', this.data.id.toString(), pokemonTemplate);
 
     const dataDiv = document.createElement("div") as HTMLDivElement
-    dataDiv.classList.add("data-div")
+    dataDiv.classList.add("data-div-first-page")
     pokemonTemplate.appendChild(dataDiv)
 
     const idNumber = document.createElement("div") as HTMLDivElement
@@ -42,18 +45,5 @@ export class PokemonComponent {
     const weight = document.createElement("div") as HTMLDivElement
     weight.innerHTML = "Weight:       " + this.data.weight
     dataDiv.appendChild(weight)
-  }
-
-  // insertData(type: string, data: string, container: HTMLDivElement) {
-  //   const divType = document.createElement('div') as HTMLDivElement;
-  //   divType.innerHTML = type;
-
-  //   const element = document.createElement('span') as HTMLSpanElement;
-  //   element.innerHTML = data;
-  //   container.appendChild(element);
-  // }
-
-  clickjunc(pokemonId: number) {
-    console.log(pokemonId)
   }
 }
