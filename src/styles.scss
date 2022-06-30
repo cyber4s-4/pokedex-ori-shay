@@ -64,14 +64,14 @@ body {
     width: 180px;
     height: 180px;
     position: absolute;
-    right: 5%;
-    top: 25%;
+    right: 4%;
+    top: 7%;
   }
   & .data-div {
     flex-direction: column;
     position: absolute;
-    left: 35px;
-    top: 37%;
+    left: 30px;
+    top: 20%;
     line-height: 30px;
   }
   & #close-button {
@@ -86,6 +86,58 @@ body {
     align-items: center;
     position: absolute;
     bottom: 0;
+    left: 40%;
+  }
+}
+
+@media only screen and(min-width:950px) {
+  #sub-container {
+    height: 320px;
+    width: 400px;
+  }
+}
+
+@media only screen and(max-width:950px) {
+  #sub-container {
+    height: 400px;
+    width: 270px;
+  }
+  .pokemon-template {
+    flex-direction: column;
+    & .img {
+      position: absolute;
+      top: 5%;
+      right: 17%;
+    }
+    & .data-div {
+      position: absolute;
+      top: 50%;
+      left: 28%;
+    }
+  }
+}
+
+@media only screen and(max-width:650px) {
+  #sub-container {
+    height: 400px;
+    width: 150px;
+  }
+  .pokemon-template {
+    flex-direction: column;
+    & .img {
+      position: absolute;
+      top: 5%;
+      right: 8%;
+      width: 120px;
+      height: 120px;
+    }
+    & .data-div {
+      top: 40%;
+      left: 11%;
+    }
+    & #close-button {
+      left: 32%;
+    }
   }
 }
 
