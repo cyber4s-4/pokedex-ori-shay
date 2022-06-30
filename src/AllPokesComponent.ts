@@ -1,4 +1,3 @@
-import { firstContainer } from './app';
 import { Data } from './data';
 
 export class AllPokesComponent {
@@ -8,23 +7,18 @@ export class AllPokesComponent {
   constructor(data: Data, parent: HTMLDivElement) {
     this.data = data;
     this.parent = parent;
-    // this.render();
   }
 
-  render() {
-    this.parent = firstContainer;
+  render(): void {
     // Enter the data into a template - parent and children:
     const pokemonTemplate = document.createElement('div') as HTMLDivElement;
     pokemonTemplate.classList.add('pokemon-template-first-page');
     this.parent.appendChild(pokemonTemplate);
 
-    // pokemonTemplate.addEventListener("click", () => this.clickjunc(this.data.id))
-
     const image = document.createElement('img') as HTMLImageElement;
     image.src = this.data.img;
     image.classList.add('img-first-page');
     pokemonTemplate.appendChild(image);
-    // this.insertData('idNumber', this.data.id.toString(), pokemonTemplate);
 
     const dataDiv = document.createElement('div') as HTMLDivElement;
     dataDiv.classList.add('data-div-first-page');

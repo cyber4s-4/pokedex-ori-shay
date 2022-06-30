@@ -5,10 +5,9 @@ export class PokemonComponent {
   constructor(data: Data, parent: HTMLDivElement) {
     this.data = data;
     this.parent = parent;
-    // this.render();
   }
 
-  render() {
+  render(): void {
     // Enter the data into a template - parent and children:
     const main_container = this.parent;
     const pokemonTemplate = document.createElement('div') as HTMLDivElement;

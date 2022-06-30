@@ -2,50 +2,52 @@ import { getPokemons, Data, extractPokemon } from './data';
 import { PokemonComponent } from './pokemonComponent';
 import { AllPokesComponent } from './AllPokesComponent';
 
-const main_container = document.getElementById(
-  'sub-container'
-) as HTMLDivElement;
-const buttonInput = document.getElementById(
-  'button-input'
-) as HTMLButtonElement;
-const searchInput = document.getElementById('search-input') as HTMLInputElement;
-export const firstContainer = document.getElementById(
-  'first-container'
-) as HTMLDivElement;
+export const FIRST_CONTAINER = getDivElement('first-container');
+const MAIN_CONTAINER = getDivElement('sub-container');
+const BUTTON_INPUT = getInputElement('button-input');
+const SEARCH_INPUT = getButtonElement('search-input');
 
 init();
 async function init() {
-  main_container.style.display = 'none';
+  // Load the page:
+  MAIN_CONTAINER.style.display = 'none';
+  let counter = 0;
   const POKEMON_DATA = await getPokemons();
   const poke = POKEMON_DATA.pokemon_entries;
+  addPokemons();
+  searchInputFunc();
 
-  for (let i = 0; i < 15; i++) {
-    const specificPokemon = await extractPokemon(poke[i].pokemon_species.name);
-    const elementData: Data = {
-      name: poke[i].pokemon_species.name,
-      img: specificPokemon.sprites.front_default,
-      height: specificPokemon.height,
-      weight: specificPokemon.weight,
-      id: poke[i].entry_number,
-    };
-    new AllPokesComponent(elementData, firstContainer).render();
+  async function addPokemons(): Promise<void> {
+    for (let i = 0; i < 15; i++) {
+      const specificPokemon = await extractPokemon(
+        poke[counter].pokemon_species.name
+      );
+      const elementData: Data = {
+        name: poke[counter].pokemon_species.name,
+        img: specificPokemon.sprites.front_default,
+        height: specificPokemon.height,
+        weight: specificPokemon.weight,
+        id: poke[counter].entry_number,
+      };
+      counter++;
+      new AllPokesComponent(elementData, FIRST_CONTAINER).render();
+    }
   }
 
-  searchInputFunc();
-  function searchInputFunc() {
-    buttonInput.addEventListener('click', () => {
+  function searchInputFunc(): void {
+    BUTTON_INPUT.addEventListener('click', () => {
       POKEMON_DATA.pokemon_entries.forEach((element: any) => {
-        if (searchInput.value === element.pokemon_species.name)
+        if (SEARCH_INPUT.value === element.pokemon_species.name)
           viewPokemon(element);
       });
-      if (main_container.style.display === 'none') noResults();
+      if (MAIN_CONTAINER.style.display === 'none') noResults();
     });
   }
 
-  async function viewPokemon(element: any) {
-    main_container.style.display = 'block';
-    main_container.innerHTML = '';
-    const specificPokemon = await extractPokemon(searchInput.value);
+  async function viewPokemon(element: any): Promise<void> {
+    MAIN_CONTAINER.style.display = 'block';
+    MAIN_CONTAINER.innerHTML = '';
+    const specificPokemon = await extractPokemon(SEARCH_INPUT.value);
     const elementData: Data = {
       name: element.pokemon_species.name,
       img: specificPokemon.sprites.front_default,
@@ -53,31 +55,39 @@ async function init() {
       weight: specificPokemon.weight,
       id: element.entry_number,
     };
-    new PokemonComponent(elementData, main_container).render();
-    return;
+    new PokemonComponent(elementData, MAIN_CONTAINER).render();
   }
 
-  function noResults() {
-    main_container.style.display = 'block';
-    main_container.innerHTML = '';
+  function noResults(): void {
+    MAIN_CONTAINER.style.display = 'block';
+    MAIN_CONTAINER.innerHTML = '';
 
     const h1Element = document.createElement('h1') as HTMLElement;
     h1Element.innerHTML = 'No results !';
-    main_container.appendChild(h1Element);
+    MAIN_CONTAINER.appendChild(h1Element);
 
     const closeButton = document.createElement('button') as HTMLButtonElement;
     closeButton.innerHTML = 'Close';
     closeButton.id = 'close-button';
-    main_container.appendChild(closeButton);
+    MAIN_CONTAINER.appendChild(closeButton);
 
     closeButton.addEventListener('click', () => {
-      main_container.style.display = 'none';
+      MAIN_CONTAINER.style.display = 'none';
     });
   }
 }
 
+function getDivElement(id: string): HTMLDivElement {
+  return document.getElementById(id) as HTMLDivElement;
+}
+function getInputElement(id: string): HTMLInputElement {
+  return document.getElementById(id) as HTMLInputElement;
+}
+function getButtonElement(id: string): HTMLButtonElement {
+  return document.getElementById(id) as HTMLButtonElement;
+}
+
 // TODO: merge the two place of create the 'closeButton'...
-// TODO: Do function for the 'createElement' and the 'getElementById'...
 // TODO: Improve the Css of te Buttons...
-// TODO: Divided the code for more functions
-// TODO: cancel the two links. One is enough !
+// TODO: Improve the Css order - more '@mixin'...
+// TODO: Check the typeScript - no 'any' !!
