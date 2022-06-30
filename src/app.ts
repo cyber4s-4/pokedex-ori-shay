@@ -34,38 +34,50 @@ async function init() {
   searchInputFunc();
   function searchInputFunc() {
     buttonInput.addEventListener('click', () => {
-      POKEMON_DATA.pokemon_entries.forEach(async (element: any) => {
-        if (searchInput.value === element.pokemon_species.name) {
-          main_container.style.display = 'block';
-          main_container.innerHTML = '';
-          const specificPokemon = await extractPokemon(searchInput.value);
-          const elementData: Data = {
-            name: element.pokemon_species.name,
-            img: specificPokemon.sprites.front_default,
-            height: specificPokemon.height,
-            weight: specificPokemon.weight,
-            id: element.entry_number,
-          };
-          new PokemonComponent(elementData, main_container).render();
-          return;
-        }
+      POKEMON_DATA.pokemon_entries.forEach((element: any) => {
+        if (searchInput.value === element.pokemon_species.name)
+          viewPokemon(element);
       });
+      if (main_container.style.display === 'none') noResults();
+    });
+  }
 
-      if (main_container.style.display === 'none') {
-        main_container.style.display = 'block';
-        main_container.innerHTML = 'No results !';
+  async function viewPokemon(element: any) {
+    main_container.style.display = 'block';
+    main_container.innerHTML = '';
+    const specificPokemon = await extractPokemon(searchInput.value);
+    const elementData: Data = {
+      name: element.pokemon_species.name,
+      img: specificPokemon.sprites.front_default,
+      height: specificPokemon.height,
+      weight: specificPokemon.weight,
+      id: element.entry_number,
+    };
+    new PokemonComponent(elementData, main_container).render();
+    return;
+  }
 
-        const closeButton = document.createElement(
-          'button'
-        ) as HTMLButtonElement;
-        closeButton.innerHTML = 'Close';
-        closeButton.id = 'close-button';
-        main_container.appendChild(closeButton);
+  function noResults() {
+    main_container.style.display = 'block';
+    main_container.innerHTML = '';
 
-        closeButton.addEventListener('click', () => {
-          main_container.style.display = 'none';
-        });
-      }
+    const h1Element = document.createElement('h1') as HTMLElement;
+    h1Element.innerHTML = 'No results !';
+    main_container.appendChild(h1Element);
+
+    const closeButton = document.createElement('button') as HTMLButtonElement;
+    closeButton.innerHTML = 'Close';
+    closeButton.id = 'close-button';
+    main_container.appendChild(closeButton);
+
+    closeButton.addEventListener('click', () => {
+      main_container.style.display = 'none';
     });
   }
 }
+
+// TODO: merge the two place of create the 'closeButton'...
+// TODO: Do function for the 'createElement' and the 'getElementById'...
+// TODO: Improve the Css of te Buttons...
+// TODO: Divided the code for more functions
+// TODO: cancel the two links. One is enough !
