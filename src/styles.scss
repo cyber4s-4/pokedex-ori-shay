@@ -36,21 +36,22 @@ body {
     width: 130px;
     height: 30px;
     background: burlywood;
+    cursor: pointer;
   }
 }
 
 #sub-container {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translate(-50%, -50%);
   background: white;
   color: rgb(95, 33, 33);
   padding: 40px;
   border-radius: 10px;
   outline: solid 3px black;
-  width: 40%;
-  height: 45%;
+  width: 35%;
+  height: 30%;
   display: flex;
   @include center();
 }
@@ -64,14 +65,22 @@ body {
     height: 180px;
     position: absolute;
     right: 5%;
-    top: 28%;
+    top: 25%;
   }
   & .data-div {
     flex-direction: column;
     position: absolute;
     left: 35px;
-    top: 36%;
+    top: 37%;
     line-height: 30px;
+  }
+  & button {
+    border-radius: 12px;
+    width: 60px;
+    height: 30px;
+    margin-bottom: 20px;
+    background: burlywood;
+    cursor: pointer;
   }
 }
 
@@ -81,14 +90,14 @@ body {
     width: 620px;
     display: flex;
     height: 60px;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: row;
     border: 1px solid black;
     margin-top: 10px;
     & .img-first-page {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
     }
     & .data-div-first-page {
       display: flex;

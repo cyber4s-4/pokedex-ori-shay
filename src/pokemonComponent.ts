@@ -42,6 +42,11 @@ export class PokemonComponent {
     const weight = document.createElement("div") as HTMLDivElement
     weight.innerHTML = "Weight:       " + this.data.weight
     dataDiv.appendChild(weight)
+
+    const closeButton = document.createElement("button") as HTMLButtonElement
+    closeButton.innerHTML = "Close"
+    closeButton.id = "close-button"
+    pokemonTemplate.appendChild(closeButton)
   }
 
   // insertData(type: string, data: string, container: HTMLDivElement) {

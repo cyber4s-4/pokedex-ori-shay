@@ -14,12 +14,9 @@ async function init() {
   main_container.style.display = "none"
   const POKEMON_DATA = await getPokemons()
   let poke = POKEMON_DATA.pokemon_entries
-  console.log(poke)
 
   for (let i = 0; i < 50; i++) {
     let specificPokemon = await extractPokemon(poke[i].pokemon_species.name)
-    console.log(specificPokemon)
-
     const elementData: Data = {
       name: poke[i].pokemon_species.name,
       img: specificPokemon.sprites.front_default,
@@ -50,4 +47,9 @@ async function init() {
       })
     })
   }
+  const closeButton = document.getElementById("close-button") as HTMLButtonElement
+
+  closeButton.addEventListener("click", () => {
+    console.log("hi")
+  })
 }
