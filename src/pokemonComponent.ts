@@ -15,13 +15,10 @@ export class PokemonComponent {
     pokemonTemplate.classList.add("pokemon-template")
     main_container.appendChild(pokemonTemplate)
 
-    pokemonTemplate.addEventListener("click", () => this.clickjunc(this.data.id))
-
     const image = document.createElement("img") as HTMLImageElement
     image.src = this.data.img
     image.classList.add("img")
     pokemonTemplate.appendChild(image)
-    // this.insertData('idNumber', this.data.id.toString(), pokemonTemplate);
 
     const dataDiv = document.createElement("div") as HTMLDivElement
     dataDiv.classList.add("data-div")
@@ -47,18 +44,9 @@ export class PokemonComponent {
     closeButton.innerHTML = "Close"
     closeButton.id = "close-button"
     pokemonTemplate.appendChild(closeButton)
-  }
 
-  // insertData(type: string, data: string, container: HTMLDivElement) {
-  //   const divType = document.createElement('div') as HTMLDivElement;
-  //   divType.innerHTML = type;
-
-  //   const element = document.createElement('span') as HTMLSpanElement;
-  //   element.innerHTML = data;
-  //   container.appendChild(element);
-  // }
-
-  clickjunc(pokemonId: number) {
-    console.log(pokemonId)
+    closeButton.addEventListener("click", () => {
+      main_container.style.display = "none"
+    })
   }
 }

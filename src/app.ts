@@ -15,7 +15,7 @@ async function init() {
   const POKEMON_DATA = await getPokemons()
   let poke = POKEMON_DATA.pokemon_entries
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 15; i++) {
     let specificPokemon = await extractPokemon(poke[i].pokemon_species.name)
     const elementData: Data = {
       name: poke[i].pokemon_species.name,
@@ -30,9 +30,10 @@ async function init() {
   searchInputFunc()
   function searchInputFunc() {
     buttonInput.addEventListener("click", () => {
-      main_container.style.display = ""
+      main_container.style.display = "none"
       POKEMON_DATA.pokemon_entries.forEach(async (element: any) => {
         if (searchInput.value === element.pokemon_species.name) {
+          main_container.style.display = "block"
           main_container.innerHTML = ""
           let specificPokemon = await extractPokemon(searchInput.value)
           const elementData: Data = {
@@ -47,9 +48,4 @@ async function init() {
       })
     })
   }
-  const closeButton = document.getElementById("close-button") as HTMLButtonElement
-
-  closeButton.addEventListener("click", () => {
-    console.log("hi")
-  })
 }

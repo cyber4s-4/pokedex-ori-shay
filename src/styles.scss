@@ -74,13 +74,18 @@ body {
     top: 37%;
     line-height: 30px;
   }
-  & button {
+  & #close-button {
     border-radius: 12px;
     width: 60px;
     height: 30px;
     margin-bottom: 20px;
     background: burlywood;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
   }
 }
 
