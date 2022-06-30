@@ -2,8 +2,12 @@ import { getPokemons, Data, extractPokemon } from './data';
 import { PokemonComponent } from './pokemonComponent';
 import { AllPokesComponent } from './AllPokesComponent';
 
-const main_container = document.getElementById('sub-container') as HTMLDivElement;
-const buttonInput = document.getElementById('button-input') as HTMLButtonElement;
+const main_container = document.getElementById(
+  'sub-container'
+) as HTMLDivElement;
+const buttonInput = document.getElementById(
+  'button-input'
+) as HTMLButtonElement;
 const searchInput = document.getElementById('search-input') as HTMLInputElement;
 export const firstContainer = document.getElementById(
   'first-container'
@@ -30,7 +34,6 @@ async function init() {
   searchInputFunc();
   function searchInputFunc() {
     buttonInput.addEventListener('click', () => {
-      main_container.style.display = 'none';
       POKEMON_DATA.pokemon_entries.forEach(async (element: any) => {
         if (searchInput.value === element.pokemon_species.name) {
           main_container.style.display = 'block';
@@ -44,8 +47,25 @@ async function init() {
             id: element.entry_number,
           };
           new PokemonComponent(elementData, main_container).render();
+          return;
         }
       });
+
+      if (main_container.style.display === 'none') {
+        main_container.style.display = 'block';
+        main_container.innerHTML = 'No results !';
+
+        const closeButton = document.createElement(
+          'button'
+        ) as HTMLButtonElement;
+        closeButton.innerHTML = 'Close';
+        closeButton.id = 'close-button';
+        main_container.appendChild(closeButton);
+
+        closeButton.addEventListener('click', () => {
+          main_container.style.display = 'none';
+        });
+      }
     });
   }
 }
