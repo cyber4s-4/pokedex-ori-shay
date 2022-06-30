@@ -30,12 +30,12 @@ body {
   & #search-input {
     width: 200px;
     height: 23px;
-    & #button-input {
-      border-radius: 12px;
-      width: 130px;
-      height: 30px;
-      background: burlywood;
-    }
+  }
+  & #button-input {
+    border-radius: 12px;
+    width: 130px;
+    height: 30px;
+    background: burlywood;
   }
 }
 
