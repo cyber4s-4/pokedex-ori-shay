@@ -1,4 +1,6 @@
 import { Data } from "./data"
+import { closeButtonFunc } from "./buttons"
+
 export class PokemonComponent {
   data: Data
   parent: HTMLDivElement
@@ -39,13 +41,6 @@ export class PokemonComponent {
     weight.innerHTML = "Weight:       " + this.data.weight
     dataDiv.appendChild(weight)
 
-    const closeButton = document.createElement("button") as HTMLButtonElement
-    closeButton.innerHTML = "Close"
-    closeButton.id = "close-button"
-    pokemonTemplate.appendChild(closeButton)
-
-    closeButton.addEventListener("click", () => {
-      main_container.style.display = "none"
-    })
+    closeButtonFunc(pokemonTemplate, main_container)
   }
 }
