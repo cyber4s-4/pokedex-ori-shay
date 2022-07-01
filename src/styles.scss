@@ -16,27 +16,37 @@ $background-bright: rgba(222, 215, 201, 0.929);
 }
 
 body {
-  background-color: aquamarine;
+  background-image: url("https://www.wallpaperuse.com/wallp/3-33570_m.jpg");
   display: flex;
   flex-direction: column-reverse;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   @include center();
 }
 
 #bar {
   h1 {
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 35px;
   }
   & #search-input {
     width: 200px;
-    height: 23px;
+    height: 27px;
+    border-radius: 15px;
+    border: none;
+    padding-left: 5px;
   }
   & #button-input {
-    border-radius: 12px;
-    width: 130px;
-    height: 30px;
-    background: burlywood;
+    border-radius: 15px;
+    width: 95px;
+    height: 32px;
+    background: #4077ff;
     cursor: pointer;
+    font-size: medium;
+    color: white;
+    font-weight: 700;
+    border: none;
   }
 }
 
@@ -49,7 +59,6 @@ body {
   color: rgb(95, 33, 33);
   padding: 40px;
   border-radius: 10px;
-  outline: solid 3px black;
   width: 35%;
   height: 30%;
   display: flex;
@@ -88,6 +97,7 @@ body {
   position: absolute;
   bottom: 0;
   left: 40%;
+  border: none;
 }
 
 @media only screen and(min-width:950px) {
@@ -149,7 +159,11 @@ body {
 }
 
 #first-container {
+  margin-top: 15px;
   display: grid;
+  background: rgb(77 75 75 / 94%);
+  padding: 5px 15px;
+  border-radius: 20px;
   & .pokemon-template-first-page {
     width: 620px;
     display: flex;
@@ -157,14 +171,18 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
-    border: 1px solid black;
-    margin-top: 10px;
+    border: 1px solid #9191918f;
+    margin-top: 15px;
+    border-radius: 15px;
     & .img-first-page {
       width: 70px;
       height: 70px;
     }
     & .data-div-first-page {
       display: flex;
+      & div {
+        color: white;
+      }
     }
   }
 }
@@ -177,11 +195,15 @@ body {
   position: fixed;
   right: 20px;
   top: 20px;
-  border-radius: 12px;
+  border-radius: 15px;
   width: 130px;
-  height: 30px;
-  background: burlywood;
+  height: 32px;
   cursor: pointer;
+  background: #4077ff;
+  font-size: larger;
+  color: white;
+  font-weight: 900;
+  border: none;
 }
 
 @media only screen and(max-width:650px) {
