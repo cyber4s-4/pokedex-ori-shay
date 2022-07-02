@@ -14,6 +14,11 @@ export const getPokemons = () => {
     })
 }
 
+/**
+ * The function extract the data of the pokemon from the API.
+ *
+ * @param {string} name - An string with the pokemon's name
+ */
 export function extractPokemon(name: string): any {
   return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then((res) => res.json())
