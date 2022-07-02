@@ -7,37 +7,39 @@ export const FIRST_CONTAINER = getDivElement("first-container")
 const MAIN_CONTAINER = getDivElement("sub-container")
 const BUTTON_INPUT = getInputElement("button-input")
 const SEARCH_INPUT = getButtonElement("search-input")
+export let counter = 15
 
 init()
 async function init() {
   // Load the page:
   MAIN_CONTAINER.style.display = "none"
-  let counter = 0
   const POKEMON_DATA = await getPokemons()
   const poke = POKEMON_DATA.pokemon_entries
   addPokemons()
   searchInputFunc()
 
   async function addPokemons(): Promise<void> {
-    for (let i = 0; i < 15; i++) {
-      const specificPokemon = await extractPokemon(
-        poke[counter].pokemon_species.name
-      )
+    for (let i = 0; i < counter; i++) {
+      const specificPokemon = await extractPokemon(poke[i].pokemon_species.name)
       const elementData: Data = {
-        name: poke[counter].pokemon_species.name,
+        name: poke[i].pokemon_species.name,
         img: specificPokemon.sprites.front_default,
         height: specificPokemon.height,
         weight: specificPokemon.weight,
-        id: poke[counter].entry_number,
+        id: poke[i].entry_number,
       }
-      counter++
+
       new AllPokesComponent(elementData, FIRST_CONTAINER).render()
     }
+    counter += 15
+    console.log(counter)
   }
 
   function searchInputFunc(): void {
     BUTTON_INPUT.addEventListener("click", () => {
       POKEMON_DATA.pokemon_entries.forEach((element: any) => {
+        console.log(element)
+
         if (SEARCH_INPUT.value === element.pokemon_species.name) viewPokemon(element)
       })
       if (MAIN_CONTAINER.style.display === "none") noResults()
@@ -45,6 +47,8 @@ async function init() {
   }
 
   async function viewPokemon(element: any): Promise<void> {
+    console.log(element)
+
     MAIN_CONTAINER.style.display = "block"
     MAIN_CONTAINER.innerHTML = ""
     const specificPokemon = await extractPokemon(SEARCH_INPUT.value)
