@@ -1,28 +1,37 @@
 @mixin center() {
+  display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
 }
-$background-purple1: rgba(98, 46, 147, 0.638);
-$background-purple2: rgb(98, 46, 147);
-$background-bright: rgba(222, 215, 201, 0.929);
+
+@mixin cursorAndBorder() {
+  cursor: pointer;
+  border: none;
+}
+
+@mixin buttonsStyle() {
+  background: #4077ff;
+  color: white;
+  border-radius: 15px;
+  height: 32px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   color: black;
-  // user-select: none;
+  user-select: none;
 }
 
 body {
   background-image: url("https://www.wallpaperuse.com/wallp/3-33570_m.jpg");
-  display: flex;
   flex-direction: column-reverse;
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  @include center();
+  background-size: contain;
+  @include center;
 }
 
 #bar {
@@ -38,15 +47,11 @@ body {
     padding-left: 5px;
   }
   & #button-input {
-    border-radius: 15px;
+    @include cursorAndBorder;
+    @include buttonsStyle;
     width: 95px;
-    height: 32px;
-    background: #4077ff;
-    cursor: pointer;
     font-size: medium;
-    color: white;
     font-weight: 700;
-    border: none;
   }
 }
 
@@ -61,8 +66,7 @@ body {
   border-radius: 10px;
   width: 35%;
   height: 30%;
-  display: flex;
-  @include center();
+  @include center;
 }
 
 .pokemon-template {
@@ -84,20 +88,18 @@ body {
     line-height: 30px;
   }
 }
+
 #close-button {
+  @include cursorAndBorder;
+  @include center;
   border-radius: 12px;
   width: 60px;
   height: 30px;
   margin-bottom: 20px;
   background: burlywood;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   bottom: 0;
   left: 40%;
-  border: none;
 }
 
 @media only screen and(min-width:950px) {
@@ -160,7 +162,6 @@ body {
 
 #first-container {
   margin-top: 15px;
-  display: grid;
   background: rgb(77 75 75 / 94%);
   padding: 5px 15px;
   border-radius: 20px;
@@ -170,7 +171,6 @@ body {
     height: 60px;
     justify-content: space-around;
     align-items: center;
-    flex-direction: row;
     border: 1px solid #9191918f;
     margin-top: 15px;
     border-radius: 15px;
@@ -192,18 +192,14 @@ body {
 }
 
 #button-up {
+  @include cursorAndBorder;
+  @include buttonsStyle;
   position: fixed;
   right: 20px;
   top: 20px;
-  border-radius: 15px;
   width: 130px;
-  height: 32px;
-  cursor: pointer;
-  background: #4077ff;
   font-size: larger;
-  color: white;
   font-weight: 900;
-  border: none;
 }
 
 @media only screen and(max-width:650px) {
