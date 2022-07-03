@@ -5,7 +5,7 @@ import {
   SEARCH_INPUT,
 } from './app';
 import { AllPokesComponent } from './AllPokesComponent';
-import { Data, extractPokemon, getPokemons } from './data';
+import { Data, extractPokemon } from './data';
 import { PokemonComponent } from './pokemonComponent';
 import { closeButtonFunc } from './buttons';
 
@@ -15,9 +15,8 @@ export let counter = 0;
 /**
  * The function add pokemons to the main page when it upload.
  */
-export async function addPokemons(): Promise<void> {
-  const POKEMON_DATA = await getPokemons();
-  const poke = POKEMON_DATA.pokemon_entries;
+export async function addPokemons(pokeList: any): Promise<void> {
+  const poke = pokeList;
 
   for (let i = 0; i < POKEMON_STEPS; i++) {
     const specificPokemon = await extractPokemon(
@@ -62,7 +61,7 @@ export function noResults(): void {
   MAIN_CONTAINER.innerHTML = '';
 
   const h1Element = document.createElement('h1') as HTMLElement;
-  h1Element.innerHTML = `There is no ${SEARCH_INPUT.value} Pokemon... try another one!`;
+  h1Element.innerHTML = `There is no  '${SEARCH_INPUT.value}' Pokemon... try another one!`;
   MAIN_CONTAINER.appendChild(h1Element);
 
   closeButtonFunc(MAIN_CONTAINER, MAIN_CONTAINER);
@@ -72,10 +71,9 @@ export function noResults(): void {
  * The function check if there is a pokemon from the API pokemon's list.
  * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
  */
-export function searchInputFunc(): void {
+export function searchInputFunc(pokeList: any): void {
   BUTTON_INPUT.addEventListener('click', async () => {
-    const POKEMON_DATA = await getPokemons();
-    POKEMON_DATA.pokemon_entries.forEach((element: any) => {
+    pokeList.forEach((element: any) => {
       if (SEARCH_INPUT.value === element.pokemon_species.name)
         viewPokemon(element);
     });
