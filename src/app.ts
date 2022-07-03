@@ -13,11 +13,11 @@ async function init() {
   MAIN_CONTAINER.style.display = 'none';
 
   const POKEMON_DATA = await getPokemons();
-  const POK_LIST = POKEMON_DATA.pokemon_entries;
-  console.log(POK_LIST);
+  const POKE_LIST = POKEMON_DATA.pokemon_entries;
+  console.log(POKE_LIST);
 
-  searchInputFunc(POK_LIST);
-  scrolling(POK_LIST);
+  searchInputFunc(POKE_LIST);
+  scrolling(POKE_LIST);
 }
 
 function getDivElement(id: string): HTMLDivElement {
