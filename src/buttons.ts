@@ -9,12 +9,12 @@ export function closeButtonFunc(
   parent: HTMLDivElement,
   elementToHide: HTMLDivElement
 ) {
-  const closeButton = document.createElement("button") as HTMLButtonElement
-  closeButton.innerHTML = "Close"
-  closeButton.id = "close-button"
-  parent.appendChild(closeButton)
+  const closeButton = document.createElement('button') as HTMLButtonElement;
+  closeButton.innerHTML = 'Close';
+  closeButton.id = 'close-button';
+  parent.appendChild(closeButton);
 
-  closeButton.addEventListener("click", () => {
-    elementToHide.style.display = "none"
-  })
+  closeButton.addEventListener('click', () => {
+    elementToHide.style.display = 'none';
+  });
 }
