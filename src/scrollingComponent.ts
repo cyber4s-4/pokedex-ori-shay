@@ -1,6 +1,6 @@
-import { FIRST_CONTAINER } from './app';
-import { addPokemons, counter } from './Pokemons';
-import { Poke } from './data';
+import { FIRST_CONTAINER } from "./app"
+import { addPokemons, counter } from "./Pokemons"
+import { Poke } from "./data"
 
 /**
  * The function responsible for the infinite scrolling in the page. Each time the user
@@ -8,52 +8,51 @@ import { Poke } from './data';
  */
 export function scrolling(pokeList: Poke[]) {
   const hideLoader = () => {
-    FIRST_CONTAINER.classList.remove('show');
-  };
+    FIRST_CONTAINER.classList.remove("show")
+  }
 
   const showLoader = () => {
-    FIRST_CONTAINER.classList.add('show');
-  };
+    FIRST_CONTAINER.classList.add("show")
+  }
 
   const hasMorePokemons = () => {
-    if (counter < 800) return true;
-  };
+    if (counter <= 898) return true
+  }
 
   // Load Pokemons
   const loadPokemons = async () => {
     // show the loader
-    showLoader();
+    showLoader()
 
     // 0.5 second later
     setTimeout(async () => {
       try {
         // if having more Pokemons to fetch
         if (hasMorePokemons()) {
-          addPokemons(pokeList);
+          addPokemons(pokeList)
         }
       } catch (error: any) {
-        console.log(error.message);
+        console.log(error.message)
       } finally {
-        hideLoader();
+        hideLoader()
       }
-    }, 500);
-  };
+    }, 500)
+  }
 
   window.addEventListener(
-    'scroll',
+    "scroll",
     () => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.documentElement;
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement
 
       if (scrollTop + clientHeight >= scrollHeight - 5 && hasMorePokemons()) {
-        addPokemons(pokeList);
+        addPokemons(pokeList)
       }
     },
     {
       passive: true,
     }
-  );
+  )
 
   // initialize
-  loadPokemons();
+  loadPokemons()
 }
