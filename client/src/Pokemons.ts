@@ -3,9 +3,13 @@ import { AllPokesComponent } from "./AllPokesComponent"
 import { Data, extractPokemon, Poke } from "./data"
 import { PokemonComponent } from "./pokemonComponent"
 import { closeButtonFunc } from "./buttons"
+import path = require("path")
 
 const POKEMON_STEPS = 15 // Each scroll the page uploads 15 pokemons.
 export let counter = 0
+
+const filePath: string = path.join(__dirname, "../../server/data/data.json")
+let pokemonsData = JSON.parse(filePath)
 
 /**
  * The function add pokemons to the main page when it upload.

@@ -1,53 +1,47 @@
-import express from 'express';
-import { Request, Response } from 'express';
-import { json } from 'body-parser';
-import { getPokemons, extractPokemon } from './data';
-import fetch from 'cross-fetch';
+import express from "express"
+import { Request, Response } from "express"
+import { json } from "body-parser"
+import { Data } from "./data"
+import fetch from "cross-fetch"
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs")
+const path = require("path")
 
-const app = express();
-app.use(json());
+const app = express()
+app.use(json())
 
-interface User {
-  name: string;
-  about: string;
-  avatar: string;
-  id: string;
-}
-console.log('start app.ts - server - file');
-const pathToDataJson: string = path.join(__dirname, '../data/data.json');
+console.log("start app.ts - server - file")
+const pathToDataJson: string = path.join(__dirname, "../data/data.json")
 
 function initServer() {
-  app.get('*', (req: Request, res: Response) => {
-    console.log('Processing request: ', req.url);
-    res.sendFile(req.path || 'index.html', { root: './../client/dist' });
-  });
+  app.get("*", (req: Request, res: Response) => {
+    console.log("Processing request: ", req.url)
+    res.sendFile(req.path || "index.html", { root: "./../client/dist" })
+  })
 
   if (!false) {
-    insertToDataJson2();
+    insertToDataJson()
   }
-  app.listen(3000, () => console.log('listening to port 3000'));
+  app.listen(3000, () => console.log("listening to port 3000"))
 }
 
-initServer();
+initServer()
 
-async function insertToDataJson2() {
-  const dataList: (any | undefined)[] = [];
+async function insertToDataJson() {
+  const dataList: Data[] = []
 
   for (let i = 1; i < 400; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
       .then((res) => res.json())
       .then((res) => {
         dataList.push({
-          id: res.id,
           name: res.name,
-          weight: res.weight,
+          img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`,
           height: res.height,
-          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`,
-        });
+          weight: res.weight,
+          id: res.id,
+        })
       })
-      .then(() => fs.writeFileSync(pathToDataJson, JSON.stringify(dataList)));
+      .then(() => fs.writeFileSync(pathToDataJson, JSON.stringify(dataList)))
   }
 }
