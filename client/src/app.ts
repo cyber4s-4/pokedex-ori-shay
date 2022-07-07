@@ -14,7 +14,6 @@ async function init() {
 
   const POKEMON_DATA = await getPokemons();
   const POKE_LIST = POKEMON_DATA.pokemon_entries;
-  console.log(POKE_LIST);
 
   searchInputFunc(POKE_LIST);
   scrolling(POKE_LIST);
