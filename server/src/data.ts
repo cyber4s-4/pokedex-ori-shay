@@ -29,8 +29,8 @@ export const getPokemons = () => {
  *
  * @param {string} name - An string with the pokemon's name
  */
-export function extractPokemon(name: string): any {
-  return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+export function extractPokemon(id: number): any {
+  return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then((res) => res.json())
     .then((pokemon) => {
       return pokemon;
