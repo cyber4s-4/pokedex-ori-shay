@@ -1,50 +1,38 @@
-import express from 'express';
-import { Request, Response } from 'express';
-import { json } from 'body-parser';
-import { Data } from './data';
-import fetch from 'cross-fetch';
+import express from "express"
+import { Request, Response } from "express"
+import { json } from "body-parser"
+import { Data } from "./data"
+import fetch from "cross-fetch"
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs")
+const path = require("path")
 
-const app = express();
-app.use(json());
+const app = express()
+app.use(json())
+app.use(express.static("./../client/dist"))
 
-console.log('start app.ts - server - file');
-const pathToDataJson: string = path.join(__dirname, '../data/data.json');
+const pathToDataJson: string = path.join(__dirname, "../data/data.json")
 
-function initServer() {
-  // app.get('get-data', (req: Request, res: Response) => {
-  //   res.send('hello world');
-  // });
+// function initServer() {
+//   app.get("/", (req: Request, res: Response) => {
+//     console.log("Processing request: ", req.url)
+//     res.sendFile(req.path || "index.html", { root: "./../client/dist" })
+//   })
+// }
 
-  app.get('*', (req: Request, res: Response) => {
-    console.log(req.path);
-    if (req.path === '/get-data') {
-      console.log('inside the if');
-      res.send(`{
-        name: 'mew',
-        img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png',
-        height: 4,
-        weight: 40,
-        id: 151,
-      }`);
-    } else {
-      console.log('Processing request: ', req.url);
-      res.sendFile(req.path || 'index.html', { root: './../client/dist' });
-    }
-  });
+app.get("/get-data", (req: Request, res: Response) => {
+  res.sendFile("data.json", { root: "./../server/data" })
+})
 
-  if (false) {
-    insertToDataJson();
-  }
-  app.listen(3000, () => console.log('listening to port 3000'));
+if (false) {
+  insertToDataJson()
 }
+app.listen(3000, () => console.log("listening to port 3000"))
 
-initServer();
+// initServer()
 
 async function insertToDataJson() {
-  const dataList: Data[] = [];
+  const dataList: Data[] = []
 
   for (let i = 1; i < 400; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -56,8 +44,8 @@ async function insertToDataJson() {
           height: res.height,
           weight: res.weight,
           id: res.id,
-        });
+        })
       })
-      .then(() => fs.writeFileSync(pathToDataJson, JSON.stringify(dataList)));
+      .then(() => fs.writeFileSync(pathToDataJson, JSON.stringify(dataList)))
   }
 }
