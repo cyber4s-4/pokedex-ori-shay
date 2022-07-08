@@ -1,14 +1,14 @@
 import { FIRST_CONTAINER } from "./app"
 import { addPokemons, counter } from "./Pokemons"
-import { Poke } from "./data"
+import { Data } from "./data"
 
 /**
  * The function responsible for the infinite scrolling in the page. Each time the user
  * get to the end of the page it launches 15 pokemons.
  *
- * @param {Poke} pokeList - An object with the pokemon data
+ * @param {Data} pokeList - An object with the pokemon data
  */
-export function scrolling(pokeList: Poke[]) {
+export function scrolling(pokeList: Data[]) {
   const hideLoader = () => {
     FIRST_CONTAINER.classList.remove("show")
   }

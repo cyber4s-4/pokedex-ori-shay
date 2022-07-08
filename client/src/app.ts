@@ -1,8 +1,5 @@
 import { searchInputFunc } from "./Pokemons"
 import { scrolling } from "./scrollingComponent"
-import { getPokemons } from "./data"
-// import { json } from "body-parser"
-// import fetch from "cross-fetch"
 
 export const FIRST_CONTAINER = getDivElement("first-container")
 export const MAIN_CONTAINER = getDivElement("sub-container")
@@ -13,16 +10,12 @@ init()
 async function init() {
   // Load the page
   MAIN_CONTAINER.style.display = "none"
-
-  const POKEMON_DATA = await getPokemons()
-  const POKE_LIST = POKEMON_DATA.pokemon_entries
-
-  const arr = await await (await fetch(`http://localhost:3000/get-data`))
+  const POKEMON_DATA = await (await fetch(`http://localhost:3000/get-data`))
     .json()
     .catch(console.log)
 
-  searchInputFunc(POKE_LIST)
-  scrolling(POKE_LIST)
+  searchInputFunc(POKEMON_DATA)
+  scrolling(POKEMON_DATA)
 }
 
 function getDivElement(id: string): HTMLDivElement {

@@ -13,12 +13,12 @@ app.use(express.static("./../client/dist"))
 
 const pathToDataJson: string = path.join(__dirname, "../data/data.json")
 
-// function initServer() {
-//   app.get("/", (req: Request, res: Response) => {
-//     console.log("Processing request: ", req.url)
-//     res.sendFile(req.path || "index.html", { root: "./../client/dist" })
-//   })
-// }
+function initServer() {
+  app.get("/", (req: Request, res: Response) => {
+    console.log("Processing request: ", req.url)
+    res.sendFile(req.path || "index.html", { root: "./../client/dist" })
+  })
+}
 
 app.get("/get-data", (req: Request, res: Response) => {
   res.sendFile("data.json", { root: "./../server/data" })
@@ -29,12 +29,12 @@ if (false) {
 }
 app.listen(3000, () => console.log("listening to port 3000"))
 
-// initServer()
+initServer()
 
 async function insertToDataJson() {
   const dataList: Data[] = []
 
-  for (let i = 1; i < 400; i++) {
+  for (let i = 1; i < 898; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
       .then((res) => res.json())
       .then((res) => {
