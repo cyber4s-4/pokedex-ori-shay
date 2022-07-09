@@ -26,11 +26,12 @@ export function closeButtonFunc(
  */
 export function makeFavoritePokemon(star: HTMLSpanElement): void {
   star.addEventListener("click", (element) => {
-    const target = element.currentTarget as HTMLSpanElement
-    if (target.classList.contains("checked") === true) {
-      target.classList.remove("checked")
+    const star = element.currentTarget as HTMLSpanElement
+    if (star.classList.contains("checked") === true) {
+      star.classList.remove("checked")
     } else {
-      target.classList.add("checked")
+      star.classList.add("checked")
+      window.location.href = `http://localhost:3000/${star.id}`
     }
   })
 }

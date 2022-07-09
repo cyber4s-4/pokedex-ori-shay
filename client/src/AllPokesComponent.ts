@@ -43,7 +43,7 @@ export class AllPokesComponent {
 
     const star = document.createElement("span") as HTMLSpanElement
     star.classList.add("fa", "fa-star")
-    star.id = "star"
+    star.id = `${this.data.name}`
     dataDiv.appendChild(star)
     makeFavoritePokemon(star)
   }
