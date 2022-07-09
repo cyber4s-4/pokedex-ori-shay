@@ -6,7 +6,10 @@ export interface Data {
   height: string
   weight: string
   id: number
+  favorite: boolean
 }
+
+export const dataList: Data[] = []
 
 /**
  *
@@ -14,7 +17,6 @@ export interface Data {
  */
 export async function insertToDataJson(): Promise<void> {
   if (insertToDataJson.length !== 0) return
-  const dataList: Data[] = []
 
   for (let i = 1; i <= 898; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -26,6 +28,7 @@ export async function insertToDataJson(): Promise<void> {
           height: res.height,
           weight: res.weight,
           id: res.id,
+          favorite: false,
         })
       })
       .then(() => {

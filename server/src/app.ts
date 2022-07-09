@@ -1,7 +1,7 @@
 import express from "express"
 import { Request, Response } from "express"
 import { json } from "body-parser"
-import { Data, insertToDataJson } from "./data"
+import { Data, dataList, insertToDataJson } from "./data"
 
 export const fs = require("fs")
 const path = require("path")
@@ -36,6 +36,14 @@ async function initServer() {
     app.listen(3000, () => console.log("listening to port 3000"))
   }
 }
+
+app.post("/user", (req: Request, res: Response) => {
+  const newFavorite: Data = req.body
+  dataList.push(newFavorite)
+  fs.writeFileSync(pathDataJson, JSON.stringify(readFileData))
+  res.send(newFavorite)
+  console.log(readFileData)
+})
 
 initServer()
 

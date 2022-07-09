@@ -27,7 +27,7 @@
 }
 
 body {
-  background-image: url('https://www.wallpaperuse.com/wallp/3-33570_m.jpg');
+  background-image: url("https://www.wallpaperuse.com/wallp/3-33570_m.jpg");
   flex-direction: column-reverse;
   background-position: center;
   background-size: contain;
@@ -183,6 +183,9 @@ body {
       display: flex;
       & div {
         color: white;
+      }
+      & .checked {
+        color: orange;
       }
     }
   }
