@@ -45,7 +45,6 @@ export class AllPokesComponent {
     star.classList.add("fa", "fa-star")
     star.id = "star"
     dataDiv.appendChild(star)
-
     makeFavoritePokemon(star)
   }
 }

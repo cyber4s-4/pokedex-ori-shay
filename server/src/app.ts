@@ -11,7 +11,7 @@ app.use(json())
 app.use(express.static("./../client/dist"))
 
 export const pathDataJson: string = path.join(__dirname, "../data/data.json")
-const readFileData: Data[] | string = fs.readFileSync(pathDataJson, "utf8")
+const readFileData: Data[] = fs.readFileSync(pathDataJson, "utf8")
 
 /**
  * The function Init the server on port 3000, and get data from /get-data.
@@ -31,18 +31,20 @@ async function initServer() {
     app.get("/get-data", (req: Request, res: Response) => {
       res.sendFile("data.json", { root: "./../server/data" })
     })
-
-    console.log("listening to port 3000: now ")
     app.listen(3000, () => console.log("listening to port 3000"))
   }
 }
 
-app.post("/user", (req: Request, res: Response) => {
-  const newFavorite: Data = req.body
-  dataList.push(newFavorite)
-  fs.writeFileSync(pathDataJson, JSON.stringify(readFileData))
-  res.send(newFavorite)
-  console.log(readFileData)
+app.post("/:name", (req: Request, res: Response) => {
+  const name = req.params.name
+  const findPokemon = readFileData.find((el) => el.name === name)
+  if (findPokemon) {
+    const newArr = readFileData.filter((el) => el.name !== name)
+    fs.writeFileSync(pathDataJson, JSON.stringify(newArr))
+    res.send(newArr)
+  } else {
+    res.send("No find name")
+  }
 })
 
 initServer()
