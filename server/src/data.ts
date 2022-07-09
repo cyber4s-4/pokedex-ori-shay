@@ -35,10 +35,9 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
         dataList.sort((a: Data, b: Data) => a.id - b.id);
         fs.writeFileSync(pathDataJson, JSON.stringify(dataList));
       })
-      .catch(() =>
-        console.log(
-          `Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`
-        )
+      .catch(() => console.log(
+        `Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`
+      )
       );
   }
 }

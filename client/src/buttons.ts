@@ -9,14 +9,14 @@ export function closeButtonFunc(
   parent: HTMLDivElement,
   elementToHide: HTMLDivElement
 ) {
-  const closeButton = document.createElement("button") as HTMLButtonElement
-  closeButton.innerHTML = "Close"
-  closeButton.id = "close-button"
-  parent.appendChild(closeButton)
+  const closeButton = document.createElement('button') as HTMLButtonElement;
+  closeButton.innerHTML = 'Close';
+  closeButton.id = 'close-button';
+  parent.appendChild(closeButton);
 
-  closeButton.addEventListener("click", () => {
-    elementToHide.style.display = "none"
-  })
+  closeButton.addEventListener('click', () => {
+    elementToHide.style.display = 'none';
+  });
 }
 
 /**
@@ -25,13 +25,13 @@ export function closeButtonFunc(
  * @param {HTMLSpanElement} star - The element has been selected.
  */
 export function makeFavoritePokemon(star: HTMLSpanElement): void {
-  star.addEventListener("click", (element) => {
-    const star = element.currentTarget as HTMLSpanElement
-    if (star.classList.contains("checked") === true) {
-      star.classList.remove("checked")
+  star.addEventListener('click', (element) => {
+    const star = element.currentTarget as HTMLSpanElement;
+    if (star.classList.contains('checked') === true) {
+      star.classList.remove('checked');
     } else {
-      star.classList.add("checked")
-      window.location.href = `http://localhost:3000/${star.id}`
+      star.classList.add('checked');
+      window.location.href = `http://localhost:3000/${star.id}`;
     }
-  })
+  });
 }
