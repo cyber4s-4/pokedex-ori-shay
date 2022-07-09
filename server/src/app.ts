@@ -1,17 +1,16 @@
 import express from "express"
 import { Request, Response } from "express"
 import { json } from "body-parser"
-import { Data } from "./data"
-import fetch from "cross-fetch"
+import { Data, insertToDataJson } from "./data"
 
-const fs = require("fs")
+export const fs = require("fs")
 const path = require("path")
 
 const app = express()
 app.use(json())
 app.use(express.static("./../client/dist"))
 
-const pathDataJson: string = path.join(__dirname, "../data/data.json")
+export const pathDataJson: string = path.join(__dirname, "../data/data.json")
 const readFileData: Data[] | string = fs.readFileSync(pathDataJson, "utf8")
 
 /**
@@ -39,38 +38,6 @@ async function initServer() {
 }
 
 initServer()
-
-/**
- *
- * The function insert data to json file when the server created.
- *
- */
-async function insertToDataJson(): Promise<void> {
-  if (insertToDataJson.length) return
-  const dataList: Data[] = []
-
-  for (let i = 1; i < 898; i++) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-      .then((res) => res.json())
-      .then((res) => {
-        dataList.push({
-          name: res.name,
-          img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`,
-          height: res.height,
-          weight: res.weight,
-          id: res.id,
-        })
-      })
-      .then(() => {
-        dataList.sort((a: Data, b: Data) => a.id - b.id)
-        console.log(i + "success")
-        fs.writeFileSync(pathDataJson, JSON.stringify(dataList))
-      })
-      .catch(() =>
-        console.log(`Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`)
-      )
-  }
-}
 
 // const dataList: Data[] = [];
 // async function insertToDataJson() {

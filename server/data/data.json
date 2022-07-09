@@ -6277,5 +6277,12 @@
     "height": 20,
     "weight": 445,
     "id": 897
+  },
+  {
+    "name": "calyrex",
+    "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/898.png",
+    "height": 11,
+    "weight": 77,
+    "id": 898
   }
 ]
