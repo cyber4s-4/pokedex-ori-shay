@@ -9,14 +9,14 @@ export function closeButtonFunc(
   parent: HTMLDivElement,
   elementToHide: HTMLDivElement
 ) {
-  const closeButton = document.createElement("button") as HTMLButtonElement
-  closeButton.innerHTML = "Close"
-  closeButton.id = "close-button"
-  parent.appendChild(closeButton)
+  const closeButton = document.createElement('button') as HTMLButtonElement;
+  closeButton.innerHTML = 'Close';
+  closeButton.id = 'close-button';
+  parent.appendChild(closeButton);
 
-  closeButton.addEventListener("click", () => {
-    elementToHide.style.display = "none"
-  })
+  closeButton.addEventListener('click', () => {
+    elementToHide.style.display = 'none';
+  });
 }
 
 /**
@@ -24,13 +24,27 @@ export function closeButtonFunc(
  *
  * @param {HTMLSpanElement} star - The element has been selected.
  */
-export function makeFavoritePokemon(star: HTMLSpanElement): void {
-  star.addEventListener("click", (element) => {
-    const target = element.currentTarget as HTMLSpanElement
-    if (target.classList.contains("checked") === true) {
-      target.classList.remove("checked")
+export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
+  star.addEventListener('click', async (el) => {
+    const target = el.currentTarget as HTMLSpanElement;
+    const rawResponse = await fetch('/star', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ idNumber: id }),
+    });
+    const content = await rawResponse.json();
+    console.log('pokeId: ' + content);
+    if (target.classList.contains('checked') === true) {
+      target.classList.remove('checked');
     } else {
-      target.classList.add("checked")
+      target.classList.add('checked');
     }
-  })
+  });
 }
+
+// function updateStar(){
+
+// }

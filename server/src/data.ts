@@ -42,3 +42,18 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
       );
   }
 }
+
+export function updateDataFavorite(idNumber: string) {
+  const readFileData: Data[] | undefined = JSON.parse(
+    fs.readFileSync(pathDataJson, 'utf8')
+  );
+  readFileData?.forEach((ell) => {
+    if (ell.id === Number(idNumber)) {
+      console.log(ell.favorite);
+      ell.favorite = ell.favorite === true ? false : true;
+      console.log(ell.favorite);
+    }
+  });
+  fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
+  return idNumber;
+}

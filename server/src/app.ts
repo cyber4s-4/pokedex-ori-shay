@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
-import { Data, dataList, insertToDataJson } from './data';
+import { insertToDataJson, Data, updateDataFavorite } from './data';
 
 export const fs = require('fs');
 const path = require('path');
@@ -32,22 +32,22 @@ async function initServer() {
       res.sendFile('data.json', { root: './../server/data' });
     });
 
-    app.post('/:name', (req: Request, res: Response) => {
-      const name = req.params.name;
-      const name2 = req.query.name;
-      console.log(name);
-      console.log(name2);
-      console.log(readFileData);
-      // const findPokemon = JSON.parse(readFileData).find(
-      //   (el) => el.name === name
+    app.post('/star', (req: Request, res: Response) => {
+      res.json(updateDataFavorite(req.body.idNumber));
+      // console.log(req.body);
+      // console.log('req.body');
+      // const readFileData: Data[] | undefined = JSON.parse(
+      //   fs.readFileSync(pathDataJson, 'utf8')
       // );
-      // if (findPokemon) {
-      //   const newArr = readFileData.filter((el) => el.name !== name);
-      //   fs.writeFileSync(pathDataJson, JSON.stringify(newArr));
-      //   res.send(newArr);
-      // } else {
-      //   res.send('No find name');
-      // }
+      // readFileData?.forEach((ell) => {
+      //   if (ell.id === req.body.idNumber) {
+      //     console.log(ell.favorite);
+      //     ell.favorite = ell.favorite === true ? false : true;
+      //     console.log(ell.favorite);
+      //   }
+      // });
+      // fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
+      // res.json(req.body);
     });
 
     app.listen(3000, () => console.log('listening to port 3000'));
@@ -77,7 +77,7 @@ initServer();
 //     })
 //     .then(() => {
 //       dataList.sort((a: Data, b: Data) => a.id - b.id);
-//       console.log(num + 'succes');
+//       console.log(num + 'success');
 //       fs.writeFileSync(pathDataJson, JSON.stringify(dataList));
 //     })
 //     .catch(async () => {
