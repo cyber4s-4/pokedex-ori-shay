@@ -1,11 +1,11 @@
-import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from "./app"
-import { AllPokesComponent } from "./AllPokesComponent"
-import { Data } from "./data"
-import { PokemonComponent } from "./pokemonComponent"
-import { closeButtonFunc } from "./buttons"
+import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from './app';
+import { AllPokesComponent } from './AllPokesComponent';
+import { Data } from './data';
+import { PokemonComponent } from './pokemonComponent';
+import { closeButtonFunc } from './buttons';
 
-const POKEMON_STEPS = 15 // Each scroll the page uploads 15 pokemons.
-export let counter = 0
+const POKEMON_STEPS = 15; // Each scroll the page uploads 15 pokemons.
+export let counter = 0;
 
 /**
  * The function add pokemons to the main page when it upload.
@@ -13,7 +13,7 @@ export let counter = 0
  * @param {Data} pokeList - An object with the pokemon data
  */
 export async function addPokemons(pokeList: Data[]): Promise<void> {
-  const poke = pokeList
+  const poke = pokeList;
 
   for (let i = 0; i < POKEMON_STEPS; i++) {
     // const specificPokemon = await extractPokemon(poke[counter].pokemon_species.name)
@@ -23,9 +23,9 @@ export async function addPokemons(pokeList: Data[]): Promise<void> {
       height: poke[counter].height,
       weight: poke[counter].weight,
       id: poke[counter].id,
-    }
-    counter++
-    new AllPokesComponent(elementData, FIRST_CONTAINER).render()
+    };
+    counter++;
+    new AllPokesComponent(elementData, FIRST_CONTAINER).render();
   }
 }
 
@@ -35,8 +35,8 @@ export async function addPokemons(pokeList: Data[]): Promise<void> {
  * @param {Data} element - An object with the pokemon data
  */
 export async function viewPokemon(element: Data): Promise<void> {
-  MAIN_CONTAINER.style.display = "block"
-  MAIN_CONTAINER.innerHTML = ""
+  MAIN_CONTAINER.style.display = 'block';
+  MAIN_CONTAINER.innerHTML = '';
   // const specificPokemon = await extractPokemon(SEARCH_INPUT.value)
   const elementData: Data = {
     name: element.name,
@@ -44,22 +44,22 @@ export async function viewPokemon(element: Data): Promise<void> {
     height: element.height,
     weight: element.weight,
     id: element.id,
-  }
-  new PokemonComponent(elementData, MAIN_CONTAINER).render()
+  };
+  new PokemonComponent(elementData, MAIN_CONTAINER).render();
 }
 
 /**
  * Function that returns a no result message - if there is no pokemon
  */
 export function noResults(): void {
-  MAIN_CONTAINER.style.display = "block"
-  MAIN_CONTAINER.innerHTML = ""
+  MAIN_CONTAINER.style.display = 'block';
+  MAIN_CONTAINER.innerHTML = '';
 
-  const h1Element = document.createElement("h1") as HTMLElement
-  h1Element.innerHTML = `There is no  '${SEARCH_INPUT.value}' Pokemon... try another one!`
-  MAIN_CONTAINER.appendChild(h1Element)
+  const h1Element = document.createElement('h1') as HTMLElement;
+  h1Element.innerHTML = `There is no  '${SEARCH_INPUT.value}' Pokemon... try another one!`;
+  MAIN_CONTAINER.appendChild(h1Element);
 
-  closeButtonFunc(MAIN_CONTAINER, MAIN_CONTAINER)
+  closeButtonFunc(MAIN_CONTAINER, MAIN_CONTAINER);
 }
 
 /**
@@ -69,10 +69,10 @@ export function noResults(): void {
  * @param {Poke} pokeList - An object with the pokemon data
  */
 export function searchInputFunc(pokeList: Data[]): void {
-  BUTTON_INPUT.addEventListener("click", async () => {
+  BUTTON_INPUT.addEventListener('click', async () => {
     pokeList.forEach((element: Data) => {
-      if (SEARCH_INPUT.value === element.name) viewPokemon(element)
-    })
-    if (MAIN_CONTAINER.style.display === "none") noResults()
-  })
+      if (SEARCH_INPUT.value === element.name) viewPokemon(element);
+    });
+    if (MAIN_CONTAINER.style.display === 'none') noResults();
+  });
 }

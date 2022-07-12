@@ -34,20 +34,6 @@ async function initServer() {
 
     app.post('/star', (req: Request, res: Response) => {
       res.json(updateDataFavorite(req.body.idNumber));
-      // console.log(req.body);
-      // console.log('req.body');
-      // const readFileData: Data[] | undefined = JSON.parse(
-      //   fs.readFileSync(pathDataJson, 'utf8')
-      // );
-      // readFileData?.forEach((ell) => {
-      //   if (ell.id === req.body.idNumber) {
-      //     console.log(ell.favorite);
-      //     ell.favorite = ell.favorite === true ? false : true;
-      //     console.log(ell.favorite);
-      //   }
-      // });
-      // fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
-      // res.json(req.body);
     });
 
     app.listen(3000, () => console.log('listening to port 3000'));
