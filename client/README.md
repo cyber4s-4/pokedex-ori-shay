@@ -1,1 +1,0 @@
-# pokedex-ori-shay

@@ -44,7 +44,3 @@ export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
     }
   });
 }
-
-// function updateStar(){
-
-// }

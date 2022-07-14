@@ -11,7 +11,7 @@ init();
 async function init() {
   // Load the page
   MAIN_CONTAINER.style.display = 'none';
-  const pokemon_data: Data[] = await (await fetch('http://localhost:3000/get-data'))
+  const pokemon_data: Data[] = await (await fetch(`/get-data`))
     .json()
     .catch(console.log);
 

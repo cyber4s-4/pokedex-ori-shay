@@ -1,5 +1,6 @@
 import fetch from 'cross-fetch';
-import { fs, pathDataJson } from './app';
+import { fs, pathDataJson } from './server';
+
 export interface Data {
   name: string;
   img: string;
@@ -33,16 +34,16 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
       })
       .then(() => {
         dataList.sort((a: Data, b: Data) => a.id - b.id);
-        fs.writeFileSync(pathDataJson, JSON.stringify(dataList));
       })
-      .catch(() => console.log(
-        `Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`
-      )
+      .catch(() =>
+        console.log(
+          `Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`
+        )
       );
   }
 }
 
-export function updateDataFavorite(idNumber: string) {
+export async function updateDataFavorite(idNumber: string) {
   const readFileData: Data[] | undefined = JSON.parse(
     fs.readFileSync(pathDataJson, 'utf8')
   );
@@ -53,6 +54,7 @@ export function updateDataFavorite(idNumber: string) {
       console.log(ell.favorite);
     }
   });
-  fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
+  await fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
+  console.log(await JSON.parse(fs.readFileSync(pathDataJson, 'utf8'))[0]);
   return idNumber;
 }

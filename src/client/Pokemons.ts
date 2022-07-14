@@ -1,4 +1,9 @@
-import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from './app';
+import {
+  BUTTON_INPUT,
+  FIRST_CONTAINER,
+  MAIN_CONTAINER,
+  SEARCH_INPUT,
+} from './app';
 import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from './data';
 import { PokemonComponent } from './pokemonComponent';
