@@ -2,10 +2,11 @@ import fetch from 'cross-fetch';
 import { fs, pathDataJson } from './server';
 
 export interface Data {
+  _id?: string;
   name: string;
   img: string;
-  height: string;
-  weight: string;
+  height: number;
+  weight: number;
   id: number;
   favorite: boolean;
 }

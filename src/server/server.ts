@@ -2,6 +2,8 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { insertToDataJson, updateDataFavorite } from './data';
+import { Data } from './data';
+import { deleteAll, doublePokemons, main, transferDataToDB } from './mongo';
 
 export const fs = require('fs');
 const path = require('path');
@@ -11,10 +13,9 @@ app.use(json());
 app.use(express.static('./dist'));
 
 export const pathDataJson: string = path.join(__dirname, '../data.json');
-export const pathForMongo = pathDataJson;
-console.log(pathDataJson);
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
 initServer();
+// main(JSON.parse(readFileData));
 
 /**
  * The function Init the server on port 3000, and get data from /get-data.
