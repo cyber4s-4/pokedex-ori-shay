@@ -23,7 +23,7 @@ export async function addPokemons(pokeList: Data[]): Promise<void> {
   for (let i = 0; i < POKEMON_STEPS; i++) {
     // const specificPokemon = await extractPokemon(poke[counter].pokemon_species.name)
     const elementData: Data = {
-      name: poke[counter].name,
+      name: poke[counter]?.name || '---',
       img: poke[counter].img,
       height: poke[counter].height,
       weight: poke[counter].weight,

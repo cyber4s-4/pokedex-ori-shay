@@ -1,16 +1,7 @@
 import { Data } from './data';
-import { fs, pathDataJson } from './server';
 import { MongoClient, Db, Collection /*, WithId*/ } from 'mongodb';
 import { key } from './key';
 
-const example: Data = {
-  name: 'bulbasaur',
-  img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-  height: 7,
-  weight: 69,
-  id: 1,
-  favorite: false,
-};
 export async function main(data: Data[]) {
   const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
@@ -18,13 +9,11 @@ export async function main(data: Data[]) {
   const db: Db = client.db('pokedex-project');
   const jsonFileColl: Collection<Data> = db.collection('json-file');
   const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
-  // transferDataToDB(data, jsonFileColl);
+  transferDataToDB(data, jsonFileColl);
   // doublePokemons(data, milionKPokeColl);
   // deleteAll(jsonFileColl);
   // deleteAll(milionKPokeColl);
 }
-
-// jsonFileColl.insertOne(example).then((res) => console.log(res.insertedId));
 
 export async function transferDataToDB(
   data: Data[],
@@ -32,7 +21,7 @@ export async function transferDataToDB(
 ) {
   const options = { ordered: true };
   const newData: Data[] = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 40; i++) {
     newData.push(data[i]);
   }
   const result = await collection.insertMany(newData, options);
@@ -93,6 +82,7 @@ export async function getJsonCollection() {
       };
       arr.push(Data);
     });
+  client.close();
 
   return await arr;
 }
@@ -105,4 +95,6 @@ export async function getAllCollection() {
   const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
 
   const dataJson = await milionKPokeColl.find({});
+  client.close();
+  return dataJson;
 }
