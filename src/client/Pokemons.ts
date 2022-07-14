@@ -5,7 +5,7 @@ import {
   SEARCH_INPUT,
 } from './app';
 import { AllPokesComponent } from './AllPokesComponent';
-import { Data } from './data';
+import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
 import { closeButtonFunc } from './buttons';
 
@@ -18,19 +18,9 @@ export let counter = 0;
  * @param {Data} pokeList - An object with the pokemon data
  */
 export async function addPokemons(pokeList: Data[]): Promise<void> {
-  const poke = pokeList;
-
   for (let i = 0; i < POKEMON_STEPS; i++) {
-    // const specificPokemon = await extractPokemon(poke[counter].pokemon_species.name)
-    const elementData: Data = {
-      name: poke[counter]?.name || '---',
-      img: poke[counter].img,
-      height: poke[counter].height,
-      weight: poke[counter].weight,
-      id: poke[counter].id,
-    };
+    new AllPokesComponent(pokeList[counter], FIRST_CONTAINER).render();
     counter++;
-    new AllPokesComponent(elementData, FIRST_CONTAINER).render();
   }
 }
 
@@ -42,15 +32,7 @@ export async function addPokemons(pokeList: Data[]): Promise<void> {
 export async function viewPokemon(element: Data): Promise<void> {
   MAIN_CONTAINER.style.display = 'block';
   MAIN_CONTAINER.innerHTML = '';
-  // const specificPokemon = await extractPokemon(SEARCH_INPUT.value)
-  const elementData: Data = {
-    name: element.name,
-    img: element.img,
-    height: element.height,
-    weight: element.weight,
-    id: element.id,
-  };
-  new PokemonComponent(elementData, MAIN_CONTAINER).render();
+  new PokemonComponent(element, MAIN_CONTAINER).render();
 }
 
 /**
@@ -74,6 +56,8 @@ export function noResults(): void {
  * @param {Poke} pokeList - An object with the pokemon data
  */
 export function searchInputFunc(pokeList: Data[]): void {
+  console.log(pokeList.length);
+  console.log('searchInputFunc function');
   BUTTON_INPUT.addEventListener('click', async () => {
     pokeList.forEach((element: Data) => {
       if (SEARCH_INPUT.value === element.name) viewPokemon(element);

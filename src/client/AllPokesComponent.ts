@@ -1,5 +1,5 @@
 import { makeFavoritePokemon } from './buttons';
-import { Data } from './data';
+import { Data } from '../server/data';
 
 export class AllPokesComponent {
   data: Data;

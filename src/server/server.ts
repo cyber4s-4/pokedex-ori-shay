@@ -1,8 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
-import { insertToDataJson, updateDataFavorite } from './data';
-import { Data } from './data';
+import { updateDataFavorite } from './data';
 import { getAllCollection, getJsonCollection, main } from './mongo';
 
 export const fs = require('fs');
@@ -37,13 +36,10 @@ async function initServer() {
     });
 
     app.get('/get-data', (_req: Request, res: Response) => {
-      // console.log(await getJsonCollection());
       res.send(dataInit);
-      // res.sendFile(readFileData);
     });
 
     app.get('/get-all-data', (_req: Request, res: Response) => {
-      // console.log(getAllCollection());
       res.send(bigDataInit);
     });
 
