@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { insertToDataJson, updateDataFavorite } from './data';
 import { Data } from './data';
-import { deleteAll, doublePokemons, main, transferDataToDB } from './mongo';
+import { getAllCollection, getJsonCollection, main } from './mongo';
 
 export const fs = require('fs');
 const path = require('path');
@@ -24,6 +24,7 @@ initServer();
 async function initServer() {
   await insertToDataJson(readFileData);
   console.log('The "data.json" file is ready. Starting to run the server: ');
+  const dataInit = await getJsonCollection();
 
   await continueInit();
   function continueInit() {
@@ -34,9 +35,16 @@ async function initServer() {
       });
     });
 
-    app.get('/get-data', (_req: Request, res: Response) => {
-      res.sendFile('data.json', { root: './dist' });
+    app.get('/get-data', async (_req: Request, res: Response) => {
+      // console.log(await getJsonCollection());
+      res.send(dataInit);
+      // res.sendFile(readFileData);
     });
+
+    // app.get('/get-all-data', (_req: Request, res: Response) => {
+    //   console.log(getAllCollection());
+    //   res.sendFile('data.json', { root: './dist' });
+    // });
 
     app.post('/star', async (req: Request, res: Response) => {
       console.log(req.body.idNumber);

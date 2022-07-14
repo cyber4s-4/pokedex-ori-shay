@@ -1,8 +1,9 @@
 import fetch from 'cross-fetch';
+import { ObjectId } from 'mongodb';
 import { fs, pathDataJson } from './server';
 
 export interface Data {
-  _id?: string;
+  _id?: ObjectId;
   name: string;
   img: string;
   height: number;

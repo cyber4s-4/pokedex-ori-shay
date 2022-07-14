@@ -11,12 +11,16 @@ init();
 async function init() {
   // Load the page
   MAIN_CONTAINER.style.display = 'none';
-  const pokemon_data: Data[] = await (await fetch(`/get-data`))
+  const pokemon_json_file: Data[] = await (await fetch(`/get-data`))
     .json()
     .catch(console.log);
 
-  searchInputFunc(pokemon_data);
-  scrolling(pokemon_data);
+  const pokemon_all_data: Data[] = await (await fetch(`/get-data`))
+    .json()
+    .catch(console.log);
+
+  searchInputFunc(pokemon_json_file);
+  scrolling(pokemon_json_file);
 }
 
 function getDivElement(id: string): HTMLDivElement {

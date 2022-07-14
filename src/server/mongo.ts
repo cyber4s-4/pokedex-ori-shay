@@ -20,8 +20,8 @@ export async function main(data: Data[]) {
   const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
   // transferDataToDB(data, jsonFileColl);
   // doublePokemons(data, milionKPokeColl);
-  deleteAll(jsonFileColl);
-  deleteAll(milionKPokeColl);
+  // deleteAll(jsonFileColl);
+  // deleteAll(milionKPokeColl);
 }
 
 // jsonFileColl.insertOne(example).then((res) => console.log(res.insertedId));
@@ -31,7 +31,11 @@ export async function transferDataToDB(
   collection: Collection<Data>
 ) {
   const options = { ordered: true };
-  const result = await collection.insertMany(data, options);
+  const newData: Data[] = [];
+  for (let i = 0; i < 100; i++) {
+    newData.push(data[i]);
+  }
+  const result = await collection.insertMany(newData, options);
   console.log(`${result.insertedCount} documents were inserted`);
 }
 
@@ -65,10 +69,40 @@ export async function doublePokemons(
   const options = { ordered: true };
   const result = await collection.insertMany(newDatabase, options);
   console.log(`${result.insertedCount} documents were inserted`);
+}
 
-  setTimeout(() => {
-    console.log(dataArray.length * 100 + dataArray.length);
-    console.log();
-    console.log(newDatabase.length);
-  }, 300);
+export async function getJsonCollection() {
+  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
+  const client = new MongoClient(uri);
+  await client.connect();
+
+  const arr: Data[] = [];
+  await client
+    .db('pokedex-project')
+    .collection('json-file')
+    .find()
+    .forEach((res) => {
+      const Data: Data = {
+        _id: res._id,
+        name: res.name,
+        img: res.img,
+        height: res.height,
+        weight: res.weight,
+        id: res.id,
+        favorite: res.favorite,
+      };
+      arr.push(Data);
+    });
+
+  return await arr;
+}
+
+export async function getAllCollection() {
+  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
+  const client = new MongoClient(uri);
+  await client.connect();
+  const db: Db = client.db('pokedex-project');
+  const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
+
+  const dataJson = await milionKPokeColl.find({});
 }
