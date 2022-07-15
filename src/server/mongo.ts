@@ -1,6 +1,7 @@
 import { Data } from './data';
 import { MongoClient, Db, Collection } from 'mongodb';
 import { key } from './key';
+export const { ServerApiVersion } = require('mongodb');
 
 /**
  * The function connects to Atlas.
@@ -12,6 +13,9 @@ export async function connectToAtlas(signInDetails: string) {
   const client = new MongoClient(uri);
   await client.connect();
   let db: Db = client.db('pokedex-project');
+
+  // const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`
+  // const client = new MongoClient(uri)
   return db;
 }
 
@@ -91,11 +95,12 @@ async function insertMillionPokemons(
       const firstPokemon = data[out];
       const secondPokemon = data[inn];
       if (firstPokemon.name === secondPokemon.name) break;
+      const firstPokemonName = firstPokemon.name.substring(0, 4);
+      const secondPokemonName =
+        secondPokemon.name.charAt(0).toUpperCase() +
+        secondPokemon.name.substring(1, 4);
       newDatabase.push({
-        name:
-          firstPokemon.name.split('', 2) +
-          '-' +
-          secondPokemon.name.split('', 2),
+        name: firstPokemonName + secondPokemonName,
         img: secondPokemon.img,
         height: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
         weight: Math.floor((firstPokemon.height + secondPokemon.height) / 2),

@@ -42,11 +42,11 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
       .then(() => {
         dataList.sort((a: Data, b: Data) => a.id - b.id);
       })
-      .catch(() =>
+      .catch(() => {
         console.log(
           `Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`
-        )
-      );
+        );
+      });
   }
 }
 
@@ -66,6 +66,7 @@ export async function updateDataFavorite(idNumber: string) {
       { id: Number(idNumber) },
       { $set: { favorite: true } }
     );
+    // jsonFileColl.updateOne({ id: idNumber }, { $set: { favorite: true } })
   } catch {
     console.log(`There is no pokemon with ${idNumber}`);
   }

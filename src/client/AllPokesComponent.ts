@@ -19,7 +19,7 @@ export class AllPokesComponent {
     this.parent.appendChild(pokemonTemplate);
 
     const image = document.createElement('img') as HTMLImageElement;
-    image.src = this.data.img;
+    image.src = `${this.data.img}`;
     image.classList.add('img-first-page');
     pokemonTemplate.appendChild(image);
 
@@ -28,7 +28,7 @@ export class AllPokesComponent {
     pokemonTemplate.appendChild(dataDiv);
 
     const idNumber = document.createElement('div') as HTMLDivElement;
-    idNumber.innerHTML = 'ID Number:    ' + this.data.id.toString();
+    idNumber.innerHTML = 'ID Number:    ' + this.data.id;
     dataDiv.appendChild(idNumber);
 
     const name = document.createElement('div') as HTMLDivElement;

@@ -19,6 +19,8 @@ async function init() {
   const pokemon_json_file: Data[] = await (await fetch('/get-data'))
     .json()
     .catch(console.log);
+  console.log(pokemon_json_file);
+
   scrolling(pokemon_json_file);
   searchInputFunc(pokemon_json_file);
 }

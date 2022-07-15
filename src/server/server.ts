@@ -21,6 +21,7 @@ app.use(express.static('./dist'));
  */
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
+if (true) insertDataToAtlas(JSON.parse(readFileData));
 
 initServer();
 
@@ -32,7 +33,6 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (false) await insertDataToAtlas(JSON.parse(readFileData));
   const dataInit = await getPokemonsFromAtlas();
 
   await continueInit();
@@ -57,17 +57,6 @@ async function initServer() {
     app.post('/star', async (req: Request, res: Response) => {
       await updateDataFavorite(req.body.idNumber);
     });
-
-    // try {
-    //   await students.updateOne(
-    //     { name: "Yahalom" },
-    //     { $push: { courses: "JavaScript" } }
-    //   )
-    // } catch {
-    //   console.log(`There is no students with the name of Yahalom!`)
-    // } finally {
-    //   await client.close()
-    // }
 
     app.listen(process.env.PORT || 3000, () =>
       console.log('listening to port 3000')
