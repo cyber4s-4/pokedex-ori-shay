@@ -1,4 +1,9 @@
-import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from './app';
+import {
+  BUTTON_INPUT,
+  FIRST_CONTAINER,
+  MAIN_CONTAINER,
+  SEARCH_INPUT,
+} from './app';
 import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
@@ -71,7 +76,10 @@ export async function searchInputFunc(pokeList: Data[]): Promise<void> {
 function searchClick(arrPoke: Data[]) {
   BUTTON_INPUT.addEventListener('click', async () => {
     arrPoke.forEach((poke: Data) => {
-      if (SEARCH_INPUT.value === poke.name || Number(SEARCH_INPUT.value) === poke.id)
+      if (
+        SEARCH_INPUT.value === poke.name ||
+        Number(SEARCH_INPUT.value) === poke.id
+      )
         viewPokemon(poke);
     });
     if (MAIN_CONTAINER.style.display === 'none') noResults();
@@ -80,19 +88,18 @@ function searchClick(arrPoke: Data[]) {
   SEARCH_INPUT.addEventListener('input', async () => {
     console.log(SEARCH_INPUT.value);
     const pokesMatch: Data[] = arrPoke.filter((poke) => {
-      return (
-        poke.name.startsWith(SEARCH_INPUT.value) ||
-        poke.id.toString().startsWith(SEARCH_INPUT.value)
-      );
+      return poke.name.startsWith(SEARCH_INPUT.value);
+      // ||
+      // poke.id.toString().startsWith(SEARCH_INPUT.value)
     });
     FIRST_CONTAINER.innerHTML = '';
+    counter = 0;
+    console.log(pokesMatch);
     if (pokesMatch.length !== 0) {
       scrolling(pokesMatch);
     } else {
       FIRST_CONTAINER.innerHTML = 'No results';
     }
     console.log(pokesMatch.length);
-
-    // if (FIRST_CONTAINER.style.display === 'none') noResults();
   });
 }
