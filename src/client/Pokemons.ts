@@ -60,7 +60,7 @@ export async function searchInputFunc(pokeList: Data[]): Promise<void> {
   console.log('All pokemons search available: ' + pokeList.length);
   searchClick(pokeList);
 
-  const pokemon_all_data: Data[] = await (await fetch(`/get-all-data`))
+  const pokemon_all_data: Data[] = await (await fetch('/get-all-data'))
     .json()
     .catch(console.log);
   console.log('All pokemons search available: ' + pokemon_all_data.length);

@@ -11,7 +11,7 @@ init();
 async function init() {
   MAIN_CONTAINER.style.display = 'none';
   // Load the page
-  const pokemon_json_file: Data[] = await (await fetch(`/get-data`))
+  const pokemon_json_file: Data[] = await (await fetch('/get-data'))
     .json()
     .catch(console.log);
   scrolling(pokemon_json_file);
