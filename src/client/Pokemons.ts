@@ -1,9 +1,4 @@
-import {
-  BUTTON_INPUT,
-  FIRST_CONTAINER,
-  MAIN_CONTAINER,
-  SEARCH_INPUT,
-} from './app';
+import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from './app';
 import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
@@ -51,10 +46,10 @@ export function noResults(): void {
 }
 
 /**
- * The function check if there is a pokemon from the API pokemon's list.
+ * The function check if there is a pokemon from the DataBase pokemon's list.
  * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
  *
- * @param {Poke} pokeList - An object with the pokemon data
+ * @param {Data} pokeList - An object with the pokemon data
  */
 export async function searchInputFunc(pokeList: Data[]): Promise<void> {
   console.log('All pokemons search available: ' + pokeList.length);
@@ -67,13 +62,16 @@ export async function searchInputFunc(pokeList: Data[]): Promise<void> {
   searchClick(pokemon_all_data);
 }
 
+/**
+ * The function search pokemon from the DataBase pokemon's list, while the user is writing.
+ * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
+ *
+ * @param {Data} arrPoke - An object with the pokemon data
+ */
 function searchClick(arrPoke: Data[]) {
   BUTTON_INPUT.addEventListener('click', async () => {
     arrPoke.forEach((poke: Data) => {
-      if (
-        SEARCH_INPUT.value === poke.name ||
-        Number(SEARCH_INPUT.value) === poke.id
-      )
+      if (SEARCH_INPUT.value === poke.name || Number(SEARCH_INPUT.value) === poke.id)
         viewPokemon(poke);
     });
     if (MAIN_CONTAINER.style.display === 'none') noResults();

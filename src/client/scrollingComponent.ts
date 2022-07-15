@@ -44,8 +44,7 @@ export function scrolling(pokeList: Data[]) {
   window.addEventListener(
     'scroll',
     () => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.documentElement;
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
       if (scrollTop + clientHeight >= scrollHeight - 5 && hasMorePokemons()) {
         addPokemons(pokeList);

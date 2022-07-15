@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { updateDataFavorite } from './data';
-import { getMillionPokemons, getJsonPokemons, insertToAtlas } from './mongo';
+import { getMillionPokemons, getPokemonsFromAtlas, insertDataToAtlas } from './mongo';
 
 export const fs = require('fs');
 const path = require('path');
@@ -12,20 +12,24 @@ app.use(json());
 app.use(express.static('./dist'));
 
 /**
- * * TODO: write here comment explain:
+ * THIS PART OF CODE IS NOT IN USED!
+ * It works only once when we insert the data to atlas.
  */
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
-if (false) insertToAtlas(JSON.parse(readFileData));
+if (false) insertDataToAtlas(JSON.parse(readFileData));
 
 initServer();
 
 /**
- * The function Init the server on port 3000, and get data from /get-data.
- *
+ * The function Init the server on port 3000.
+ * In main page the server send the HTML.
+ * In /get-data the server send the regular amount of pokemons.
+ * In /get-all-data the server send 100K pokemon's.
+ * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  const dataInit = await getJsonPokemons();
+  const dataInit = await getPokemonsFromAtlas();
 
   await continueInit();
   function continueInit() {
@@ -51,7 +55,6 @@ async function initServer() {
       res.json(await updateDataFavorite(req.body.idNumber));
     });
 
-    app.listen(process.env.PORT || 3000, () => console.log('listening to port 3000')
-    );
+    app.listen(process.env.PORT || 3000, () => console.log('listening to port 3000'));
   }
 }
