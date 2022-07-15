@@ -66,22 +66,8 @@ export async function updateDataFavorite(idNumber: string) {
       { id: Number(idNumber) },
       { $set: { favorite: true } }
     );
-    // jsonFileColl.updateOne({ id: idNumber }, { $set: { favorite: true } })
   } catch {
     console.log(`There is no pokemon with ${idNumber}`);
   }
+  console.log(`Update favorite for - ${idNumber}`);
 }
-
-// const readFileData: Data[] | undefined = JSON.parse(
-//   fs.readFileSync(pathDataJson, "utf8")
-// )
-// readFileData?.forEach((ell) => {
-//   if (ell.id === Number(idNumber)) {
-//     console.log(ell.favorite)
-//     ell.favorite = ell.favorite === true ? false : true
-//     console.log(ell.favorite)
-//   }
-// })
-// await fs.writeFileSync(pathDataJson, JSON.stringify(readFileData))
-// console.log(await JSON.parse(fs.readFileSync(pathDataJson, "utf8"))[0])
-// return idNumber

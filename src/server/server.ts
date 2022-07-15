@@ -32,10 +32,12 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (!false) await insertDataToAtlas(JSON.parse(readFileData));
+  if (false) await insertDataToAtlas(JSON.parse(readFileData));
   console.log('insertDataToAtlas  -- finish');
+
+  console.log('getInitPokemons -- start');
   const dataInit = await getPokemonsFromAtlas();
-  console.log('getPokemonsFromAtlas -- finish');
+  console.log('getInitPokemons -- finish');
 
   await continueInit();
   function continueInit() {

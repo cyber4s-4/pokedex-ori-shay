@@ -27,20 +27,20 @@ export function closeButtonFunc(
 export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
   star.addEventListener('click', async (el) => {
     const target = el.currentTarget as HTMLSpanElement;
-    // const rawResponse = await fetch('/star', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ idNumber: id }),
-    // });
-    // const content = await rawResponse.json();
-    // console.log('pokeId: ' + content);
     if (target.classList.contains('checked') === true) {
       target.classList.remove('checked');
     } else {
       target.classList.add('checked');
     }
+    const rawResponse = await fetch('/star', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ idNumber: id }),
+    });
+    const content = await rawResponse.json();
+    console.log('pokeId: ' + content);
   });
 }
