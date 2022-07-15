@@ -1,28 +1,61 @@
 import { Data } from './data';
-import { MongoClient, Db, Collection /*, WithId*/ } from 'mongodb';
+import { MongoClient, Db, Collection } from 'mongodb';
 import { key } from './key';
 
-export async function main(data: Data[]) {
+export async function getJsonPokemons() {
+  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
+  const client = new MongoClient(uri);
+  await client.connect();
+
+  const arrPoke = await client
+    .db('pokedex-project')
+    .collection('json-file')
+    .find()
+    .toArray()
+    .catch(console.log);
+
+  return arrPoke;
+}
+
+export async function getMillionPokemons() {
+  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
+  const client = new MongoClient(uri);
+  await client.connect();
+  const db: Db = client.db('pokedex-project');
+  const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
+
+  const arrPoke = milionKPokeColl
+    .find({})
+    // .limit(2000)
+    .toArray()
+    .catch(console.log);
+
+  return arrPoke;
+}
+
+/**
+ * TODO: write here comment explain:
+ */
+export async function insertToAtlas(data: Data[]) {
   const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
   await client.connect();
   const db: Db = client.db('pokedex-project');
   const jsonFileColl: Collection<Data> = db.collection('json-file');
   const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
-  // transferDataToDB(data, jsonFileColl);
-  // doublePokemons(data, milionKPokeColl);
+  if (false) {
+    insertJsonPokemons(data, jsonFileColl);
+    insertMillionPokemons(data, milionKPokeColl);
+  }
 }
 
-export async function transferDataToDB(
-  data: Data[],
-  collection: Collection<Data>
-) {
+async function insertJsonPokemons(data: Data[], collection: Collection<Data>) {
   const options = { ordered: true };
   const result = await collection.insertMany(data, options);
   console.log(`${result.insertedCount} documents were inserted`);
 }
 
-export async function doublePokemons(
+async function insertMillionPokemons(
   dataArray: Data[],
   collection: Collection<Data>
 ) {
@@ -34,7 +67,7 @@ export async function doublePokemons(
       const secondPokemon = dataArray[inn];
       if (firstPokemon.name === secondPokemon.name) break;
       newDatabase.push({
-        name: firstPokemon.name + secondPokemon.name,
+        name: firstPokemon.name + '-' + secondPokemon.name + 'p',
         img: secondPokemon.img,
         height: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
         weight: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
@@ -47,37 +80,6 @@ export async function doublePokemons(
   const options = { ordered: true };
   const result = await collection.insertMany(newDatabase, options);
   console.log(`${result.insertedCount} documents were inserted`);
-}
-
-export async function getJsonCollection() {
-  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
-  const client = new MongoClient(uri);
-  await client.connect();
-
-  const arr = await client
-    .db('pokedex-project')
-    .collection('json-file')
-    .find()
-    .toArray()
-    .catch(console.log);
-
-  return arr;
-}
-
-export async function getAllCollection() {
-  const uri = `mongodb+srv://${key}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
-  const client = new MongoClient(uri);
-  await client.connect();
-  const db: Db = client.db('pokedex-project');
-  const milionKPokeColl: Collection<Data> = db.collection('90K-poke');
-
-  const dataJson = milionKPokeColl
-    .find({})
-    .limit(2000)
-    .toArray()
-    .catch(console.log);
-
-  return dataJson;
 }
 
 // ------------------Example how itayMeytav do it: ---------------------

@@ -8,6 +8,7 @@ import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
 import { closeButtonFunc } from './buttons';
+import { scrolling } from './scrollingComponent';
 
 const POKEMON_STEPS = 15; // Each scroll the page uploads 15 pokemons.
 export let counter = 0;
@@ -27,12 +28,12 @@ export async function addPokemons(pokeList: Data[]): Promise<void> {
 /**
  * The function shows the searched pokemon.
  *
- * @param {Data} element - An object with the pokemon data
+ * @param {Data} selectedPoke - An object with the pokemon data
  */
-export async function viewPokemon(element: Data): Promise<void> {
+export async function viewPokemon(selectedPoke: Data): Promise<void> {
   MAIN_CONTAINER.style.display = 'block';
   MAIN_CONTAINER.innerHTML = '';
-  new PokemonComponent(element, MAIN_CONTAINER).render();
+  new PokemonComponent(selectedPoke, MAIN_CONTAINER).render();
 }
 
 /**
@@ -55,13 +56,45 @@ export function noResults(): void {
  *
  * @param {Poke} pokeList - An object with the pokemon data
  */
-export function searchInputFunc(pokeList: Data[]): void {
-  console.log(pokeList.length);
-  console.log('searchInputFunc function');
+export async function searchInputFunc(pokeList: Data[]): Promise<void> {
+  console.log('All pokemons search available: ' + pokeList.length);
+  searchClick(pokeList);
+
+  const pokemon_all_data: Data[] = await (await fetch(`/get-all-data`))
+    .json()
+    .catch(console.log);
+  console.log('All pokemons search available: ' + pokemon_all_data.length);
+  searchClick(pokemon_all_data);
+}
+
+function searchClick(arrPoke: Data[]) {
   BUTTON_INPUT.addEventListener('click', async () => {
-    pokeList.forEach((element: Data) => {
-      if (SEARCH_INPUT.value === element.name) viewPokemon(element);
+    arrPoke.forEach((poke: Data) => {
+      if (
+        SEARCH_INPUT.value === poke.name ||
+        Number(SEARCH_INPUT.value) === poke.id
+      )
+        viewPokemon(poke);
     });
     if (MAIN_CONTAINER.style.display === 'none') noResults();
+  });
+
+  SEARCH_INPUT.addEventListener('input', async () => {
+    console.log(SEARCH_INPUT.value);
+    const pokesMatch: Data[] = arrPoke.filter((poke) => {
+      return (
+        poke.name.startsWith(SEARCH_INPUT.value) ||
+        poke.id.toString().startsWith(SEARCH_INPUT.value)
+      );
+    });
+    FIRST_CONTAINER.innerHTML = '';
+    if (pokesMatch.length !== 0) {
+      scrolling(pokesMatch);
+    } else {
+      FIRST_CONTAINER.innerHTML = 'No results';
+    }
+    console.log(pokesMatch.length);
+
+    // if (FIRST_CONTAINER.style.display === 'none') noResults();
   });
 }

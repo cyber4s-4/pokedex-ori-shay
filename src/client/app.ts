@@ -15,11 +15,7 @@ async function init() {
     .json()
     .catch(console.log);
   scrolling(pokemon_json_file);
-
-  const pokemon_all_data: Data[] = await (await fetch(`/get-all-data`))
-    .json()
-    .catch(console.log);
-  searchInputFunc(pokemon_all_data);
+  searchInputFunc(pokemon_json_file);
 }
 
 function getDivElement(id: string): HTMLDivElement {

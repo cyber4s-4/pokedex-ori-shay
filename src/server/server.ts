@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { updateDataFavorite } from './data';
-import { getAllCollection, getJsonCollection, main } from './mongo';
+import { getMillionPokemons, getJsonPokemons, insertToAtlas } from './mongo';
 
 export const fs = require('fs');
 const path = require('path');
@@ -11,8 +11,13 @@ const app = express();
 app.use(json());
 app.use(express.static('./dist'));
 
+/**
+ * * TODO: write here comment explain:
+ */
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
+if (false) insertToAtlas(JSON.parse(readFileData));
+
 initServer();
 
 /**
@@ -20,16 +25,11 @@ initServer();
  *
  */
 async function initServer() {
-  // main(JSON.parse(readFileData));
-  // await insertToDataJson(readFileData);
-  const dataInit = await getJsonCollection();
-  const bigDataInit = await getAllCollection();
+  const dataInit = await getJsonPokemons();
 
   await continueInit();
   function continueInit() {
-    console.log('ready');
     app.get('/', (req: Request, res: Response) => {
-      console.log('Processing request: ', req.url);
       res.sendFile(req.path || 'index.html', {
         root: './dist',
       });
@@ -39,7 +39,10 @@ async function initServer() {
       res.send(dataInit);
     });
 
-    app.get('/get-all-data', (_req: Request, res: Response) => {
+    app.get('/get-all-data', async (_req: Request, res: Response) => {
+      console.log('Start getMillionPokemons from Atlas');
+      const bigDataInit = await getMillionPokemons();
+      console.log('Finish getMillionPokemons from Atlas');
       res.send(bigDataInit);
     });
 
