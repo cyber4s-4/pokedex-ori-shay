@@ -98,12 +98,12 @@ gulp.task('heroku-copy-dist', () => {
       './dist/styles.css',
       './dist/tsc/*/AllPokesComponent.js',
       './dist/tsc/*/buttons.js',
-      './dist/tsc/*/data.js',
       './dist/tsc/*/pokemonComponent.js',
       './dist/tsc/*/scrollingComponent.js',
       './dist/tsc/*/Pokemons.js',
       './dist/tsc/*/data.js',
       './dist/tsc/*/server.js',
+      './dist/tsc/*/mongo.js',
     ])
     .pipe(gulp.dest('./deploy/dist'));
 });

@@ -38,7 +38,7 @@ export async function getPokemonsFromAtlas() {
  */
 export async function getMillionPokemons() {
   const db = await connectToAtlas(key);
-  const millionPokeColl: Collection<Data> = db.collection('90K-poke');
+  const millionPokeColl: Collection<Data> = db.collection('100K-poke');
   const arrPoke = millionPokeColl
     .find({})
     // .limit(2000)
@@ -57,10 +57,10 @@ export async function getMillionPokemons() {
 export async function insertDataToAtlas(data: Data[]) {
   const db = await connectToAtlas(key);
   const jsonFileColl: Collection<Data> = db.collection('json-file');
-  const millionPokeColl: Collection<Data> = db.collection('90K-poke');
+  const millionPokeColl: Collection<Data> = db.collection('100K-poke');
   if (true) {
     insertRegularAmount(data, jsonFileColl);
-    insertMillionPokemons(data, millionPokeColl);
+    insert100KPokemons(data, millionPokeColl);
   }
 }
 
@@ -84,11 +84,11 @@ async function insertRegularAmount(data: Data[], collection: Collection<Data>) {
  *  @param {Collection<Data>} collection - Collection which the data is inserted
  *  @param {Data} data - An object with the pokemon's data
  */
-async function insertMillionPokemons(data: Data[], collection: Collection<Data>) {
+async function insert100KPokemons(data: Data[], collection: Collection<Data>) {
   const newDatabase: Data[] = [];
   let counter: number = data.length + 1;
   for (let out = 0; out < data.length; out++) {
-    for (let inn = 0; inn <= 300; inn++) {
+    for (let inn = 0; inn <= 125; inn++) {
       const firstPokemon = data[out];
       const secondPokemon = data[inn];
       if (firstPokemon.name === secondPokemon.name) break;
@@ -111,17 +111,3 @@ async function insertMillionPokemons(data: Data[], collection: Collection<Data>)
   const result = await collection.insertMany(newDatabase, options);
   console.log(`${result.insertedCount} documents were inserted`);
 }
-
-// ------------------Example how itayMeytav do it: ---------------------
-// export async function get20Pokemons() {
-//   try {
-//     const connect = await create();
-//     const collectionName = await collection('pokedex', 'pokemons');
-//     return await collectionName.find({}).limit(20).toArray();
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//     console.log('done');
-//     client.close();
-//   }
-// }
