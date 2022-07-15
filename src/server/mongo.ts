@@ -1,6 +1,7 @@
 import { Data } from "./data"
-import { MongoClient, Db, Collection } from "mongodb"
+import { Db, Collection } from "mongodb"
 import { key } from "./key"
+export const { MongoClient, ServerApiVersion } = require("mongodb")
 
 /**
  * The function connects to Atlas.
@@ -8,8 +9,16 @@ import { key } from "./key"
  *  @param {string} signInDetails - The username and the password of the user.
  */
 export async function connectToAtlas(signInDetails: string) {
-  const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`
-  const client = new MongoClient(uri)
+  const uri =
+    "mongodb+srv://shay-sagzan:awy7t12fw@cluster0.sjyay.mongodb.net/?retryWrites=true&w=majority"
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+  })
+
+  // const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`
+  // const client = new MongoClient(uri)
   await client.connect()
   let db: Db = client.db("pokedex-project")
   return db
@@ -54,7 +63,7 @@ export async function insertDataToAtlas(data: Data[]) {
   const db = await connectToAtlas(key)
   const jsonFileColl: Collection<Data> = db.collection("json-file")
   const millionPokeColl: Collection<Data> = db.collection("90K-poke")
-  if (false) {
+  if (true) {
     insertRegularAmount(data, jsonFileColl)
     insertMillionPokemons(data, millionPokeColl)
   }
@@ -85,11 +94,15 @@ async function insertMillionPokemons(data: Data[], collection: Collection<Data>)
   let counter: number = data.length + 1
   for (let out = 0; out < data.length; out++) {
     for (let inn = 0; inn <= 100; inn++) {
-      const firstPokemon = data[out]
-      const secondPokemon = data[inn]
+      let firstPokemon = data[out]
+      let secondPokemon = data[inn]
       if (firstPokemon.name === secondPokemon.name) break
+      const firstPokemonName = firstPokemon.name.substring(0, 4)
+      const secondPokemonName =
+        secondPokemon.name.charAt(0).toUpperCase() +
+        secondPokemon.name.substring(1, 4)
       newDatabase.push({
-        name: firstPokemon.name.split("", 2) + "-" + secondPokemon.name.split("", 2),
+        name: firstPokemonName + secondPokemonName,
         img: secondPokemon.img,
         height: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
         weight: Math.floor((firstPokemon.height + secondPokemon.height) / 2),

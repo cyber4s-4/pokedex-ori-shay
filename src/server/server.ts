@@ -17,7 +17,7 @@ app.use(express.static("./dist"))
  */
 export const pathDataJson: string = path.join(__dirname, "../data.json")
 const readFileData: string = fs.readFileSync(pathDataJson, "utf8")
-if (false) insertDataToAtlas(JSON.parse(readFileData))
+if (true) insertDataToAtlas(JSON.parse(readFileData))
 
 initServer()
 
@@ -53,17 +53,6 @@ async function initServer() {
     app.post("/star", async (req: Request, res: Response) => {
       await updateDataFavorite(req.body.idNumber)
     })
-
-    // try {
-    //   await students.updateOne(
-    //     { name: "Yahalom" },
-    //     { $push: { courses: "JavaScript" } }
-    //   )
-    // } catch {
-    //   console.log(`There is no students with the name of Yahalom!`)
-    // } finally {
-    //   await client.close()
-    // }
 
     app.listen(process.env.PORT || 3000, () => console.log("listening to port 3000"))
   }

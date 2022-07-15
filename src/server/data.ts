@@ -59,7 +59,7 @@ export async function updateDataFavorite(idNumber: string) {
   const jsonFileColl: Collection<Data> = db.collection("json-file")
 
   try {
-    jsonFileColl.updateOne({ id: idNumber }, { $set: { favorite: true } })
+    // jsonFileColl.updateOne({ id: idNumber }, { $set: { favorite: true } })
   } catch {
     console.log(`There is no pokemon with ${idNumber}`)
   }
