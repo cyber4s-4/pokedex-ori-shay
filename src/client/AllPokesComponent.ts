@@ -12,7 +12,6 @@ export class AllPokesComponent {
 
   render(): void {
     // Enter the data into a template - parent and children:
-    // console.log(this.data);
     if (this.data === undefined) return;
     const pokemonTemplate = document.createElement('div') as HTMLDivElement;
     pokemonTemplate.classList.add('pokemon-template-first-page');
@@ -46,6 +45,8 @@ export class AllPokesComponent {
     const star = document.createElement('span') as HTMLSpanElement;
     star.classList.add('fa', 'fa-star');
     star.id = 'star';
+    if (this.data.favorite === true) star.classList.add('checked');
+
     dataDiv.appendChild(star);
     makeFavoritePokemon(star, this.data.id);
   }
