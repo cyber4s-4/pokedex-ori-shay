@@ -21,7 +21,6 @@ app.use(express.static('./dist'));
  */
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
-if (true) insertDataToAtlas(JSON.parse(readFileData));
 
 initServer();
 
@@ -33,7 +32,10 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
+  if (!false) await insertDataToAtlas(JSON.parse(readFileData));
+  console.log('insertDataToAtlas  -- finish');
   const dataInit = await getPokemonsFromAtlas();
+  console.log('getPokemonsFromAtlas -- finish');
 
   await continueInit();
   function continueInit() {
