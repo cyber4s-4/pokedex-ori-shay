@@ -7,21 +7,20 @@ import { key } from "./key"
  *
  *  @param {string} signInDetails - The username and the password of the user.
  */
-async function connectToAtlas(signInDetails: string) {
+export async function connectToAtlas(signInDetails: string) {
   const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`
   const client = new MongoClient(uri)
   await client.connect()
-  return client
+  let db: Db = client.db("pokedex-project")
+  return db
 }
 
 /**
  * The function returns array with the regular amount of pokemons from Atlas Database.
  */
 export async function getPokemonsFromAtlas() {
-  const client = await connectToAtlas(key)
-
-  const arrPoke = await client
-    .db("pokedex-project")
+  const db = await connectToAtlas(key)
+  const arrPoke = await db
     .collection("json-file")
     .find()
     .toArray()
@@ -34,11 +33,8 @@ export async function getPokemonsFromAtlas() {
  * The function returns array with 100K pokemons from Atlas Database.
  */
 export async function getMillionPokemons() {
-  const client = await connectToAtlas(key)
-
-  const db: Db = client.db("pokedex-project")
+  const db = await connectToAtlas(key)
   const millionPokeColl: Collection<Data> = db.collection("90K-poke")
-
   const arrPoke = millionPokeColl
     .find({})
     // .limit(2000)
@@ -55,14 +51,12 @@ export async function getMillionPokemons() {
  *  @param {Data} data - An object with the pokemon's data
  */
 export async function insertDataToAtlas(data: Data[]) {
-  const client = await connectToAtlas(key)
-
-  const db: Db = client.db("pokedex-project")
+  const db = await connectToAtlas(key)
   const jsonFileColl: Collection<Data> = db.collection("json-file")
-  const milionKPokeColl: Collection<Data> = db.collection("90K-poke")
+  const millionPokeColl: Collection<Data> = db.collection("90K-poke")
   if (false) {
     insertRegularAmount(data, jsonFileColl)
-    insertMillionPokemons(data, milionKPokeColl)
+    insertMillionPokemons(data, millionPokeColl)
   }
 }
 
@@ -95,7 +89,7 @@ async function insertMillionPokemons(data: Data[], collection: Collection<Data>)
       const secondPokemon = data[inn]
       if (firstPokemon.name === secondPokemon.name) break
       newDatabase.push({
-        name: firstPokemon.name + "-" + secondPokemon.name + "p",
+        name: firstPokemon.name.split("", 2) + "-" + secondPokemon.name.split("", 2),
         img: secondPokemon.img,
         height: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
         weight: Math.floor((firstPokemon.height + secondPokemon.height) / 2),

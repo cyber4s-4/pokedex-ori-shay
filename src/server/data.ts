@@ -1,6 +1,9 @@
-import fetch from 'cross-fetch';
-import { ObjectId } from 'mongodb';
-import { fs, pathDataJson } from './server';
+import { json } from "body-parser"
+import fetch from "cross-fetch"
+import { Collection, ObjectId } from "mongodb"
+import { key } from "./key"
+import { connectToAtlas } from "./mongo"
+import { fs, pathDataJson } from "./server"
 
 export interface Data {
   _id?: ObjectId
@@ -12,7 +15,7 @@ export interface Data {
   favorite: boolean
 }
 
-export const dataList: Data[] = [];
+export const dataList: Data[] = []
 
 /**
  * THE FUNCTION IS NOT IN USE!
@@ -21,7 +24,7 @@ export const dataList: Data[] = [];
  * @param {string} dataFile - An object with the pokemon data
  */
 export async function insertToDataJson(dataFile: string): Promise<void> {
-  if (dataFile !== '') return;
+  if (dataFile !== "") return
 
   for (let i = 1; i <= 898; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -34,13 +37,14 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
           weight: res.weight,
           id: res.id,
           favorite: false,
-        });
+        })
       })
       .then(() => {
-        dataList.sort((a: Data, b: Data) => a.id - b.id);
+        dataList.sort((a: Data, b: Data) => a.id - b.id)
       })
-      .catch(() => console.log(`Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`)
-      );
+      .catch(() =>
+        console.log(`Error:  fetch fail in  https://pokeapi.co/api/v2/pokemon/${i}`)
+      )
   }
 }
 
@@ -51,17 +55,26 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
  * @param {string} idNumber - An object with the pokemon data
  */
 export async function updateDataFavorite(idNumber: string) {
-  const readFileData: Data[] | undefined = JSON.parse(
-    fs.readFileSync(pathDataJson, 'utf8')
-  );
-  readFileData?.forEach((ell) => {
-    if (ell.id === Number(idNumber)) {
-      console.log(ell.favorite);
-      ell.favorite = ell.favorite === true ? false : true;
-      console.log(ell.favorite);
-    }
-  });
-  await fs.writeFileSync(pathDataJson, JSON.stringify(readFileData));
-  console.log(await JSON.parse(fs.readFileSync(pathDataJson, 'utf8'))[0]);
-  return idNumber;
+  const db = await connectToAtlas(key)
+  const jsonFileColl: Collection<Data> = db.collection("json-file")
+
+  try {
+    jsonFileColl.updateOne({ id: idNumber }, { $set: { favorite: true } })
+  } catch {
+    console.log(`There is no pokemon with ${idNumber}`)
+  }
 }
+
+// const readFileData: Data[] | undefined = JSON.parse(
+//   fs.readFileSync(pathDataJson, "utf8")
+// )
+// readFileData?.forEach((ell) => {
+//   if (ell.id === Number(idNumber)) {
+//     console.log(ell.favorite)
+//     ell.favorite = ell.favorite === true ? false : true
+//     console.log(ell.favorite)
+//   }
+// })
+// await fs.writeFileSync(pathDataJson, JSON.stringify(readFileData))
+// console.log(await JSON.parse(fs.readFileSync(pathDataJson, "utf8"))[0])
+// return idNumber
