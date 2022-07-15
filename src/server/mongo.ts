@@ -12,7 +12,7 @@ export async function connectToAtlas(signInDetails: string) {
   const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
   await client.connect();
-  let db: Db = client.db('pokedex-project');
+  const db: Db = client.db('pokedex-project');
 
   // const uri = `mongodb+srv://${signInDetails}@cluster0.f6khn.mongodb.net/?retryWrites=true&w=majority`
   // const client = new MongoClient(uri)
@@ -84,14 +84,11 @@ async function insertRegularAmount(data: Data[], collection: Collection<Data>) {
  *  @param {Collection<Data>} collection - Collection which the data is inserted
  *  @param {Data} data - An object with the pokemon's data
  */
-async function insertMillionPokemons(
-  data: Data[],
-  collection: Collection<Data>
-) {
+async function insertMillionPokemons(data: Data[], collection: Collection<Data>) {
   const newDatabase: Data[] = [];
   let counter: number = data.length + 1;
   for (let out = 0; out < data.length; out++) {
-    for (let inn = 0; inn <= 100; inn++) {
+    for (let inn = 0; inn <= 300; inn++) {
       const firstPokemon = data[out];
       const secondPokemon = data[inn];
       if (firstPokemon.name === secondPokemon.name) break;

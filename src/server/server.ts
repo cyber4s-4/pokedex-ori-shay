@@ -2,11 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { updateDataFavorite } from './data';
-import {
-  getMillionPokemons,
-  getPokemonsFromAtlas,
-  insertDataToAtlas,
-} from './mongo';
+import { getMillionPokemons, getPokemonsFromAtlas, insertDataToAtlas } from './mongo';
 
 export const fs = require('fs');
 const path = require('path');
@@ -32,7 +28,7 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (false) await insertDataToAtlas(JSON.parse(readFileData));
+  if (true) await insertDataToAtlas(JSON.parse(readFileData));
   console.log('insertDataToAtlas  -- finish');
 
   console.log('getInitPokemons -- start');
@@ -62,8 +58,6 @@ async function initServer() {
       await updateDataFavorite(req.body.idNumber);
     });
 
-    app.listen(process.env.PORT || 3000, () =>
-      console.log('listening to port 3000')
-    );
+    app.listen(process.env.PORT || 3000, () => console.log('listening to port 3000'));
   }
 }
