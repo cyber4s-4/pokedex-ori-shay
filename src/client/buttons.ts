@@ -27,7 +27,9 @@ export function closeButtonFunc(
 export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
   star.addEventListener('click', async (el) => {
     const target = el.currentTarget as HTMLSpanElement;
+    let favorite = true;
     if (target.classList.contains('checked') === true) {
+      favorite = false;
       target.classList.remove('checked');
     } else {
       target.classList.add('checked');
@@ -38,7 +40,7 @@ export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ idNumber: id }),
+      body: JSON.stringify({ idNumber: id, favorite: favorite }),
     });
     const content = await rawResponse.json();
     console.log('pokeId: ' + content);

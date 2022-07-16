@@ -59,7 +59,8 @@ async function initServer() {
     });
 
     app.post('/star', async (req: Request, res: Response) => {
-      await updateDataFavorite(req.body.idNumber);
+      console.log(req.body.favorite);
+      await updateDataFavorite(req.body.idNumber, req.body.favorite);
     });
 
     app.listen(process.env.PORT || 3000, () =>

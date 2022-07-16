@@ -56,7 +56,7 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
  *
  * @param {string} idNumber - An object with the pokemon data
  */
-export async function updateDataFavorite(idNumber: string) {
+export async function updateDataFavorite(idNumber: string, favorite: boolean) {
   console.log(idNumber);
   const db = await connectToAtlas(key);
   const jsonFileColl: Collection<Data> = db.collection('json-file');
@@ -64,10 +64,10 @@ export async function updateDataFavorite(idNumber: string) {
   try {
     jsonFileColl.updateOne(
       { id: Number(idNumber) },
-      { $set: { favorite: true } }
+      { $set: { favorite: favorite } }
     );
   } catch {
     console.log(`There is no pokemon with ${idNumber}`);
   }
-  console.log(`Update favorite for - ${idNumber}`);
+  console.log(`Update favorite for - ${idNumber} - ${favorite}`);
 }
