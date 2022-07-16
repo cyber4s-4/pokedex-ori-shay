@@ -102,6 +102,7 @@ gulp.task('heroku-copy-dist', () => {
       './dist/tsc/*/scrollingComponent.js',
       './dist/tsc/*/Pokemons.js',
       './dist/tsc/*/data.js',
+      './dist/tsc/*/key.js',
       './dist/tsc/*/server.js',
       './dist/tsc/*/mongo.js',
     ])
