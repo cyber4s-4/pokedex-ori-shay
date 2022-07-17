@@ -1,6 +1,8 @@
 # This is Ori & Shay Pokedex Project.
 
-# To initiate The Project:
+# You can see our website here: https://shay-ori-pokedex.herokuapp.com/
+
+# To initiate the project in your local computer:
 
 # 1. Open the 'mongo.ts' file and insert your connect details in 'connectToAtlas' function.
 
