@@ -15,6 +15,7 @@ export function scrolling() {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
 
+      // setTimeout(() => {}, 200);
       if (scrollTop + clientHeight >= scrollHeight - 5 && counter < 801) {
         load20Poke();
       }
@@ -23,15 +24,12 @@ export function scrolling() {
       passive: true,
     }
   );
-
-  load20Poke();
-
-  async function load20Poke() {
-    const poke20Array: Data[] = await (await fetch(`/get20Pokemons/${counter}`))
-      .json()
-      .catch(console.log);
-    console.log(poke20Array);
-    addPokemons(poke20Array);
-    counter += 20;
-  }
+}
+export async function load20Poke() {
+  const poke20Array: Data[] = await (await fetch(`/get20Pokemons/${counter}`))
+    .json()
+    .catch(console.log);
+  console.log(poke20Array);
+  addPokemons(poke20Array);
+  counter += 20;
 }
