@@ -1,13 +1,17 @@
 import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { updateDataFavorite } from './data';
-import {
-  client,
-  buildTable,
-  get20Pokemons,
-  getSpecificPoke,
-  insertDataFor5K,
-} from './connect';
+import { client, buildTable, get20Pokemons, getSpecificPoke } from './connect';
+
+// TODO: ori:
+// 1. The 'scrolling bug'
+// 2. Improve the scss
+// 3. Play with the fetch requests in the data.ts - promise.all...
+// 4. Look at the tasks i wrote in the google notes...
+
+// TODO: shay:
+// 1. Fix the favorite - and see if it's happen.
+// 2. Explainig comments
 
 export const fs = require('fs');
 const path = require('path');
