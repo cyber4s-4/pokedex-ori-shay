@@ -104,7 +104,7 @@ gulp.task('heroku-copy-dist', () => {
       './dist/tsc/*/data.js',
       './dist/tsc/*/key.js',
       './dist/tsc/*/server.js',
-      './dist/tsc/*/mongo.js',
+      './dist/tsc/*/connect.js',
     ])
     .pipe(gulp.dest('./deploy/dist'));
 });

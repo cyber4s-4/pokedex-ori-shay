@@ -28,7 +28,7 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (!false) {
+  if (false) {
     console.log('Start buildTable function ');
     await buildTable(JSON.parse(readFileData));
     console.log('Finish buildTable function ');

@@ -63,13 +63,11 @@ export async function searchInputFunc() {
     try {
       const searchedPoke: Data = await (
         await fetch(`/get-specific/${SEARCH_INPUT.value}`)
-      )
-        .json()
-        .catch(console.log);
-
+      ).json();
       viewPokemon(searchedPoke);
-    } catch {
-      noResults();
+    } catch (error) {
+      // noResults();`
+      if (MAIN_CONTAINER.style.display === 'none') noResults();
     }
   });
 
