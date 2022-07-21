@@ -1,18 +1,14 @@
-import { json } from 'body-parser';
 import fetch from 'cross-fetch';
-import { Collection, ObjectId } from 'mongodb';
-import { key } from './key';
-import { connectToAtlas } from './mongo';
-import { fs, pathDataJson } from './server';
+import { Collection } from 'mongodb';
 
 export interface Data {
-  _id?: ObjectId;
   name: string;
   img: string;
   height: number;
   weight: number;
   id: number;
   favorite: boolean;
+  id_serial?: number;
 }
 
 export const dataList: Data[] = [];
@@ -57,17 +53,17 @@ export async function insertToDataJson(dataFile: string): Promise<void> {
  * @param {string} idNumber - An object with the pokemon data
  */
 export async function updateDataFavorite(idNumber: string, favorite: boolean) {
-  console.log(idNumber);
-  const db = await connectToAtlas(key);
-  const jsonFileColl: Collection<Data> = db.collection('json-file');
+  // console.log(idNumber);
+  // const db = await connectToAtlas('key');
+  // const jsonFileColl: Collection<Data> = db.collection('json-file');
 
-  try {
-    jsonFileColl.updateOne(
-      { id: Number(idNumber) },
-      { $set: { favorite: favorite } }
-    );
-  } catch {
-    console.log(`There is no pokemon with ${idNumber}`);
-  }
+  // try {
+  //   jsonFileColl.updateOne(
+  //     { id: Number(idNumber) },
+  //     { $set: { favorite: favorite } }
+  //   );
+  // } catch {
+  //   console.log(`There is no pokemon with ${idNumber}`);
+  // }
   console.log(`Update favorite for - ${idNumber} - ${favorite}`);
 }

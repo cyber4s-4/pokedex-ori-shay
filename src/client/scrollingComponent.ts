@@ -1,6 +1,6 @@
-import { FIRST_CONTAINER } from './app';
-import { addPokemons, counter } from './Pokemons';
+import { addPokemons } from './Pokemons';
 import { Data } from '../server/data';
+let counter = 0;
 
 /**
  * The function responsible for the infinite scrolling in the page. Each time the user
@@ -8,46 +8,15 @@ import { Data } from '../server/data';
  *
  * @param {Data} pokeList - An object with the pokemon data
  */
-export function scrolling(pokeList: Data[]) {
-  const hideLoader = () => {
-    FIRST_CONTAINER.classList.remove('show');
-  };
-
-  const showLoader = () => {
-    FIRST_CONTAINER.classList.add('show');
-  };
-
-  const hasMorePokemons = () => {
-    if (counter <= 898) return true;
-  };
-
-  // Load Pokemons
-  const loadPokemons = async () => {
-    // show the loader
-    showLoader();
-
-    // 0.5 second later
-    setTimeout(async () => {
-      try {
-        // if having more Pokemons to fetch
-        if (hasMorePokemons()) {
-          addPokemons(pokeList);
-        }
-      } catch (error: any) {
-        console.log(error.message);
-      } finally {
-        hideLoader();
-      }
-    }, 200);
-  };
-
+export function scrolling() {
   window.addEventListener(
     'scroll',
-    () => {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    async () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
 
-      if (scrollTop + clientHeight >= scrollHeight - 5 && hasMorePokemons()) {
-        addPokemons(pokeList);
+      if (scrollTop + clientHeight >= scrollHeight - 5 && counter < 801) {
+        load20Poke();
       }
     },
     {
@@ -55,6 +24,14 @@ export function scrolling(pokeList: Data[]) {
     }
   );
 
-  // initialize
-  loadPokemons();
+  load20Poke();
+
+  async function load20Poke() {
+    const poke20Array: Data[] = await (await fetch(`/get20Pokemons/${counter}`))
+      .json()
+      .catch(console.log);
+    console.log(poke20Array);
+    addPokemons(poke20Array);
+    counter += 20;
+  }
 }

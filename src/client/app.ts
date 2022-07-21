@@ -1,4 +1,3 @@
-import { Data } from '../server/data';
 import { searchInputFunc } from './Pokemons';
 import { scrolling } from './scrollingComponent';
 
@@ -15,14 +14,8 @@ init();
  */
 async function init() {
   MAIN_CONTAINER.style.display = 'none';
-  // Load the page
-  const pokemon_json_file: Data[] = await (await fetch('/get-data'))
-    .json()
-    .catch(console.log);
-  console.log(pokemon_json_file);
-
-  scrolling(pokemon_json_file);
-  searchInputFunc(pokemon_json_file);
+  scrolling();
+  searchInputFunc();
 }
 
 // Auxiliary Function

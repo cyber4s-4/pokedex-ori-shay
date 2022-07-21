@@ -1,12 +1,7 @@
-import express from 'express';
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
 import { updateDataFavorite } from './data';
-import {
-  getMillionPokemons,
-  getPokemonsFromAtlas,
-  insertDataToAtlas,
-} from './mongo';
+import { client, buildTable, get20Pokemons, getSpecificPoke } from './connect';
 
 export const fs = require('fs');
 const path = require('path');
@@ -22,6 +17,7 @@ app.use(express.static('./dist'));
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
 
+client.connect();
 initServer();
 
 /**
@@ -32,14 +28,13 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (false) await insertDataToAtlas(JSON.parse(readFileData));
-  console.log('insertDataToAtlas  -- finish');
+  if (!false) {
+    console.log('Start buildTable function ');
+    await buildTable(JSON.parse(readFileData));
+    console.log('Finish buildTable function ');
+  }
 
-  console.log('getInitPokemons -- start');
-  const dataInit = await getPokemonsFromAtlas();
-  console.log('getInitPokemons -- finish');
-
-  await continueInit();
+  continueInit();
   function continueInit() {
     app.get('/', (req: Request, res: Response) => {
       res.sendFile(req.path || 'index.html', {
@@ -47,21 +42,18 @@ async function initServer() {
       });
     });
 
-    app.get('/get-data', (_req: Request, res: Response) => {
-      res.send(dataInit);
+    app.get('/get20Pokemons/:counter', async (req: Request, res: Response) => {
+      res.send(await get20Pokemons(Number(req.params.counter)));
     });
 
-    app.get('/get-all-data', async (_req: Request, res: Response) => {
-      console.log('Start getMillionPokemons from Atlas');
-      const bigDataInit = await getMillionPokemons();
-      console.log('Finish getMillionPokemons from Atlas');
-      res.send(bigDataInit);
+    app.get('/get-specific/:specific', async (req: Request, res: Response) => {
+      res.send(await getSpecificPoke(req.params.specific));
     });
 
-    app.post('/star', async (req: Request, res: Response) => {
-      console.log(req.body.favorite);
-      await updateDataFavorite(req.body.idNumber, req.body.favorite);
-    });
+    // app.post('/star', async (req: Request, res: Response) => {
+    //   console.log(req.body.favorite);
+    //   await updateDataFavorite(req.body.idNumber, req.body.favorite);
+    // });
 
     app.listen(process.env.PORT || 3000, () =>
       console.log('listening to port 3000')

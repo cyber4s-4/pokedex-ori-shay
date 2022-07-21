@@ -12,7 +12,6 @@ export class AllPokesComponent {
 
   render(): void {
     // Enter the data into a template - parent and children:
-    if (this.data === undefined) return;
     const pokemonTemplate = document.createElement('div') as HTMLDivElement;
     pokemonTemplate.classList.add('pokemon-template-first-page');
     this.parent.appendChild(pokemonTemplate);

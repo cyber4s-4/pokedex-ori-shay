@@ -8,10 +8,6 @@ import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
 import { closeButtonFunc } from './buttons';
-import { scrolling } from './scrollingComponent';
-
-const POKEMON_STEPS = 15; // Each scroll the page uploads 15 pokemons.
-export let counter = 0;
 
 /**
  * The function add pokemons to the main page when it upload.
@@ -19,9 +15,8 @@ export let counter = 0;
  * @param {Data} pokeList - An object with the pokemon data
  */
 export async function addPokemons(pokeList: Data[]): Promise<void> {
-  for (let i = 0; i < POKEMON_STEPS; i++) {
-    new AllPokesComponent(pokeList[counter], FIRST_CONTAINER).render();
-    counter++;
+  for (let i = 0; i < pokeList.length; i++) {
+    new AllPokesComponent(pokeList[i], FIRST_CONTAINER).render();
   }
 }
 
@@ -56,16 +51,6 @@ export function noResults(): void {
  *
  * @param {Data} pokeList - An object with the pokemon data
  */
-export async function searchInputFunc(pokeList: Data[]): Promise<void> {
-  console.log('All pokemons search available: ' + pokeList.length);
-  searchClick(pokeList);
-
-  const pokemon_all_data: Data[] = await (await fetch('/get-all-data'))
-    .json()
-    .catch(console.log);
-  console.log('All pokemons search available: ' + pokemon_all_data.length);
-  searchClick(pokemon_all_data);
-}
 
 /**
  * The function search pokemon from the DataBase pokemon's list, while the user is writing.
@@ -73,33 +58,36 @@ export async function searchInputFunc(pokeList: Data[]): Promise<void> {
  *
  * @param {Data} arrPoke - An object with the pokemon data
  */
-function searchClick(arrPoke: Data[]) {
+export async function searchInputFunc() {
   BUTTON_INPUT.addEventListener('click', async () => {
-    arrPoke.forEach((poke: Data) => {
-      if (
-        SEARCH_INPUT.value === poke.name ||
-        Number(SEARCH_INPUT.value) === poke.id
+    try {
+      const searchedPoke: Data = await (
+        await fetch(`/get-specific/${SEARCH_INPUT.value}`)
       )
-        viewPokemon(poke);
-    });
-    if (MAIN_CONTAINER.style.display === 'none') noResults();
+        .json()
+        .catch(console.log);
+
+      viewPokemon(searchedPoke);
+    } catch {
+      noResults();
+    }
   });
 
-  SEARCH_INPUT.addEventListener('input', async () => {
-    console.log(SEARCH_INPUT.value);
-    const pokesMatch: Data[] = arrPoke.filter((poke) => {
-      return poke.name.startsWith(SEARCH_INPUT.value);
-      // ||
-      // poke.id.toString().startsWith(SEARCH_INPUT.value)
-    });
-    FIRST_CONTAINER.innerHTML = '';
-    counter = 0;
-    console.log(pokesMatch);
-    if (pokesMatch.length !== 0) {
-      scrolling(pokesMatch);
-    } else {
-      FIRST_CONTAINER.innerHTML = 'No results';
-    }
-    console.log(pokesMatch.length);
-  });
+  // SEARCH_INPUT.addEventListener('input', async () => {
+  //   console.log(SEARCH_INPUT.value);
+  //   const pokesMatch: Data[] = arrPoke.filter((poke) => {
+  //     return poke.name.startsWith(SEARCH_INPUT.value);
+  //     // ||
+  //     // poke.id.toString().startsWith(SEARCH_INPUT.value)
+  //   });
+  //   FIRST_CONTAINER.innerHTML = '';
+  //   counter = 0;
+  //   console.log(pokesMatch);
+  //   if (pokesMatch.length !== 0) {
+  //     scrolling(pokesMatch);
+  //   } else {
+  //     FIRST_CONTAINER.innerHTML = 'No results';
+  //   }
+  //   console.log(pokesMatch.length);
+  // });
 }
