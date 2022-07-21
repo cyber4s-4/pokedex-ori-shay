@@ -14,28 +14,6 @@ export const client = new Client({
   },
 })
 
-// export async function build5KTable(data: Data[]) {
-//   // Drop table
-//   const sql1 = `DROP TABLE IF EXISTS bigDataPokemons;`
-//   await client.query(sql1)
-//   console.log("SQL: DROP TABLE bigDataPokemons")
-
-//   // Create table
-//   const sql = `CREATE TABLE IF NOT EXISTS bigDataPokemons (
-//          id_serial  SERIAL PRIMARY KEY,
-//          id  VARCHAR(255) NOT NULL,
-//          name VARCHAR(255) NOT NULL,
-//          img	VARCHAR(255) NOT NULL,
-//          height  VARCHAR(255) NOT NULL,
-//          weight	VARCHAR(255) NOT NULL,
-//          favorite  VARCHAR(255) NOT NULL
-//      );`
-//   await client.query(sql)
-//   console.log("SQL: CREATE TABLE bigDataPokemons")
-
-//   insertDataFor5K(data)
-// }
-
 export async function buildTable(data: Data[]) {
   // Drop table
   const sql1 = `DROP TABLE IF EXISTS pokemons;`
