@@ -46,17 +46,8 @@ export function noResults(): void {
 }
 
 /**
- * The function check if there is a pokemon from the DataBase pokemon's list.
- * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
- *
- * @param {Data} pokeList - An object with the pokemon data
- */
-
-/**
  * The function search pokemon from the DataBase pokemon's list, while the user is writing.
  * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
- *
- * @param {Data} arrPoke - An object with the pokemon data
  */
 export async function searchInputFunc() {
   BUTTON_INPUT.addEventListener('click', async () => {
@@ -66,26 +57,7 @@ export async function searchInputFunc() {
       ).json();
       viewPokemon(searchedPoke);
     } catch (error) {
-      // noResults();`
       if (MAIN_CONTAINER.style.display === 'none') noResults();
     }
   });
-
-  // SEARCH_INPUT.addEventListener('input', async () => {
-  //   console.log(SEARCH_INPUT.value);
-  //   const pokesMatch: Data[] = arrPoke.filter((poke) => {
-  //     return poke.name.startsWith(SEARCH_INPUT.value);
-  //     // ||
-  //     // poke.id.toString().startsWith(SEARCH_INPUT.value)
-  //   });
-  //   FIRST_CONTAINER.innerHTML = '';
-  //   counter = 0;
-  //   console.log(pokesMatch);
-  //   if (pokesMatch.length !== 0) {
-  //     scrolling(pokesMatch);
-  //   } else {
-  //     FIRST_CONTAINER.innerHTML = 'No results';
-  //   }
-  //   console.log(pokesMatch.length);
-  // });
 }
