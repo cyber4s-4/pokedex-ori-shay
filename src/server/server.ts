@@ -4,7 +4,7 @@ import { updateDataFavorite } from './data';
 import { client, buildTable, get20Pokemons, getSpecificPoke } from './connect';
 
 // TODO: ori:
-// 1. The 'scrolling bug'
+// V - 1. The 'scrolling bug'
 // 2. Improve the scss
 // 3. Play with the fetch requests in the data.ts - promise.all...
 // 4. Look at the tasks i wrote in the google notes...
@@ -38,7 +38,7 @@ initServer();
  * In /star the server change the favorite value of chosen pokemon.
  */
 async function initServer() {
-  if (!false) {
+  if (false) {
     console.log('Start buildTable function ');
     await buildTable(JSON.parse(readFileData));
     console.log('Finish buildTable function ');
