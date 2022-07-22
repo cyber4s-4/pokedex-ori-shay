@@ -27,7 +27,7 @@
 }
 
 body {
-  background-image: url("https://i.pinimg.com/originals/56/35/d8/5635d897a5ebc9923114a39bd9a4843e.gif");
+  background-image: url('https://i.pinimg.com/originals/56/35/d8/5635d897a5ebc9923114a39bd9a4843e.gif');
   flex-direction: column-reverse;
   background-position: center;
   background-size: contain;
@@ -164,29 +164,39 @@ body {
 #first-container {
   margin-top: 15px;
   background: rgb(77 75 75 / 94%);
-  padding: 5px 15px;
+  padding: 15px;
   border-radius: 20px;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
   & .pokemon-template-first-page {
-    width: 620px;
     display: flex;
-    height: 60px;
-    justify-content: space-around;
+    justify-content: center;
+    flex-direction: column;
     align-items: center;
     border: 1px solid #9191918f;
-    margin-top: 15px;
+    height: 230px;
+    width: 230px;
+    margin: 10px;
     border-radius: 15px;
     & .img-first-page {
       width: 70px;
       height: 70px;
     }
-    & .data-div-first-page {
-      display: flex;
-      & div {
-        color: white;
-      }
-      & .checked {
-        color: orange;
-      }
+    & div {
+      color: white;
+      margin-top: 10px;
+    }
+    & span {
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    & .checked {
+      margin-top: 10px;
+      color: orange;
     }
   }
 }

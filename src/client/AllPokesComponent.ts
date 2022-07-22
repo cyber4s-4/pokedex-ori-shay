@@ -21,32 +21,28 @@ export class AllPokesComponent {
     image.classList.add('img-first-page');
     pokemonTemplate.appendChild(image);
 
-    const dataDiv = document.createElement('div') as HTMLDivElement;
-    dataDiv.classList.add('data-div-first-page');
-    pokemonTemplate.appendChild(dataDiv);
-
     const idNumber = document.createElement('div') as HTMLDivElement;
     idNumber.innerHTML = 'ID Number:    ' + this.data.id;
-    dataDiv.appendChild(idNumber);
+    pokemonTemplate.appendChild(idNumber);
 
     const name = document.createElement('div') as HTMLDivElement;
     name.innerHTML = 'Name:     ' + this.data.name;
-    dataDiv.appendChild(name);
+    pokemonTemplate.appendChild(name);
 
     const height = document.createElement('div') as HTMLDivElement;
     height.innerHTML = 'Height:     ' + this.data.height;
-    dataDiv.appendChild(height);
+    pokemonTemplate.appendChild(height);
 
     const weight = document.createElement('div') as HTMLDivElement;
     weight.innerHTML = 'Weight:       ' + this.data.weight;
-    dataDiv.appendChild(weight);
+    pokemonTemplate.appendChild(weight);
 
     const star = document.createElement('span') as HTMLSpanElement;
     star.classList.add('fa', 'fa-star');
     star.id = 'star';
     if (this.data.favorite === true) star.classList.add('checked');
 
-    dataDiv.appendChild(star);
+    pokemonTemplate.appendChild(star);
     makeFavoritePokemon(star, this.data.id);
   }
 }

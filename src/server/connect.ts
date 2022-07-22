@@ -86,7 +86,6 @@ export async function get20Pokemons(from: number = 0) {
       if (err) {
         console.log(err.stack);
       } else {
-        // console.log(res.rows);
         resolve(res.rows);
       }
     });
@@ -94,11 +93,11 @@ export async function get20Pokemons(from: number = 0) {
 }
 
 export async function getSpecificPoke(inputValue: string | number) {
-  let sql = `SELECT * from pokemons where id =$1;`;
-  if (typeof inputValue !== 'string') {
-    sql = `SELECT * from pokemons where name =$1;`;
-  }
   console.log('function getSpecificPoke');
+  let sql = `SELECT * from pokemons where name =$1;`;
+  if (inputValue == Number(inputValue)) {
+    sql = `SELECT * from pokemons where id =$1;`;
+  }
   const values = [inputValue];
   return new Promise<Data[]>((resolve, reject) => {
     client.query(sql, values, (err, res) => {
