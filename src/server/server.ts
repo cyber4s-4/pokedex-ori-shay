@@ -5,9 +5,9 @@ import { client, buildTable, get20Pokemons, getSpecificPoke } from './connect';
 
 // TODO: ori:
 // V - 1. The 'scrolling bug'
-//     2. Improve the scss
+// V - 2. Improve the scss
 // V - 3. Play with the fetch requests in the data.ts - promise.all...
-//     4. Look at the tasks i wrote in the google notes...
+// V - 4. Look at the tasks i wrote in the google notes...
 
 // TODO: shay:
 // 1. Fix the favorite - and see if it's happen.
