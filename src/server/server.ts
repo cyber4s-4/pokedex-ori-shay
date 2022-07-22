@@ -27,8 +27,7 @@ app.use(express.static('./dist'));
 export const pathDataJson: string = path.join(__dirname, '../data.json');
 const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
 
-client.connect();
-initServer();
+init();
 
 /**
  * The function Init the server on port 3000.
@@ -37,36 +36,34 @@ initServer();
  * In /get-all-data the server send 100K pokemon's.
  * In /star the server change the favorite value of chosen pokemon.
  */
-async function initServer() {
-  if (false) {
-    console.log('Start buildTable function ');
-    await buildTable(JSON.parse(readFileData));
-    console.log('Finish buildTable function ');
-  }
 
-  continueInit();
-  function continueInit() {
-    app.get('/', (req: Request, res: Response) => {
-      res.sendFile(req.path || 'index.html', {
-        root: './dist',
-      });
+async function init() {
+  await client.connect();
+  if (!false) await buildTable(JSON.parse(readFileData));
+  await loadServer();
+}
+
+async function loadServer() {
+  app.get('/', (req: Request, res: Response) => {
+    res.sendFile(req.path || 'index.html', {
+      root: './dist',
     });
+  });
 
-    app.get('/get20Pokemons/:counter', async (req: Request, res: Response) => {
-      res.send(await get20Pokemons(Number(req.params.counter)));
-    });
+  app.get('/get20Pokemons/:counter', async (req: Request, res: Response) => {
+    res.send(await get20Pokemons(Number(req.params.counter)));
+  });
 
-    app.get('/get-specific/:specific', async (req: Request, res: Response) => {
-      res.send(await getSpecificPoke(req.params.specific));
-    });
+  app.get('/get-specific/:specific', async (req: Request, res: Response) => {
+    res.send(await getSpecificPoke(req.params.specific));
+  });
 
-    // app.post('/star', async (req: Request, res: Response) => {
-    //   console.log(req.body.favorite);
-    //   await updateDataFavorite(req.body.idNumber, req.body.favorite);
-    // });
+  // app.post('/star', async (req: Request, res: Response) => {
+  //   console.log(req.body.favorite);
+  //   await updateDataFavorite(req.body.idNumber, req.body.favorite);
+  // });
 
-    app.listen(process.env.PORT || 3000, () =>
-      console.log('listening to port 3000')
-    );
-  }
+  app.listen(process.env.PORT || 3000, () =>
+    console.log('listening to port 3000')
+  );
 }

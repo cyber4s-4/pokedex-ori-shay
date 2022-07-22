@@ -13,6 +13,7 @@ export const client = new Client({
 });
 
 export async function buildTable(data: Data[]) {
+  console.log('Start buildTable function ');
   // Drop table
   const sql1 = `DROP TABLE IF EXISTS pokemons;`;
   await client.query(sql1);
@@ -38,6 +39,7 @@ export async function buildTable(data: Data[]) {
       console.log('SQL: finished to insert pokemons');
     });
   });
+  console.log('Finish buildTable function ');
 }
 
 export async function insertDataFor5K(data: Data[]) {
