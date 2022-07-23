@@ -1,9 +1,4 @@
-import {
-  BUTTON_INPUT,
-  FIRST_CONTAINER,
-  MAIN_CONTAINER,
-  SEARCH_INPUT,
-} from './app';
+import { BUTTON_INPUT, FIRST_CONTAINER, MAIN_CONTAINER, SEARCH_INPUT } from './app';
 import { AllPokesComponent } from './AllPokesComponent';
 import { Data } from '../server/data';
 import { PokemonComponent } from './pokemonComponent';
@@ -12,7 +7,7 @@ import { closeButtonFunc } from './buttons';
 /**
  * The function add pokemons to the main page when it upload.
  *
- * @param {Data} pokeList - An object with the pokemon data
+ * @param {Data[]} pokeList - An object with the pokemon data
  */
 export async function addPokemons(pokeList: Data[]): Promise<void> {
   for (let i = 0; i < pokeList.length; i++) {
@@ -33,6 +28,8 @@ export async function viewPokemon(selectedPoke: Data): Promise<void> {
 
 /**
  * Function that returns a no result message - if there is no pokemon
+ * same as the search input value
+ *
  */
 export function noResults(): void {
   MAIN_CONTAINER.style.display = 'block';
@@ -48,6 +45,7 @@ export function noResults(): void {
 /**
  * The function search pokemon from the DataBase pokemon's list, while the user is writing.
  * If there is a pokemon - it initiate viewPokemon function. else initiate noResult function.
+ *
  */
 export async function searchInputFunc() {
   BUTTON_INPUT.addEventListener('click', async () => {

@@ -22,9 +22,13 @@ export function closeButtonFunc(
 /**
  * The function click on the star near a favorite pokemon
  *
- * @param {HTMLSpanElement} star - The element has been selected.
+ * @param {HTMLSpanElement} star - The element has been selected
+ * @param {string} pokemonName - Pokemon name
  */
-export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
+export function makeFavoritePokemon(
+  star: HTMLSpanElement,
+  pokemonName: string
+): void {
   star.addEventListener('click', async (el) => {
     const target = el.currentTarget as HTMLSpanElement;
     let favorite = true;
@@ -34,15 +38,18 @@ export function makeFavoritePokemon(star: HTMLSpanElement, id: number): void {
     } else {
       target.classList.add('checked');
     }
-    const rawResponse = await fetch('/star', {
-      method: 'POST',
+    fetch('/star', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ idNumber: id, favorite: favorite }),
+      method: 'PUT',
+      body: JSON.stringify({
+        name: pokemonName.toLowerCase(),
+        favoritePoke: favorite,
+      }),
+    }).catch((res) => {
+      console.log(res.message);
     });
-    const content = await rawResponse.json();
-    console.log('pokeId: ' + content);
   });
 }

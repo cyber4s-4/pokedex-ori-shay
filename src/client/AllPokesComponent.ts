@@ -43,6 +43,6 @@ export class AllPokesComponent {
     if (this.data.favorite === true) star.classList.add('checked');
 
     pokemonTemplate.appendChild(star);
-    makeFavoritePokemon(star, this.data.id);
+    makeFavoritePokemon(star, this.data.name);
   }
 }

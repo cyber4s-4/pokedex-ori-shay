@@ -3,6 +3,7 @@ import { Data } from './data';
 
 // Add prevent SQL- injection funciton
 
+// Connecting to database
 export const client = new Client({
   connectionString:
     process.env.DATABASE_URL ||
@@ -12,10 +13,17 @@ export const client = new Client({
   },
 });
 
+/**
+ * The function init the pokemon's table in postgreSQL while getting the data
+ * from the JSON file.
+ *
+ * @param {Data[]} data - The element has been selected.
+ */
 export async function buildTable(data: Data[]) {
   console.log('Start buildTable function ');
+
   // Drop table
-  const sql1 = `DROP TABLE IF EXISTS pokemons;`;
+  const sql1 = 'DROP TABLE IF EXISTS pokemons;';
   await client.query(sql1);
   console.log('SQL: DROP TABLE pokemons');
 
@@ -42,6 +50,12 @@ export async function buildTable(data: Data[]) {
   console.log('Finish buildTable function ');
 }
 
+/**
+ * The function INSERT data for 5K pokemon's, the function getting the data
+ * from the JSON file, and manipulates to double the number of pokemon's
+ *
+ * @param {Data[]} data - The element has been selected.
+ */
 export async function insertDataFor5K(data: Data[]) {
   const newDatabase: Data[] = [];
   let counter: number = data.length + 1;
@@ -68,18 +82,30 @@ export async function insertDataFor5K(data: Data[]) {
   insertData(newDatabase);
 }
 
+/**
+ * The function INSERT data for regular amount of pokemon's, the function getting the data
+ * from the JSON file
+ *
+ * @param {Data[]} data - The element has been selected.
+ */
 export async function insertData(data: Data[]) {
-  let table = `INSERT INTO pokemons (id, name, img, height, weight, favorite) VALUES `;
+  const table =
+    'INSERT INTO pokemons (id, name, img, height, weight, favorite) VALUES ';
   let values = '';
   for (let i = 0; i < data.length; i++) {
     values += `('${data[i].id}','${data[i].name}','${data[i].img}','${data[i].height}','${data[i].weight}','${data[i].favorite}'),`;
   }
-  let sql = table + values.slice(0, -1) + ';';
+  const sql = table + values.slice(0, -1) + ';';
   await client.query(sql);
 }
 
-export async function get20Pokemons(from: number = 0) {
-  let sql = `SELECT * from pokemons LIMIT $1 OFFSET $2;`;
+/**
+ * The function getting 20 pokemon's from database
+ *
+ * @param {number} from - Counter to get an index of a specific Pokemon to start counting from
+ */
+export async function get20Pokemons(from = 0) {
+  const sql = 'SELECT * from pokemons LIMIT $1 OFFSET $2;';
   const values = [20, from];
   return new Promise<Data[]>((resolve, reject) => {
     client.query(sql, values, (err, res) => {
@@ -92,11 +118,16 @@ export async function get20Pokemons(from: number = 0) {
   });
 }
 
+/**
+ * The function gets input from the user and searches for him the specific pokemon he looking for
+ *
+ * @param {string | number} inputValue - A number or string that received from the user
+ * to get the specific Pokemon
+ */
 export async function getSpecificPoke(inputValue: string | number) {
-  console.log('function getSpecificPoke');
-  let sql = `SELECT * from pokemons where name =$1;`;
+  let sql = 'SELECT * from pokemons where name =$1;';
   if (inputValue == Number(inputValue)) {
-    sql = `SELECT * from pokemons where id =$1;`;
+    sql = 'SELECT * from pokemons where id =$1;';
   }
   const values = [inputValue];
   return new Promise<Data[]>((resolve, reject) => {
@@ -111,12 +142,28 @@ export async function getSpecificPoke(inputValue: string | number) {
   });
 }
 
+/**
+ * The function update the favorite value of a specific pokemon in the database.
+ *
+ * @param {string} pokemonName - The pokemon's name
+ * @param {boolean} favorite - true / false according to the pokemon favorite value
+ */
+export function updateFavorites(pokemonName: string, favorite: boolean) {
+  const sql = 'UPDATE pokemons SET favorite= $2 WHERE name = $1;';
+  const values = [pokemonName, favorite];
+  return new Promise<Data[]>((resolve, reject) => {
+    client.query(sql, values, (err, res) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        resolve(res.rows);
+      }
+    });
+  });
+}
+
 export function getArrayPoke(name: string) {
   // get all poke that match the input search...
   // if we have specific match - the message will up with the poke
   // if there is no specific, up all the pokemons with that string
-}
-
-export function updateFavorites(id: string) {
-  // connect to the data-base and change it. (like the put request yestarday)
 }
