@@ -9,14 +9,14 @@ export function closeButtonFunc(
   parent: HTMLDivElement,
   elementToHide: HTMLDivElement
 ) {
-  const closeButton = document.createElement('button') as HTMLButtonElement
-  closeButton.innerHTML = 'Close'
-  closeButton.id = 'close-button'
-  parent.appendChild(closeButton)
+  const closeButton = document.createElement('button') as HTMLButtonElement;
+  closeButton.innerHTML = 'Close';
+  closeButton.id = 'close-button';
+  parent.appendChild(closeButton);
 
   closeButton.addEventListener('click', () => {
-    elementToHide.style.display = 'none'
-  })
+    elementToHide.style.display = 'none';
+  });
 }
 
 /**
@@ -30,13 +30,13 @@ export function makeFavoritePokemon(
   pokemonName: string
 ): void {
   star.addEventListener('click', async (el) => {
-    const target = el.currentTarget as HTMLSpanElement
-    let favorite = true
+    const target = el.currentTarget as HTMLSpanElement;
+    let favorite = true;
     if (target.classList.contains('checked') === true) {
-      favorite = false
-      target.classList.remove('checked')
+      favorite = false;
+      target.classList.remove('checked');
     } else {
-      target.classList.add('checked')
+      target.classList.add('checked');
     }
     fetch('/star', {
       headers: {
@@ -49,7 +49,7 @@ export function makeFavoritePokemon(
         favoritePoke: favorite,
       }),
     }).catch((res) => {
-      console.log(res.message)
-    })
-  })
+      console.log(res.message);
+    });
+  });
 }
