@@ -149,14 +149,14 @@ export async function getSpecificPoke(inputValue: string | number) {
  * @param {boolean} favorite - true / false according to the pokemon favorite value
  */
 export async function updateFavorites(pokemonName: string, favorite: boolean) {
-  const sql = 'UPDATE pokemons SET favorite= $2 WHERE name = $1;'
+  const sql = `UPDATE pokemons SET favorite = $2 WHERE name = $1 RETURNING *;`
   const values = [pokemonName, favorite]
   return await new Promise<Data[]>((resolve, reject) => {
     client.query(sql, values, (err, res) => {
       if (err) {
         console.log(err.stack)
       } else {
-        console.log(res)
+        console.log(res.rows)
         resolve(res.rows)
       }
     })

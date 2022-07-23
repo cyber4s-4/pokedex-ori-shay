@@ -57,9 +57,8 @@ async function loadServer() {
   })
 
   // Update if pokemon is marked as favorite or not
-  app.put('/star', async (req: Request, res: Response) => {
+  app.post('/star', async (req: Request, res: Response) => {
     await updateFavorites(req.body.name, req.body.favoritePoke)
-    await getSpecificPoke(req.body.name)
   })
 
   app.listen(process.env.PORT || 3000, () => console.log('listening to port 3000'))
