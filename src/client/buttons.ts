@@ -43,9 +43,9 @@ export function makeFavoritePokemon(
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      method: 'PUT',
+      method: 'POST',
       body: JSON.stringify({
-        name: pokemonName.toLowerCase(),
+        name: pokemonName,
         favoritePoke: favorite,
       }),
     }).catch((res) => {
