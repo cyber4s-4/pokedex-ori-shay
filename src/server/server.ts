@@ -31,7 +31,7 @@ init();
  */
 async function init() {
   await client.connect();
-  if (!false) await buildTable(JSON.parse(readFileData));
+  if (false) await buildTable(JSON.parse(readFileData));
   await loadServer();
 }
 
@@ -61,5 +61,7 @@ async function loadServer() {
     await updateFavorites(req.body.name, req.body.favoritePoke);
   });
 
-  app.listen(process.env.PORT || 3000, () => console.log('listening to port 3000'));
+  app.listen(process.env.PORT || 3000, () =>
+    console.log('listening to port 3000')
+  );
 }

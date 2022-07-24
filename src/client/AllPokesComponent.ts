@@ -39,8 +39,7 @@ export class AllPokesComponent {
 
     const star = document.createElement('span') as HTMLSpanElement;
     star.classList.add('fa', 'fa-star');
-    star.id = 'star';
-    if (this.data.favorite === true) star.classList.add('checked');
+    if (this.data.favorite === 'true') star.classList.add('checked');
 
     pokemonTemplate.appendChild(star);
     makeFavoritePokemon(star, this.data.name);
