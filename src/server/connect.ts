@@ -156,6 +156,7 @@ export async function updateFavorites(pokemonName: string, favorite: boolean) {
       if (err) {
         console.log(err.stack);
       } else {
+        console.log(res.rows);
         resolve(res.rows);
       }
     });
