@@ -162,9 +162,3 @@ export async function updateFavorites(pokemonName: string, favorite: boolean) {
     });
   });
 }
-
-export function getArrayPoke(name: string) {
-  // get all poke that match the input search...
-  // if we have specific match - the message will up with the poke
-  // if there is no specific, up all the pokemons with that string
-}
