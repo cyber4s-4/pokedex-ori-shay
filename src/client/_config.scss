@@ -1,0 +1,46 @@
+@mixin flex($direction, $justify, $align) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin center() {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin cursorAndBorder() {
+	cursor: pointer;
+	border: none;
+}
+
+@mixin buttonsStyle() {
+	background: #4077ff;
+	color: white;
+	border-radius: 15px;
+	height: 32px;
+}
+
+@mixin position($position, $top, $left) {
+	position: $position;
+	top: $top;
+	left: $left;
+}
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+@mixin topLeft($top, $right) {
+	top: $top;
+	right: $right;
+}
+
+@mixin topRight($top, $left) {
+	top: $top;
+	left: $left;
+}

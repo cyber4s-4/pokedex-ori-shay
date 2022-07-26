@@ -7,7 +7,7 @@ import {
   getSpecificPoke,
   updateFavorites,
 } from './connect';
-import { getPokemonsFromApi } from './data';
+// import { getPokemonsFromApi } from './data';
 
 export const fs = require('fs');
 const path = require('path');
@@ -43,7 +43,7 @@ init();
  *
  */
 async function init() {
-  await getPokemonsFromApi();
+  // await getPokemonsFromApi();
   await client.connect();
   if (false) await buildTable(JSON.parse(readFileData));
   await loadServer();
