@@ -7,7 +7,10 @@ import {
   getSpecificPoke,
   updateFavorites,
 } from './connect';
-// import { getPokemonsFromApi } from './data';
+import { getPokemonsFromApi } from './data';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: __dirname + '/.env' });
 
 export const fs = require('fs');
 const path = require('path');
@@ -17,7 +20,7 @@ app.use(json());
 app.use(express.static('./dist'));
 
 // TODO: Ori:
-// 1. Finish the fetchRequests function + update the data-interface + data tables
+// V - 1. Finish the fetchRequests function + update the data-interface + data tables
 // 2. Return the MongoDB file - that we can choose our database.
 // 3. Add option that if we have no match in the search - take the string and search with %??%..
 // 4. Match the last task with the scrolling function..
@@ -45,7 +48,7 @@ init();
 async function init() {
   // await getPokemonsFromApi();
   await client.connect();
-  if (false) await buildTable(JSON.parse(readFileData));
+  if (false) await buildTable(await getPokemonsFromApi());
   await loadServer();
 }
 
@@ -75,7 +78,6 @@ async function loadServer() {
     await updateFavorites(req.body.name, req.body.favoritePoke);
   });
 
-  app.listen(process.env.PORT || 3000, () =>
-    console.log('Hosted: http://localhost:' + 3000)
-  );
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => console.log('Hosted: http://localhost:' + port));
 }

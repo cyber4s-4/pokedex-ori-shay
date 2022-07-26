@@ -1,13 +1,11 @@
 import { Client } from 'pg';
 import { Data } from './data';
-
-// Add prevent SQL- injection funciton
+import dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '/.env' });
 
 // Connecting to database
 export const client = new Client({
-  connectionString:
-    process.env.DATABASE_URL ||
-    'postgres://sxjctmpcdugncg:6106202fae99ebd5b4d21cc3494574d6c26efb4b394c8ac8b0cc07f596922f56@ec2-107-22-122-106.compute-1.amazonaws.com:5432/d7u0khvh3veull',
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
@@ -35,7 +33,9 @@ export async function buildTable(data: Data[]) {
         img	VARCHAR(255) NOT NULL,
         height  VARCHAR(255) NOT NULL,
         weight	VARCHAR(255) NOT NULL,
-        favorite  VARCHAR(255) NOT NULL
+        favorite  VARCHAR(255) NOT NULL,
+        type1  VARCHAR(255) NOT NULL,
+        type2  VARCHAR(255) NOT NULL
     );`;
   await client.query(sql);
   console.log('SQL: CREATE TABLE pokemons');
@@ -56,7 +56,7 @@ export async function buildTable(data: Data[]) {
  *
  * @param {Data[]} data - The element has been selected.
  */
-export async function insertDataFor5K(data: Data[]) {
+async function insertDataFor5K(data: Data[]) {
   const newDatabase: Data[] = [];
   let counter: number = data.length + 1;
   for (let out = 0; out < data.length; out++) {
@@ -68,6 +68,7 @@ export async function insertDataFor5K(data: Data[]) {
       const secondPokemonName =
         secondPokemon.name.charAt(0).toUpperCase() +
         secondPokemon.name.substring(1, 4);
+
       newDatabase.push({
         name: firstPokemonName + secondPokemonName,
         img: secondPokemon.img,
@@ -75,6 +76,8 @@ export async function insertDataFor5K(data: Data[]) {
         weight: Math.floor((firstPokemon.height + secondPokemon.height) / 2),
         id: counter,
         favorite: false,
+        type1: secondPokemon.type1,
+        type2: undefined,
       });
       counter++;
     }
@@ -88,12 +91,12 @@ export async function insertDataFor5K(data: Data[]) {
  *
  * @param {Data[]} data - The element has been selected.
  */
-export async function insertData(data: Data[]) {
+async function insertData(data: Data[]) {
   const table =
-    'INSERT INTO pokemons (id, name, img, height, weight, favorite) VALUES ';
+    'INSERT INTO pokemons (id, name, img, height, weight, favorite, type1, type2) VALUES ';
   let values = '';
   for (let i = 0; i < data.length; i++) {
-    values += `('${data[i].id}','${data[i].name}','${data[i].img}','${data[i].height}','${data[i].weight}','${data[i].favorite}'),`;
+    values += `('${data[i].id}','${data[i].name}','${data[i].img}','${data[i].height}','${data[i].weight}','${data[i].favorite}','${data[i].type1}','${data[i].type2}'),`;
   }
   const sql = table + values.slice(0, -1) + ';';
   await client.query(sql);

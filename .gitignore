@@ -3,3 +3,4 @@
 /deploy
 /.vscode
 /src/server/key.ts
+/src/server/.env

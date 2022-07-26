@@ -37,14 +37,17 @@ export class AllPokesComponent {
     weight.innerHTML = 'Weight:       ' + this.data.weight;
     pokemonTemplate.appendChild(weight);
 
+    const type1 = document.createElement('div') as HTMLDivElement;
+    type1.innerHTML = 'type1:       ' + this.data.type1;
+    pokemonTemplate.appendChild(type1);
+
+    const type2 = document.createElement('div') as HTMLDivElement;
+    type2.innerHTML = 'type2:       ' + this.data.type2;
+    pokemonTemplate.appendChild(type2);
+
     const star = document.createElement('span') as HTMLSpanElement;
     star.classList.add('fa', 'fa-star');
     if (this.data.favorite === 'true') star.classList.add('checked');
-
-    const species = document.createElement('div') as HTMLDivElement;
-    species.innerHTML = 'Species:       ' + this.data.weight;
-    species.classList.add('species');
-    pokemonTemplate.appendChild(species);
 
     pokemonTemplate.appendChild(star);
     makeFavoritePokemon(star, this.data.name);
