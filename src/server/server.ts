@@ -7,6 +7,7 @@ import {
   getSpecificPoke,
   updateFavorites,
 } from './connect';
+import { getPokemonsFromApi } from './data';
 
 export const fs = require('fs');
 const path = require('path');
@@ -14,6 +15,18 @@ const path = require('path');
 const app = express();
 app.use(json());
 app.use(express.static('./dist'));
+
+// TODO: Ori:
+// 1. Finish the fetchRequests function + update the data-interface + data tables
+// 2. Return the MongoDB file - that we can choose our database.
+// 3. Add option that if we have no match in the search - take the string and search with %??%..
+// 4. Match the last task with the scrolling function..
+
+// TODO: Shay:
+// 1. Add nav-bar like ron and ori - amram... (sort by, favorites, and more...)
+// 2. All the options in the nav-bar - buttons that call function that make fetch-requests !!
+// 3. After ori finish with the fetch-Api - display all pokemons by specs - water/ fire..
+// 4. Display the pokemon that he will look good - add the star for selectedPoke message !!!
 
 /**
  * THIS PART OF CODE IS NOT IN USED!
@@ -30,6 +43,7 @@ init();
  *
  */
 async function init() {
+  await getPokemonsFromApi();
   await client.connect();
   if (false) await buildTable(JSON.parse(readFileData));
   await loadServer();
@@ -62,6 +76,6 @@ async function loadServer() {
   });
 
   app.listen(process.env.PORT || 3000, () =>
-    console.log('listening to port 3000')
+    console.log('Hosted: http://localhost:' + 3000)
   );
 }
