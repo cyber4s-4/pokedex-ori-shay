@@ -16,6 +16,10 @@ export class AllPokesComponent {
     pokemonTemplate.classList.add('pokemon-template-first-page');
     this.parent.appendChild(pokemonTemplate);
 
+    const star = document.createElement('span') as HTMLSpanElement;
+    star.classList.add('fa', 'fa-star');
+    if (this.data.favorite === 'true') star.classList.add('checked');
+
     const image = document.createElement('img') as HTMLImageElement;
     image.src = `${this.data.img}`;
     image.classList.add('img-first-page');
@@ -37,17 +41,19 @@ export class AllPokesComponent {
     weight.innerHTML = 'Weight:       ' + this.data.weight;
     pokemonTemplate.appendChild(weight);
 
-    const type1 = document.createElement('div') as HTMLDivElement;
-    type1.innerHTML = 'type1:       ' + this.data.type1;
-    pokemonTemplate.appendChild(type1);
+    const types = document.createElement('div') as HTMLDivElement;
+    types.classList.add('types')
+    pokemonTemplate.appendChild(types);
 
-    const type2 = document.createElement('div') as HTMLDivElement;
-    type2.innerHTML = 'type2:       ' + this.data.type2;
-    pokemonTemplate.appendChild(type2);
+    const type1 = document.createElement('span') as HTMLDivElement;
+    type1.innerHTML = this.data.type1;
+    type1.classList.add(`${this.data.type1}`)
+    types.appendChild(type1);
 
-    const star = document.createElement('span') as HTMLSpanElement;
-    star.classList.add('fa', 'fa-star');
-    if (this.data.favorite === 'true') star.classList.add('checked');
+    const type2 = document.createElement('span') as HTMLDivElement;
+    type2.innerHTML = '' + this.data.type2;
+    type2.classList.add(`${this.data.type1}`)
+    types.appendChild(type2);
 
     pokemonTemplate.appendChild(star);
     makeFavoritePokemon(star, this.data.name);

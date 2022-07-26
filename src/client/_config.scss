@@ -35,12 +35,12 @@
 	height: $height;
 }
 
-@mixin topLeft($top, $right) {
-	top: $top;
-	right: $right;
-}
-
-@mixin topRight($top, $left) {
+@mixin topLeft($top, $left) {
 	top: $top;
 	left: $left;
+}
+
+@mixin topRight($top, $right) {
+	top: $top;
+	right: $right;
 }

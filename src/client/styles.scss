@@ -12,7 +12,7 @@
 
 body {
 	background-image: url('https://i.pinimg.com/originals/56/35/d8/5635d897a5ebc9923114a39bd9a4843e.gif');
-	flex-direction: column-reverse;
+	flex-direction: column;
 	background-position: center;
 	background-size: contain;
 	@include center;
@@ -146,6 +146,13 @@ body {
 		border-radius: 15px;
 		padding-left: 18px;
 		position: relative;
+		background: #a9a9a994;
+		transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+		&:hover {
+			background-color: lighten(rgba(235, 235, 235, 0.487), 10%);
+			transform: scale(1.04);
+			box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 11px 4px;
+		}
 		& .img-first-page {
 			@include size(70px, 70px);
 		}
@@ -153,17 +160,27 @@ body {
 			color: white;
 			margin-top: 10px;
 		}
-		& span {
+		& .fa-star {
 			position: absolute;
 			@include topRight(20px, 20px);
 			cursor: pointer;
 		}
 		& .checked {
-			margin-top: 10px;
 			color: orange;
 		}
 		& .species {
 			margin-bottom: 10px;
+		}
+		& .types {
+			@include flex(row, space-evenly, center);
+			flex-wrap: wrap;
+			font-size: 1rem;
+			span {
+				margin-right: 10px;
+				text-transform: capitalize;
+				color: white;
+				padding: 0.3em 0.2em;
+			}
 		}
 	}
 }
@@ -296,6 +313,22 @@ body {
 			&:hover {
 				box-shadow: 0 0 6px 2px blue;
 			}
+		}
+	}
+	.favorite-filter {
+		font-size: 1rem;
+		font-weight: bold;
+		width: 65%;
+		margin: 0.8em 0.1em;
+		padding: 0.3em;
+		color: white;
+		border-radius: 0.3em;
+		text-transform: capitalize;
+		background-color: black;
+		border: black 3px solid;
+		transition: box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+		&:hover {
+			box-shadow: 0 0 6px 2px blue;
 		}
 	}
 }
