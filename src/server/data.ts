@@ -9,7 +9,7 @@ export interface Data {
   id: number;
   favorite: boolean | string;
   type1: string;
-  type2: undefined | string;
+  type2: string;
   id_serial?: number;
 }
 
@@ -26,7 +26,7 @@ export async function getPokemonsFromApi() {
         await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`)
       ).json();
 
-      let type2 = undefined;
+      let type2 = '- - -';
       if (res.types[1] !== undefined) type2 = res.types[1].type.name;
 
       dataList.push({

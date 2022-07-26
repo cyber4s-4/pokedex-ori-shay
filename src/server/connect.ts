@@ -77,7 +77,7 @@ async function insertDataFor5K(data: Data[]) {
         id: counter,
         favorite: false,
         type1: secondPokemon.type1,
-        type2: undefined,
+        type2: secondPokemon.type2,
       });
       counter++;
     }
