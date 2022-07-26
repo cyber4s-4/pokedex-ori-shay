@@ -28,7 +28,7 @@ export async function buildTable(data: Data[]) {
   // Create table
   const sql = `CREATE TABLE IF NOT EXISTS pokemons (
         id_serial  SERIAL PRIMARY KEY,
-        id  VARCHAR(255) NOT NULL,
+        id Numeric NOT NULL,
         name VARCHAR(255) NOT NULL,
         img	VARCHAR(255) NOT NULL,
         height  VARCHAR(255) NOT NULL,
@@ -108,7 +108,7 @@ async function insertData(data: Data[]) {
  * @param {number} from - Counter to get an index of a specific Pokemon to start counting from
  */
 export async function get20Pokemons(from = 0) {
-  const sql = 'SELECT * from pokemons ORDER BY id_serial LIMIT $1 OFFSET $2;';
+  const sql = 'SELECT * from pokemons ORDER BY id LIMIT $1 OFFSET $2;';
   const values = [20, from];
   return new Promise<Data[]>((resolve, reject) => {
     client.query(sql, values, (err, res) => {

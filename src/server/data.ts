@@ -9,26 +9,25 @@ export interface Data {
   id: number;
   favorite: boolean | string;
   type1: string;
-  type2?: undefined | string;
+  type2: undefined | string;
   id_serial?: number;
 }
 
 export async function getPokemonsFromApi() {
-  const dataList: Data[] = [];
   let arr: number[] = [];
-  for (let i = 1; i < 250; i++) arr.push(i);
-  const dataFetch = await Promise.all(
-    arr.map(throat(2, async (num) => fetchRequests(num)))
-  );
+  const dataList: Data[] = [];
+
+  for (let i = 1; i < 910; i++) arr.push(i);
+  await Promise.all(arr.map(throat(2, async (num) => fetchRequests(num))));
 
   async function fetchRequests(num: number) {
     try {
       const res = await (
         await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`)
       ).json();
-      // if (res.types[1].type.name) {
-      //   console.log(res.types[1].type.name);
-      // }
+
+      let type2 = undefined;
+      if (res.types[1] !== undefined) type2 = res.types[1].type.name;
 
       dataList.push({
         name: res.name,
@@ -38,18 +37,22 @@ export async function getPokemonsFromApi() {
         id: res.id,
         favorite: false,
         type1: res.types[0].type.name,
-        type2: undefined,
+        type2: type2,
       });
-      console.log(res.types[0].type.name);
-      // console.log(res.types[1].type.name || undefined);
       return await res;
     } catch (error) {
-      console.log('Error in "fetchRequests" function');
+      console.log('error in ' + num);
     } finally {
-      console.log('finish -' + num);
+      if (
+        num === 150 ||
+        num === 300 ||
+        num === 500 ||
+        num === 700 ||
+        num === 800
+      )
+        console.log('finish -' + num);
     }
   }
-  console.log('Finish the fetchRequests');
-  // console.log(dataList);
+  console.log('Finish the fetchRequests Api');
   return dataList;
 }
