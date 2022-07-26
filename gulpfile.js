@@ -27,9 +27,7 @@ gulp.task('scss', () => {
 
 // Transfers index
 gulp.task('index', () => {
-  return gulp
-    .src(['./src/client/**/*.html', './src/data.json'])
-    .pipe(gulp.dest('./dist'));
+  return gulp.src(['./src/client/**/*.html']).pipe(gulp.dest('./dist'));
 });
 
 // Transfers index
@@ -89,7 +87,6 @@ gulp.task('heroku-copy-dist', () => {
       './dist/favicon.ico',
       './dist/index.html',
       './dist/styles.css',
-      './dist/data.json',
       './dist/tsc/*',
       './dist/app.js',
       './dist/app.js.map',
@@ -101,7 +98,6 @@ gulp.task('heroku-copy-dist', () => {
       './dist/tsc/*/pokemonComponent.js',
       './dist/tsc/*/scrollingComponent.js',
       './dist/tsc/*/Pokemons.js',
-      './dist/tsc/*/data.js',
       './dist/tsc/*/key.js',
       './dist/tsc/*/server.js',
       './dist/tsc/*/connect.js',
