@@ -178,10 +178,12 @@ body {
     flex-direction: column;
     align-items: center;
     border: 1px solid #9191918f;
-    height: 230px;
+    height: 270px;
     width: 230px;
     margin: 10px;
     border-radius: 15px;
+    padding-left: 18px;
+    position: relative;
     & .img-first-page {
       width: 70px;
       height: 70px;
@@ -191,12 +193,18 @@ body {
       margin-top: 10px;
     }
     & span {
-      margin-top: 10px;
-      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+     cursor: pointer;
     }
     & .checked {
       margin-top: 10px;
       color: orange;
+    }
+    & .species {
+      margin-bottom: 10px;
+
     }
   }
 }

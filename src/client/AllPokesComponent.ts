@@ -41,6 +41,11 @@ export class AllPokesComponent {
     star.classList.add('fa', 'fa-star');
     if (this.data.favorite === 'true') star.classList.add('checked');
 
+    const species = document.createElement('div') as HTMLDivElement;
+    species.innerHTML = 'Species:       ' + this.data.weight;
+    species.classList.add('species');
+    pokemonTemplate.appendChild(species);
+
     pokemonTemplate.appendChild(star);
     makeFavoritePokemon(star, this.data.name);
   }
