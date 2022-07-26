@@ -12,9 +12,6 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: __dirname + '/.env' });
 
-export const fs = require('fs');
-const path = require('path');
-
 const app = express();
 app.use(json());
 app.use(express.static('./dist'));
@@ -31,22 +28,14 @@ app.use(express.static('./dist'));
 // 3. After ori finish with the fetch-Api - display all pokemons by specs - water/ fire..
 // 4. Display the pokemon that he will look good - add the star for selectedPoke message !!!
 
-/**
- * THIS PART OF CODE IS NOT IN USED!
- * It works only once when we insert the data to atlas.
- */
-export const pathDataJson: string = path.join(__dirname, '../data.json');
-const readFileData: string = fs.readFileSync(pathDataJson, 'utf8');
-
 init();
 
 /**
- * The function connects the database and build the table with the pokemon's
- * then the function load the server his functions included.
+ * The function connects the database and build the table with the pokemon's.
+ * Then the function load the server his functions included.
  *
  */
 async function init() {
-  // await getPokemonsFromApi();
   await client.connect();
   if (false) await buildTable(await getPokemonsFromApi());
   await loadServer();
@@ -78,6 +67,6 @@ async function loadServer() {
     await updateFavorites(req.body.name, req.body.favoritePoke);
   });
 
-  const port = process.env.PORT || 4000;
+  const port = process.env.PORT;
   app.listen(port, () => console.log('Hosted: http://localhost:' + port));
 }
