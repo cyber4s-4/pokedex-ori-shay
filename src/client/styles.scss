@@ -18,6 +18,26 @@ body {
 	@include center;
 }
 
+.background-container {
+	background: rgba(77, 75, 75, 0.94);
+	width: 1400px;
+}
+
+main {
+	display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#header-container{
+    // background: rgba(77, 75, 75, 0.94);
+	flex-direction: row;
+    justify-content: space-between;
+    padding: 1em 23.3em;
+    text-align: center;
+    width: 100%;
+}
+
 #bar {
 	h1 {
 		margin-top: 50px;
@@ -129,10 +149,8 @@ body {
 }
 
 #first-container {
-	margin-top: 15px;
-	background: rgb(77 75 75 / 94%);
+	// background: rgb(77 75 75 / 94%);
 	padding: 15px;
-	border-radius: 20px;
 	width: 85%;
 	display: flex;
 	flex-direction: row;
@@ -152,9 +170,6 @@ body {
 			background-color: lighten(rgba(235, 235, 235, 0.487), 10%);
 			transform: scale(1.04);
 			box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 11px 4px;
-		}
-		& .img-first-page {
-			@include size(70px, 70px);
 		}
 		& div {
 			color: white;
@@ -179,7 +194,7 @@ body {
 				margin-right: 10px;
 				text-transform: capitalize;
 				color: white;
-				padding: 0.3em 0.2em;
+				padding: 0.3em 0.4em;
 			}
 		}
 	}
@@ -244,7 +259,7 @@ body {
 			top: 60%;
 		}
 	}
-	&.active {
+	&:hover.active {
 		transform: translate(0, -50%);
 		#side-menu-toggler {
 			&::before {
