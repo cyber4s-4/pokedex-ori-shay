@@ -50,12 +50,12 @@ export class AllPokesComponent {
 		type1.classList.add(`${this.data.type1}`)
 		types.appendChild(type1)
 
-		const type2 = document.createElement('span') as HTMLDivElement
-
+		if(this.data.type2 !== '- - -'){
+			const type2 = document.createElement('span') as HTMLDivElement
 			type2.innerHTML = `${this.data.type2}`
-			type2.classList.add(`${this.data.type1}`)
+			type2.classList.add(`${this.data.type2}`)
 			types.appendChild(type2)
-		
+		}
 
 		pokemonTemplate.appendChild(star)
 		makeFavoritePokemon(star, this.data.name)

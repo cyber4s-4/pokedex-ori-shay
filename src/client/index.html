@@ -1,79 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Starter Project</title>
-    <base href="/" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script defer src="app.js"></script>
-  </head>
-  <body>
-    <a href="#title"> <button id="button-up">⇑ up ⇑</button></a>
-
-    <header>
-    <div id="header-container">
-      <div id="bar">
-        <h1 id="title">Ori & Shay Pokedex</h1>
-        <span>
-          <input
-            placeholder="  Insert Pokemon's Name / Id .."
-            id="search-input"
-            type="text"
-          />
-          <button id="button-input">Search</button></span
-        >
-      </div>
-    </div>
-  </header>
-
-    <div id="first-container"></div>
-    <div id="sub-container"></div>
-    <div class="active" id='side-menu'>
-      <button id="side-menu-toggler"></button>
-      <div class="sort">
-				<p>Sort Pokemons</p>
-				<select id="sorter">
-					<option value="id-ascending">ID - Low to High</option>
-					<option value="id-descending">ID - High to Low</option>
-					<option value="name-ascending">Name - A to Z</option>
-					<option value="name-descending">Name - Z to A</option>
-				</select>
-			</div>
-      <div class="filter">
-				<p>Filter Pokemons by Type</p>
-				<div class="type-filters">
-					<button class="type-filter">normal</button>
-					<button class="type-filter">fire</button>
-					<button class="type-filter">water</button>
-					<button class="type-filter">flying</button>
-					<button class="type-filter">grass</button>
-					<button class="type-filter">fighting</button>
-					<button class="type-filter">poison</button>
-					<button class="type-filter">electric</button>
-					<button class="type-filter">ground</button>
-					<button class="type-filter">rock</button>
-					<button class="type-filter">psychic</button>
-					<button class="type-filter">ice</button>
-					<button class="type-filter">bug</button>
-					<button class="type-filter">ghost</button>
-					<button class="type-filter">steel</button>
-					<button class="type-filter">dragon</button>
-					<button class="type-filter">dark</button>
-					<button class="type-filter">fairy</button>
+	<head>
+		<meta charset="utf-8" />
+		<title>Starter Project</title>
+		<base href="/" />
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="stylesheet" href="styles.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<script defer src="app.js"></script>
+	</head>
+	<body>
+    <section class="background-container">
+		<a href="#title"> <button id="button-up">⇑ up ⇑</button></a>
+		<header>
+			<div id="header-container">
+				<div id="bar">
+					<h1 id="title">Ori & Shay Pokedex</h1>
+					<span>
+						<input
+							placeholder="  Insert Pokemon's Name / Id .."
+							id="search-input"
+							type="text"
+						/>
+						<button id="button-input">Search</button></span
+					>
 				</div>
-				<label>
-					<input id="combined-types" type="checkbox">
-					Combined types
-				</label>
-					<button class="favorite-filter">Show Favorites</button>
-
 			</div>
-    </div>
-  </body>
+		</header>
+		<main>
+			<div id="first-container"></div>
+			<div id="sub-container"></div>
+			<div class="active" id="side-menu">
+				<button id="side-menu-toggler"></button>
+				<div class="sort">
+					<p>Sort Pokemons</p>
+					<select id="sorter">
+						<option value="id-ascending">ID - Low to High</option>
+						<option value="id-descending">ID - High to Low</option>
+						<option value="name-ascending">Name - A to Z</option>
+						<option value="name-descending">Name - Z to A</option>
+					</select>
+				</div>
+				<div class="filter">
+					<p>Filter Pokemons by Type</p>
+					<div class="type-filters">
+						<button class="type-filter">normal</button>
+						<button class="type-filter">fire</button>
+						<button class="type-filter">water</button>
+						<button class="type-filter">flying</button>
+						<button class="type-filter">grass</button>
+						<button class="type-filter">fighting</button>
+						<button class="type-filter">poison</button>
+						<button class="type-filter">electric</button>
+						<button class="type-filter">ground</button>
+						<button class="type-filter">rock</button>
+						<button class="type-filter">psychic</button>
+						<button class="type-filter">ice</button>
+						<button class="type-filter">bug</button>
+						<button class="type-filter">ghost</button>
+						<button class="type-filter">steel</button>
+						<button class="type-filter">dragon</button>
+						<button class="type-filter">dark</button>
+						<button class="type-filter">fairy</button>
+					</div>
+					<label>
+						<input id="combined-types" type="checkbox" />
+						Combined types
+					</label>
+					<button class="favorite-filter">Show Favorites</button>
+				</div>
+			</div>
+		</main>
+  </section>
+	</body>
 </html>
