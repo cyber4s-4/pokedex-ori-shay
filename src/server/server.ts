@@ -1,15 +1,22 @@
 import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
+// import {
+//   clientConnect,
+//   buildData,
+//   get20Pokemons,
+//   getSpecificPoke,
+//   updateFavorites,
+// } from './connect';
 import {
-  client,
-  buildTable,
+  clientConnect,
+  buildData,
   get20Pokemons,
   getSpecificPoke,
   updateFavorites,
-} from './connect';
+} from './mongo';
 import { getPokemonsFromApi } from './data';
-import dotenv from 'dotenv';
 
+import dotenv from 'dotenv';
 dotenv.config({ path: __dirname + '/.env' });
 
 const app = express();
@@ -36,8 +43,8 @@ init();
  *
  */
 async function init() {
-  await client.connect();
-  if (false) await buildTable(await getPokemonsFromApi());
+  await clientConnect();
+  if (false) await buildData(await getPokemonsFromApi());
   await loadServer();
 }
 

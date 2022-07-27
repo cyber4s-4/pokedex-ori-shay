@@ -4,12 +4,16 @@ import dotenv from 'dotenv';
 dotenv.config({ path: __dirname + '/.env' });
 
 // Connecting to database
-export const client = new Client({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 });
+
+export async function clientConnect() {
+  await client.connect();
+}
 
 /**
  * The function init the pokemon's table in postgreSQL while getting the data
@@ -17,7 +21,7 @@ export const client = new Client({
  *
  * @param {Data[]} data - The element has been selected.
  */
-export async function buildTable(data: Data[]) {
+export async function buildData(data: Data[]) {
   console.log('Start buildTable function ');
 
   // Drop table
