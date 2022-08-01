@@ -1,23 +1,16 @@
 import express, { Request, Response } from 'express';
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const { resolve } = require('url');
-
-const server = express.Router();
 
 const users: { username: string; password: string; token: string }[] = [];
 
+const server = express.Router();
 server.use(express.json());
 server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
 
-server.use(function (req: Request, res: Response, next) {
-  console.log('router: ' + req.url);
-  //   console.log(new Date(Date.now() + 1000 * 60 * 60 * 24 * 2));
-  next();
-});
-
 server.get('/login', (req: Request, res: Response) => {
+  console.log('login');
   res.sendFile(path.join(__dirname, '../client/login.html'));
 });
 
@@ -29,13 +22,11 @@ server.post('/login', (req: Request, res: Response) => {
   };
   let token = findUser(user.username, user.password);
   if (token) {
-    res.cookie('cookieName', token, { maxAge: 900000, httpOnly: true });
-
     res.cookie('token', token, {
       maxAge: 900000,
       secure: true,
     });
-    res.redirect('/validation');
+    res.redirect('/');
   } else res.redirect('/validation/error');
 });
 
@@ -56,7 +47,7 @@ server.post('/register', (req: Request, res: Response) => {
   console.log(users);
 
   res.cookie('token', random, {
-    maxAge: 1000 * 60 * 60 * 24 * 2,
+    maxAge: 900000,
     secure: true,
   });
   res.redirect('/validation');
@@ -67,10 +58,16 @@ server.get('/error', (req: Request, res: Response) => {
 });
 
 server.get('/', isAuthenticated, (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/dashboard.html'));
+  res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-const port = process.env.PORT || 3000;
+server.get('/init', (req: Request, res: Response) => {
+  let token = req.cookies.token;
+  let user = users.find((u) => u.token == token);
+  console.log(user);
+  if (user) res.send({ message: true });
+  else res.send({ message: false });
+});
 
 function isAuthenticated(req: Request, res: Response, next: any) {
   let token = req.cookies.token;

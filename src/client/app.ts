@@ -1,3 +1,4 @@
+import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import { searchInputFunc } from './Pokemons';
 import { load20Poke, scrolling } from './scrollingComponent';
 
@@ -7,9 +8,26 @@ export const BUTTON_INPUT = getInputElement('button-input');
 export const SEARCH_INPUT = getButtonElement('search-input');
 
 MAIN_CONTAINER.style.display = 'none';
-load20Poke();
-scrolling();
-searchInputFunc();
+init();
+
+function init() {
+  axios.get(location.origin + '/validation/init').then((res) => {
+    if (res.data.message) {
+      load20Poke();
+      scrolling();
+      searchInputFunc();
+      logOut();
+    } else window.location.pathname = '/login.html';
+  });
+}
+
+function logOut() {
+  const logOut = document.getElementById('log-out') as HTMLButtonElement;
+  logOut.addEventListener('click', () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    window.location.pathname = '/login.html';
+  });
+}
 
 // Auxiliary Function
 function getDivElement(id: string): HTMLDivElement {
