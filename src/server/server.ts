@@ -32,6 +32,8 @@ app.use(express.static('./dist'));
 // 11. Use the 'scrolling' mode from itai and nitzan code.
 // 12. Use my laptops project for the scss...
 // 13. Separate the scss to files and specific folder..
+// 14. When i working on the auth - i need try use 1 file of html + 1 file of typesrcipt -
+// that every stage its change the body of the html...
 
 // TODO: Shay:
 // 1. Add nav-bar like ron and ori - amram... (sort by, favorites, and more...)
