@@ -1,0 +1,90 @@
+import express, { Request, Response } from 'express';
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const { resolve } = require('url');
+
+const server = express.Router();
+
+const users: { username: string; password: string; token: string }[] = [];
+
+server.use(express.json());
+server.use(cookieParser());
+server.use(express.urlencoded({ extended: true }));
+
+server.use(function (req: Request, res: Response, next) {
+  console.log('router: ' + req.url);
+  //   console.log(new Date(Date.now() + 1000 * 60 * 60 * 24 * 2));
+  next();
+});
+
+server.get('/login', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/login.html'));
+});
+
+server.post('/login', (req: Request, res: Response) => {
+  console.log(req.body);
+  let user = {
+    username: req.body.username,
+    password: req.body.password,
+  };
+  let token = findUser(user.username, user.password);
+  if (token) {
+    res.cookie('cookieName', token, { maxAge: 900000, httpOnly: true });
+
+    res.cookie('token', token, {
+      maxAge: 900000,
+      secure: true,
+    });
+    res.redirect('/validation');
+  } else res.redirect('/validation/error');
+});
+
+server.get('/register', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/register.html'));
+});
+
+server.post('/register', (req: Request, res: Response) => {
+  console.log(req.body);
+
+  let random = (Math.random() + 1).toString(36).substring(7);
+  let user = {
+    username: req.body.username,
+    password: req.body.password,
+    token: random,
+  };
+  users.push(user);
+  console.log(users);
+
+  res.cookie('token', random, {
+    maxAge: 1000 * 60 * 60 * 24 * 2,
+    secure: true,
+  });
+  res.redirect('/validation');
+});
+
+server.get('/error', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/error.html'));
+});
+
+server.get('/', isAuthenticated, (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/dashboard.html'));
+});
+
+const port = process.env.PORT || 3000;
+
+function isAuthenticated(req: Request, res: Response, next: any) {
+  let token = req.cookies.token;
+  let user = users.find((u) => u.token == token);
+  if (user) next();
+  else res.redirect('/validation/login');
+}
+
+function findUser(username: string, password: string) {
+  let user = users.find(
+    (el) => el.password == password && el.username == username
+  );
+  if (user) return user.token;
+  else return undefined;
+}
+
+module.exports = server;
