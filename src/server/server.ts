@@ -71,7 +71,8 @@ async function loadServer() {
 // - Update the users information in the database.
 // - Show favorites for a specific user.
 // - if pokemon clicked, show specific pokemon.
-// - Add our favicon
+// - Add our favicon.
+// - Fix the media screen.
 
 // TODO: Future:
 // - Testing - see the task-03 js in the 10-testing solutions (ori)  - way to check requests...
