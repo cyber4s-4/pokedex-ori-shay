@@ -110,8 +110,8 @@ main {
 		}
 		& .types {
 			position: absolute;
-      bottom: 65px;
-      right: 140px;
+			bottom: 65px;
+			right: 140px;
 			span {
 				margin-right: 10px;
 				text-transform: capitalize;
@@ -119,17 +119,12 @@ main {
 				padding: 0.3em 0.4em;
 			}
 		}
-    & #close-button {
-      @include cursorAndBorder;
-      @include center;
-      @include size(60px, 30px);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      background: grey;
-      position: absolute;
-      bottom: 0;
-      left: 40%;
-    }
+		& #close-button {
+			@include closeButtonForPokemonCard;
+		}
+	}
+	& #close-button {
+		@include closeButtonForPokemonCard;
 	}
 }
 
