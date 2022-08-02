@@ -7,7 +7,7 @@ import {
   get20Pokemons,
   getSpecificPoke,
   updateFavorites,
-} from './connect';
+} from './postgres';
 // } from './mongo';
 
 import dotenv from 'dotenv';
