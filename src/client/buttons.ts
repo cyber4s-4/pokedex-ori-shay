@@ -19,6 +19,23 @@ export function closeButtonFunc(
   });
 }
 
+export function buttons() {
+  const logOut = document.getElementById('log-out') as HTMLButtonElement;
+  logOut.addEventListener('click', () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    location.reload();
+    // window.location.pathname = '/login.html';
+  });
+
+  const header = document.getElementById(
+    'header-container'
+  ) as HTMLButtonElement;
+  const buttonUp = document.getElementById('button-up') as HTMLButtonElement;
+  buttonUp.addEventListener('click', () => {
+    header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+}
+
 /**
  * The function click on the star near a favorite pokemon
  *
