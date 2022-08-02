@@ -64,6 +64,7 @@ async function loadServer() {
 // - Use my laptops project for the scss...
 // - extra: Add option that if we have no match in the search - take the string and search with %??%..
 // - extra: Match the last task with the scrolling function..
+// - Add in the screen the name of the user... near the log-out button
 
 // TODO: Shay:
 // - Display the pokemon that he will look good - add the star for selectedPoke message !!!

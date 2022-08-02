@@ -11,13 +11,6 @@ server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static('./dist/client/validation'));
 
-// server.use((req, res, next) => {
-//   // console.log('Request URL:', req.originalUrl);
-//   // console.log(' URL:', req.url);
-//   // console.log('Request Type:', req.method);
-//   next();
-// });
-
 server.post('/login', (req: Request, res: Response) => {
   console.log(req.body);
   let user = {
@@ -35,7 +28,6 @@ server.post('/login', (req: Request, res: Response) => {
 });
 
 server.get('/register', (req: Request, res: Response) => {
-  // console.log(path.join(__dirname, '../client/validation/register.html'));
   res.sendFile(path.join(__dirname, '../client/validation/register.html'));
 });
 
@@ -81,10 +73,6 @@ function findUser(username: string, password: string) {
   let user = users.find(
     (el) => el.password == password && el.username == username
   );
-  // console.log('username + password: ====' + username + ' == ' + password);
-  // console.log('users: ====' + users);
-  // console.log('users: ====' + users);
-  // console.log('user: ====' + user);
   if (user) return user.token;
   else return undefined;
 }
