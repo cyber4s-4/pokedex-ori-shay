@@ -10,8 +10,6 @@ import {
 // } from './mongo';
 import { getPokemonsFromApi } from './data';
 
-const validation = require('./validation');
-
 import dotenv from 'dotenv';
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -19,6 +17,7 @@ const app = express();
 app.use(json());
 app.use(express.static('./dist'));
 
+const validation = require('./validation');
 app.use('/validation', validation);
 
 init();
