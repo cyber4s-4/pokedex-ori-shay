@@ -30,7 +30,6 @@ app.use(express.static('./dist'));
 // 4. Match the last task with the scrolling function..
 
 // TODO: Shay:
-// 1. Add nav-bar like ron and ori - amram... (sort by, favorites, and more...)
 // 2. All the options in the nav-bar - buttons that call function that make fetch-requests !!
 // 3. After ori finish with the fetch-Api - display all pokemons by specs - water/ fire..
 // 4. Display the pokemon that he will look good - add the star for selectedPoke message !!!

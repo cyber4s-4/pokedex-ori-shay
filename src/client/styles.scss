@@ -30,7 +30,6 @@ main {
 }
 
 #header-container{
-    // background: rgba(77, 75, 75, 0.94);
 	flex-direction: row;
     justify-content: space-between;
     padding: 1em 23.3em;
@@ -40,8 +39,12 @@ main {
 
 #bar {
 	h1 {
+		color: #fff;
+		cursor: pointer;
+		font-size: 4rem;
+		margin-right: 0.4em;
 		margin-top: 50px;
-		margin-bottom: 35px;
+		margin-bottom: 30px;
 	}
 	& #search-input {
 		@include size(200px, 27px);
@@ -149,7 +152,6 @@ main {
 }
 
 #first-container {
-	// background: rgb(77 75 75 / 94%);
 	padding: 15px;
 	width: 85%;
 	display: flex;
