@@ -1,18 +1,13 @@
 import express, { Request, Response } from 'express';
-const path = require('path');
-const cookieParser = require('cookie-parser');
+import path from 'path';
+import cookieParser from 'cookie-parser';
 
-const users: { username: string; password: string; token: string }[] = [];
+const users: Users[] = [];
 
 const server = express.Router();
 server.use(express.json());
 server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
-
-server.get('/login', (req: Request, res: Response) => {
-  console.log('login');
-  res.sendFile(path.join(__dirname, '../client/login.html'));
-});
 
 server.post('/login', (req: Request, res: Response) => {
   console.log(req.body);
@@ -50,30 +45,27 @@ server.post('/register', (req: Request, res: Response) => {
     maxAge: 900000,
     secure: true,
   });
-  res.redirect('/validation');
+  res.redirect('/');
 });
 
 server.get('/error', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../client/error.html'));
 });
 
-server.get('/', isAuthenticated, (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
+server.get('/init', isAuthenticated, (req: Request, res: Response) => {
+  res.send({ message: true });
 });
 
-server.get('/init', (req: Request, res: Response) => {
-  let token = req.cookies.token;
-  let user = users.find((u) => u.token == token);
-  console.log(user);
-  if (user) res.send({ message: true });
-  else res.send({ message: false });
+server.get('*', (req: Request, res: Response) => {
+  console.log(req.url);
+  res.sendFile(path.join(__dirname, '../client/login.html'));
 });
 
 function isAuthenticated(req: Request, res: Response, next: any) {
   let token = req.cookies.token;
   let user = users.find((u) => u.token == token);
   if (user) next();
-  else res.redirect('/validation/login');
+  else res.send({ message: false });
 }
 
 function findUser(username: string, password: string) {
@@ -85,3 +77,9 @@ function findUser(username: string, password: string) {
 }
 
 module.exports = server;
+
+interface Users {
+  username: string;
+  password: string;
+  token: string;
+}
