@@ -58,24 +58,25 @@ async function loadServer() {
 }
 
 // TODO: Ori:
-// V - 1. Finish the fetchRequests function + update the data-interface + data tables
-// V -2. Return the MongoDB file - that we can choose our database.
-// X -3. Add option that if we have no match in the search - take the string and search with %??%..
-// X -4. Match the last task with the scrolling function..
-// 5. Use routs in the express and create 'Authenticated' file !!!
-// 6. Get the html`s  files from itamar express.
-// 7. Update the dataBases that they include the users data...
-// 8. Update the dataBases requests that every user have his favorites..
-// 9. Update the dataBases requests that every user have his favorites..
-// 10. Use the 'load' mode from itai and nitzan code.
-// 11. Use the 'scrolling' mode from itai and nitzan code.
-// 12. Use my laptops project for the scss...
-// 13. Separate the scss to files and specific folder..
-// 14. When i working on the auth - i need try use 1 file of html + 1 file of typesrcipt -
-// that every stage its change the body of the html...
+// - Add option that if we have no match in the search - take the string and search with %??%..
+// - Match the last task with the scrolling function..
+// - Update the dataBases that they include the users data...
+// - Update the dataBases requests that every user have his favorites..
+// - Use the 'load' mode from itai and nitzan code.
+// - Use my laptops project for the scss...
+// - Separate the scss to files and specific folder + change gulp file
+// - Css for the new HTML's
+
 
 // TODO: Shay:
-// 1. Add nav-bar like ron and ori - amram... (sort by, favorites, and more...)
-// 2. All the options in the nav-bar - buttons that call function that make fetch-requests !!
-// 3. After ori finish with the fetch-Api - display all pokemons by specs - water/ fire..
-// 4. Display the pokemon that he will look good - add the star for selectedPoke message !!!
+// - All the options in the nav-bar - buttons that call function that make fetch-requests !!
+// - Display the pokemon that he will look good - add the star for selectedPoke message !!!
+// - Add our favicon
+// - Update the users information in the database.
+// - Show favorites for a specific user.
+// - if pokemon clicked, show specific pokemon.
+
+
+// TODO: Future:
+// - When i working on the auth - i need try use 1 file of html + 1 file of typesrcipt -
+// that every stage its change the body of the html...
