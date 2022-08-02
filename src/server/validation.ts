@@ -9,17 +9,23 @@ const server = express.Router();
 server.use(express.json());
 server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
-server.use(express.static('./dist'));
+server.use(express.static('./dist/client/validation'));
+
+// server.use((req, res, next) => {
+//   // console.log('Request URL:', req.originalUrl);
+//   // console.log(' URL:', req.url);
+//   // console.log('Request Type:', req.method);
+//   next();
+// });
 
 server.post('/login', (req: Request, res: Response) => {
-  // console.log(req.body);
+  console.log(req.body);
   let user = {
     username: req.body.username,
     password: req.body.password,
   };
   let token = findUser(user.username, user.password);
   if (token) {
-    console.log('have user');
     res.cookie('token', token, {
       maxAge: 900000,
       secure: true,
@@ -29,8 +35,8 @@ server.post('/login', (req: Request, res: Response) => {
 });
 
 server.get('/register', (req: Request, res: Response) => {
-  console.log(path.join(__dirname, '../client/register.html'));
-  res.sendFile(path.join(__dirname, '../client/register.html'));
+  // console.log(path.join(__dirname, '../client/validation/register.html'));
+  res.sendFile(path.join(__dirname, '../client/validation/register.html'));
 });
 
 server.post('/register', (req: Request, res: Response) => {
@@ -53,7 +59,7 @@ server.post('/register', (req: Request, res: Response) => {
 });
 
 server.get('/error', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/error.html'));
+  res.sendFile(path.join(__dirname, '../client/validation/error.html'));
 });
 
 server.get('/init', isAuthenticated, (req: Request, res: Response) => {
@@ -61,7 +67,7 @@ server.get('/init', isAuthenticated, (req: Request, res: Response) => {
 });
 
 server.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/login.html'));
+  res.sendFile(path.join(__dirname, '../client/validation/login.html'));
 });
 
 function isAuthenticated(req: Request, res: Response, next: any) {
@@ -75,6 +81,10 @@ function findUser(username: string, password: string) {
   let user = users.find(
     (el) => el.password == password && el.username == username
   );
+  // console.log('username + password: ====' + username + ' == ' + password);
+  // console.log('users: ====' + users);
+  // console.log('users: ====' + users);
+  // console.log('user: ====' + user);
   if (user) return user.token;
   else return undefined;
 }

@@ -20,14 +20,16 @@ gulp.task('bundle', () => {
 // Converts scss to css
 gulp.task('scss', () => {
   return gulp
-    .src('./src/client/**/*.scss')
+    .src('./src/client/**/*.scss', './src/client/validation/*.scss')
     .pipe(sass())
     .pipe(gulp.dest('./dist'));
 });
 
 // Transfers index
 gulp.task('index', () => {
-  return gulp.src(['./src/client/**/*.html']).pipe(gulp.dest('./dist'));
+  return gulp
+    .src(['./src/client/**/*.html'], ['./src/client/validation/*.html'])
+    .pipe(gulp.dest('./dist'));
 });
 
 // Transfers index

@@ -35,6 +35,9 @@ body {
   margin: 0px;
   padding: 0px;
   font-size: large;
+  > #error {
+    font-size: xx-large;
+  }
   > div {
     margin-top: 10px;
     color: white;
