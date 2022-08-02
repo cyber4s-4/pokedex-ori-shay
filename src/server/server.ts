@@ -68,12 +68,12 @@ async function loadServer() {
 // - extra: Match the last task with the scrolling function..
 
 // TODO: Shay:
-// - All the options in the nav-bar - buttons that call function that make fetch-requests !!
 // - Display the pokemon that he will look good - add the star for selectedPoke message !!!
-// - Add our favicon
+// - All the options in the nav-bar - buttons that call function that make fetch-requests !!
 // - Update the users information in the database.
 // - Show favorites for a specific user.
 // - if pokemon clicked, show specific pokemon.
+// - Add our favicon
 
 // TODO: Future:
 // - Testing - see the task-03 js in the 10-testing solutions (ori)  - way to check requests...

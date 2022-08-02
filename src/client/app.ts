@@ -11,15 +11,15 @@ export const SEARCH_INPUT = getButtonElement('search-input');
 init();
 
 function init() {
-  axios.get(location.origin + '/validation/init').then((res) => {
-    if (res.data.message) {
+  // axios.get(location.origin + '/validation/init').then((res) => {
+    // if (res.data.message) {
       MAIN_CONTAINER.style.display = 'none';
       load20Poke();
       scrolling();
       searchInputFunc();
       buttons();
-    } else window.location.pathname = '/login.html';
-  });
+    // } else window.location.pathname = '/login.html';
+  // });
 }
 
 // Auxiliary Function
