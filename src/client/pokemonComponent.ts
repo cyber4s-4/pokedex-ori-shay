@@ -1,5 +1,5 @@
 import { Data } from '../server/data';
-import { closeButtonFunc } from './buttons';
+import { closeButtonFunc, makeFavoritePokemon } from './buttons';
 
 export class PokemonComponent {
   data: Data;
@@ -15,6 +15,11 @@ export class PokemonComponent {
     const pokemonTemplate = document.createElement('div') as HTMLDivElement;
     pokemonTemplate.classList.add('pokemon-template');
     main_container.appendChild(pokemonTemplate);
+
+    const star = document.createElement('span') as HTMLSpanElement;
+    star.classList.add('fa', 'fa-star');
+    if (this.data.favorite === 'true') star.classList.add('checked');
+    if (this.data.favorite === true) star.classList.add('checked');
 
     const image = document.createElement('img') as HTMLImageElement;
     image.src = this.data.img;
@@ -41,6 +46,24 @@ export class PokemonComponent {
     weight.innerHTML = 'Weight:       ' + this.data.weight;
     dataDiv.appendChild(weight);
 
+    const types = document.createElement('div') as HTMLDivElement;
+    types.classList.add('types');
+    pokemonTemplate.appendChild(types);
+
+    const type1 = document.createElement('span') as HTMLDivElement;
+    type1.innerHTML = this.data.type1;
+    type1.classList.add(`${this.data.type1}`);
+    types.appendChild(type1);
+
+    if (this.data.type2 !== '- - -') {
+      const type2 = document.createElement('span') as HTMLDivElement;
+      type2.innerHTML = `${this.data.type2}`;
+      type2.classList.add(`${this.data.type2}`);
+      types.appendChild(type2);
+    }
+
+    pokemonTemplate.appendChild(star);
+    makeFavoritePokemon(star, this.data.name);
     closeButtonFunc(pokemonTemplate, main_container);
   }
 }
