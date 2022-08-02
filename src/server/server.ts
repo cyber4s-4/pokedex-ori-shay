@@ -58,15 +58,14 @@ async function loadServer() {
 }
 
 // TODO: Ori:
-// - Add option that if we have no match in the search - take the string and search with %??%..
-// - Match the last task with the scrolling function..
 // - Update the dataBases that they include the users data...
 // - Update the dataBases requests that every user have his favorites..
 // - Use the 'load' mode from itai and nitzan code.
-// - Use my laptops project for the scss...
 // - Separate the scss to files and specific folder + change gulp file
 // - Css for the new HTML's
-
+// - Use my laptops project for the scss...
+// - extra: Add option that if we have no match in the search - take the string and search with %??%..
+// - extra: Match the last task with the scrolling function..
 
 // TODO: Shay:
 // - All the options in the nav-bar - buttons that call function that make fetch-requests !!
@@ -76,7 +75,8 @@ async function loadServer() {
 // - Show favorites for a specific user.
 // - if pokemon clicked, show specific pokemon.
 
-
 // TODO: Future:
+// - Testing - see the task-03 js in the 10-testing solutions (ori)  - way to check requests...
 // - When i working on the auth - i need try use 1 file of html + 1 file of typesrcipt -
 // that every stage its change the body of the html...
+// Fix the css ! specific on the validation.scss...

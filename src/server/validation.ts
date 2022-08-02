@@ -5,18 +5,21 @@ import cookieParser from 'cookie-parser';
 const users: Users[] = [];
 
 const server = express.Router();
+
 server.use(express.json());
 server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
+server.use(express.static('./dist'));
 
 server.post('/login', (req: Request, res: Response) => {
-  console.log(req.body);
+  // console.log(req.body);
   let user = {
     username: req.body.username,
     password: req.body.password,
   };
   let token = findUser(user.username, user.password);
   if (token) {
+    console.log('have user');
     res.cookie('token', token, {
       maxAge: 900000,
       secure: true,
@@ -26,6 +29,7 @@ server.post('/login', (req: Request, res: Response) => {
 });
 
 server.get('/register', (req: Request, res: Response) => {
+  console.log(path.join(__dirname, '../client/register.html'));
   res.sendFile(path.join(__dirname, '../client/register.html'));
 });
 
@@ -57,7 +61,6 @@ server.get('/init', isAuthenticated, (req: Request, res: Response) => {
 });
 
 server.get('*', (req: Request, res: Response) => {
-  console.log(req.url);
   res.sendFile(path.join(__dirname, '../client/login.html'));
 });
 

@@ -4,18 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="validation.css" />
     <title>login</title>
   </head>
 
   <body>
+    <div id="bg"></div>
+    <h1>Log in</h1>
     <form action="/validation/login" method="post">
-      <input type="text" name="username" placeholder="username" />
-      <input type="password" name="password" placeholder="password" />
-      <input type="submit" value="login" />
+      <div class="form-field">
+        <input type="text" placeholder="Email / Username" required />
+      </div>
+      <div class="form-field">
+        <input type="password" placeholder="Password" required />
+      </div>
+      <div class="form-field">
+        <button class="btn" type="submit">Log in</button>
+      </div>
+      <div id="bottom">
+        <div>Do not have an account?</div>
+        <div>
+          <a href="/validation/register">Sign up from here</a>
+        </div>
+      </div>
     </form>
-    <div>
-      Do not have an account? Sign up
-      <a href="/validation/register"> from here -></a>
-    </div>
   </body>
 </html>
