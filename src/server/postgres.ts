@@ -22,11 +22,11 @@ export async function clientConnect() {
  * @param {Data[]} data - The element has been selected.
  */
 export async function buildData(data: Data[]) {
-  console.log('Start buildTable function ');
+  console.log('SQL: Start buildDataTable function ');
 
   // Drop table
-  const sql1 = 'DROP TABLE IF EXISTS pokemons;';
-  await client.query(sql1);
+  const buildTable = 'DROP TABLE IF EXISTS pokemons;';
+  await client.query(buildTable);
   console.log('SQL: DROP TABLE pokemons');
 
   // Create table
@@ -52,6 +52,7 @@ export async function buildData(data: Data[]) {
     });
   });
   console.log('Finish buildTable function ');
+  if (false) buildUsersTable();
 }
 
 /**
@@ -168,4 +169,42 @@ export async function updateFavorites(pokemonName: string, favorite: boolean) {
       }
     });
   });
+}
+
+// Valdation:
+export function CheckIfUserExist() {}
+
+export async function CreateNewUser(
+  username: string,
+  password: string,
+  token: string
+) {
+  const insertUser = `INSERT INTO users (username,password,token) VALUES ('${username}', '${password}','${token}') RETURNING *;`;
+  client.query(insertUser, (err, res) => {
+    if (err) {
+      console.log(err.stack);
+    } else {
+      console.log(res.rows);
+    }
+  });
+}
+
+export async function buildUsersTable() {
+  console.log('SQL: Start build-Users-Table function ');
+
+  // Drop table
+  const buildTable = 'DROP TABLE IF EXISTS users;';
+  await client.query(buildTable);
+  console.log('SQL: DROP TABLE users');
+
+  // Create table
+  const createTable = `CREATE TABLE IF NOT EXISTS users (
+        id_serial  SERIAL PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        password	VARCHAR(255) NOT NULL,
+        token  VARCHAR(255) NOT NULL
+    );`;
+  await client.query(createTable);
+  console.log('SQL: CREATE TABLE users');
+  console.log('Finish build-Users-Table function ');
 }

@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import { CreateNewUser } from './postgres';
 
 const users: Users[] = [];
 
@@ -12,7 +13,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.static('./dist/client/validation'));
 
 server.post('/login', (req: Request, res: Response) => {
-  console.log(req.body);
+  // Function that check if the user exist:
+  // CheckIfUserExist()
   let user = {
     username: req.body.username,
     password: req.body.password,
@@ -32,9 +34,9 @@ server.get('/register', (req: Request, res: Response) => {
 });
 
 server.post('/register', (req: Request, res: Response) => {
-  console.log(req.body);
-
+  // Function that insert new user to database
   let random = (Math.random() + 1).toString(36).substring(7);
+  CreateNewUser(req.body.username, req.body.password, random);
   let user = {
     username: req.body.username,
     password: req.body.password,
@@ -55,7 +57,10 @@ server.get('/error', (req: Request, res: Response) => {
 });
 
 server.get('/init', isAuthenticated, (req: Request, res: Response) => {
+  // Function that check if user exist + send
+  // CheckIfUserExist()
   res.send({ message: true });
+  // else res.send({ message: false });
 });
 
 server.get('*', (req: Request, res: Response) => {
