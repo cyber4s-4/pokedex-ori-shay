@@ -7,6 +7,7 @@ import {
   get20Pokemons,
   getSpecificPoke,
   updateFavorites,
+  buildUsersTable,
 } from './postgres';
 // } from './mongo';
 
@@ -58,9 +59,9 @@ async function loadServer() {
 // TODO: Ori:
 // - Update the dataBases that they include the users data...
 // - Update the dataBases requests that every user have his favorites..
-// - Use the 'load' mode from itai and nitzan code.
-// - Separate the scss to files and specific folder + change gulp file
-// - Css for the new HTML's
+// - V  Use the 'load' mode from itai and nitzan code.
+// - V Separate the scss to files and specific folder + change gulp file
+// - V Css for the new HTML's
 // - Use my laptops project for the scss...
 // - extra: Add option that if we have no match in the search - take the string and search with %??%..
 // - extra: Match the last task with the scrolling function..
