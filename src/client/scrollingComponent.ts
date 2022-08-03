@@ -8,14 +8,18 @@ let oneTime = true;
  * get to the end of the page it launches 15 pokemons.
  */
 export function scrolling() {
+  load20Poke();
   window.addEventListener(
     'scroll',
     () => {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 5 && oneTime === true) {
+      const loading = document.querySelector('.loading') as HTMLDivElement;
+      if (scrollTop + clientHeight >= scrollHeight - 8 && oneTime === true) {
+        loading.classList.add('show');
         oneTime = false;
         load20Poke();
+        loading.classList.remove('show');
       }
     },
     {

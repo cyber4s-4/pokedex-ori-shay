@@ -14,7 +14,6 @@ function init() {
   axios.get(location.origin + '/validation/init').then((res) => {
     if (res.data.message) {
       MAIN_CONTAINER.style.display = 'none';
-      load20Poke();
       scrolling();
       searchInputFunc();
       buttons();
