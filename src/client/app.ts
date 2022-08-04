@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { searchInputFunc } from './Pokemons';
-import { load20Poke, scrolling } from './scrollingComponent';
+import { scrolling } from './scrollingComponent';
 import { buttons } from './buttons';
 
 export const FIRST_CONTAINER = getDivElement('first-container');
@@ -13,10 +13,12 @@ init();
 function init() {
   axios.get(location.origin + '/validation/init').then((res) => {
     if (res.data.message) {
-      MAIN_CONTAINER.style.display = 'none';
-      scrolling();
-      searchInputFunc();
-      buttons();
+      window.addEventListener('load', () => {
+        MAIN_CONTAINER.style.display = 'none';
+        scrolling();
+        searchInputFunc();
+        buttons();
+      });
     } else window.location.pathname = '/validation/login';
   });
 }
