@@ -7,7 +7,6 @@ import {
   get20Pokemons,
   getSpecificPoke,
   updateFavorites,
-  buildUsersTable,
 } from './postgres';
 // } from './mongo';
 
@@ -70,6 +69,7 @@ async function loadServer() {
 // TODO: Shay:
 // - Display the pokemon that he will look good - add the star for selectedPoke message !!!
 // - All the options in the nav-bar - buttons that call function that make fetch-requests !!
+// - Separate the validation on app.ts to another file. so the page will not loaded before the vaildation...
 // - Update the users information in the database.
 // - Show favorites for a specific user.
 // - if pokemon clicked, show specific pokemon.

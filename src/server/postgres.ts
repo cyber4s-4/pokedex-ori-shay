@@ -172,7 +172,37 @@ export async function updateFavorites(pokemonName: string, favorite: boolean) {
 }
 
 // Valdation:
-export function CheckIfUserExist() {}
+export function CheckIfUserExist(
+  username: string,
+  password: string
+): Promise<string | undefined> {
+  let selectUser = 'SELECT * from users where username =$1 and password=$2;';
+  const values = [username, password];
+  return new Promise<string | undefined>((resolve, reject) => {
+    client.query(selectUser, values, (err, res) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        if (res.rows[0]) resolve(res.rows[0].token);
+        else resolve(undefined);
+      }
+    });
+  });
+}
+
+export async function CheckUserByToken(token: string) {
+  let selectUser = 'SELECT * from users where token =$1;';
+  return new Promise<string | undefined>((resolve, reject) => {
+    client.query(selectUser, [token], (err, res) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        if (res.rows[0]) resolve(res.rows[0]);
+        else resolve(undefined);
+      }
+    });
+  });
+}
 
 export async function CreateNewUser(
   username: string,

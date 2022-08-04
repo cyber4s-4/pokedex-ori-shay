@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import { CreateNewUser } from './postgres';
-
-const users: Users[] = [];
+import { CheckIfUserExist, CheckUserByToken, CreateNewUser } from './postgres';
 
 const server = express.Router();
 
@@ -12,14 +10,8 @@ server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static('./dist/client/validation'));
 
-server.post('/login', (req: Request, res: Response) => {
-  // Function that check if the user exist:
-  // CheckIfUserExist()
-  let user = {
-    username: req.body.username,
-    password: req.body.password,
-  };
-  let token = findUser(user.username, user.password);
+server.post('/login', async (req: Request, res: Response) => {
+  let token = await findUser(req.body.username, req.body.password);
   if (token) {
     res.cookie('token', token, {
       maxAge: 900000,
@@ -34,17 +26,8 @@ server.get('/register', (req: Request, res: Response) => {
 });
 
 server.post('/register', (req: Request, res: Response) => {
-  // Function that insert new user to database
   let random = (Math.random() + 1).toString(36).substring(7);
   CreateNewUser(req.body.username, req.body.password, random);
-  let user = {
-    username: req.body.username,
-    password: req.body.password,
-    token: random,
-  };
-  users.push(user);
-  console.log(users);
-
   res.cookie('token', random, {
     maxAge: 900000,
     secure: true,
@@ -57,28 +40,24 @@ server.get('/error', (req: Request, res: Response) => {
 });
 
 server.get('/init', isAuthenticated, (req: Request, res: Response) => {
-  // Function that check if user exist + send
-  // CheckIfUserExist()
   res.send({ message: true });
-  // else res.send({ message: false });
 });
 
 server.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../client/validation/login.html'));
 });
 
-function isAuthenticated(req: Request, res: Response, next: any) {
-  let token = req.cookies.token;
-  let user = users.find((u) => u.token == token);
+async function isAuthenticated(req: Request, res: Response, next: any) {
+  let user = await CheckUserByToken(req.cookies.token);
+  console.log(user);
   if (user) next();
   else res.send({ message: false });
 }
 
-function findUser(username: string, password: string) {
-  let user = users.find(
-    (el) => el.password == password && el.username == username
-  );
-  if (user) return user.token;
+async function findUser(username: string, password: string) {
+  let token = await CheckIfUserExist(username, password);
+  console.log(token);
+  if (token) return token;
   else return undefined;
 }
 
