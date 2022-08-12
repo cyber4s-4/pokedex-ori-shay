@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { CheckIfUserExist, CheckUserByToken, CreateNewUser } from './postgres';
+// sameSite: 'None',
+// secure: 'httpOnly',
 
 const server = express.Router();
 
